@@ -25,14 +25,14 @@ export default function RootLayout({
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">온</span>
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25">
+                      <span className="text-white font-bold text-lg">O</span>
                     </div>
                     <div>
-                      <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        Onjeon
+                      <h1 className="text-xl font-bold text-gray-900 tracking-tight">
+                        ONJEON
                       </h1>
-                      <p className="text-xs text-gray-500 -mt-1">글로벌 KRW 인프라</p>
+                      <p className="text-xs text-gray-500 -mt-1 font-medium">Global KRW Infrastructure</p>
                     </div>
                   </div>
                   <DesktopNavigation />
@@ -54,20 +54,24 @@ export default function RootLayout({
           </main>
 
           {/* Footer */}
-          <footer className="border-t bg-white/50 backdrop-blur">
-            <div className="container mx-auto px-4 py-8">
-              <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-md flex items-center justify-center">
-                    <span className="text-white font-bold text-xs">온</span>
+          <footer className="border-t bg-gradient-to-r from-gray-50 to-blue-50 backdrop-blur">
+            <div className="container mx-auto px-4 py-12">
+              <div className="flex flex-col items-center justify-center space-y-6 text-center">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-sm">O</span>
                   </div>
-                  <span className="text-sm font-medium text-gray-700">Onjeon (온전)</span>
+                  <span className="text-lg font-bold text-gray-900">ONJEON</span>
                 </div>
-                <p className="text-xs text-gray-500 max-w-md">
-                  원화 스테이블코인 기반 글로벌 금융 인프라 • 환전 없는 결제 • 즉시 VAT 환급 • 스마트 면세관리
+                <p className="text-sm text-gray-600 max-w-lg leading-relaxed">
+                  Global KRW Stablecoin Infrastructure • Zero FX Fees • Instant VAT Refund • Smart Duty-Free Management
                 </p>
-                <div className="text-xs text-gray-400">
-                  © 2024 Terragon Labs. Global KRW Financial Infrastructure.
+                <div className="flex items-center space-x-6 text-xs text-gray-500">
+                  <div>© 2024 Terragon Labs</div>
+                  <div>•</div>
+                  <div>Built with Next.js & Tailwind</div>
+                  <div>•</div>
+                  <div>Global KRW Financial Infrastructure</div>
                 </div>
               </div>
             </div>

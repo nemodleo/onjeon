@@ -4,10 +4,13 @@ import { POSSystem } from '@/components/POSSystem';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { ExchangeProgress } from '@/components/ui/page-progress';
 
 export default function POSSystemPage() {
   return (
-    <div className="space-y-6">
+    <>
+      <ExchangeProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">POS 시스템</h1>
@@ -123,6 +126,7 @@ export default function POSSystemPage() {
           <Button variant="outline">OTP 현금 인출</Button>
         </Link>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import { DutyFreeProgress } from '@/components/ui/page-progress';
+
 import { TripSetupForm, TripHistory } from '@/components/TripSetup';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTripStore } from '@/store/trip';
@@ -10,7 +12,9 @@ export default function TripSetupPage() {
   const { currentTrip } = useTripStore();
 
   return (
-    <div className="space-y-6">
+    <>
+      <DutyFreeProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">여행 설정</h1>
@@ -169,6 +173,7 @@ export default function TripSetupPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </>
   );
 }

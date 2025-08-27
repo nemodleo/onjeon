@@ -142,6 +142,244 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
   );
 }
 
+// Exchange section progress components
+export function ExchangeProgress() {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    {
+      id: 'overview',
+      title: 'Service Overview',
+      description: 'Explore exchange gateway services'
+    },
+    {
+      id: 'qr-payment',
+      title: 'QR Payment',
+      description: 'Generate QR for instant payment'
+    },
+    {
+      id: 'otp-withdrawal',
+      title: 'OTP Withdrawal',
+      description: 'Secure cash withdrawal with OTP'
+    },
+    {
+      id: 'pos-system',
+      title: 'POS Integration',
+      description: 'Merchant POS system setup'
+    }
+  ];
+
+  useEffect(() => {
+    const updateStepBasedOnScroll = () => {
+      // Check if we're on specific pages
+      if (window.location.pathname === '/exchange/qr-payment') {
+        setCurrentStep(1);
+      } else if (window.location.pathname === '/exchange/otp-withdrawal') {
+        setCurrentStep(2);
+      } else if (window.location.pathname === '/exchange/pos') {
+        setCurrentStep(3);
+      } else {
+        setCurrentStep(0);
+      }
+    };
+
+    const handleScroll = () => {
+      updateStepBasedOnScroll();
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateStepBasedOnScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleStepClick = (stepIndex: number) => {
+    const routes = ['/exchange', '/exchange/qr-payment', '/exchange/otp-withdrawal', '/exchange/pos'];
+    window.location.href = routes[stepIndex];
+  };
+
+  return (
+    <PageProgress 
+      steps={steps} 
+      currentStep={currentStep} 
+      onStepClick={handleStepClick}
+    />
+  );
+}
+
+// Duty Free section progress
+export function DutyFreeProgress() {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    {
+      id: 'overview',
+      title: 'Service Overview',
+      description: 'Smart duty-free management'
+    },
+    {
+      id: 'trip-setup',
+      title: 'Trip Setup',
+      description: 'Configure destination and limits'
+    },
+    {
+      id: 'dashboard',
+      title: 'Live Dashboard',
+      description: 'Monitor real-time usage'
+    },
+    {
+      id: 'optimization',
+      title: 'AI Optimization',
+      description: 'Smart purchase recommendations'
+    }
+  ];
+
+  useEffect(() => {
+    const updateStepBasedOnScroll = () => {
+      if (window.location.pathname === '/duty-free/trip-setup') {
+        setCurrentStep(1);
+      } else if (window.location.pathname === '/duty-free/dashboard') {
+        setCurrentStep(2);
+      } else {
+        setCurrentStep(0);
+      }
+    };
+
+    updateStepBasedOnScroll();
+    window.addEventListener('scroll', updateStepBasedOnScroll, { passive: true });
+    return () => window.removeEventListener('scroll', updateStepBasedOnScroll);
+  }, []);
+
+  const handleStepClick = (stepIndex: number) => {
+    const routes = ['/duty-free', '/duty-free/trip-setup', '/duty-free/dashboard', '/duty-free/dashboard'];
+    window.location.href = routes[stepIndex];
+  };
+
+  return (
+    <PageProgress 
+      steps={steps} 
+      currentStep={currentStep} 
+      onStepClick={handleStepClick}
+    />
+  );
+}
+
+// VAT Refund section progress
+export function VATRefundProgress() {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    {
+      id: 'overview',
+      title: 'Service Overview',
+      description: 'Instant VAT refund system'
+    },
+    {
+      id: 'auto-calculation',
+      title: 'Auto Calculation',
+      description: 'Purchase-time VAT calculation'
+    },
+    {
+      id: 'dashboard',
+      title: 'Refund Dashboard',
+      description: 'Track refund status'
+    },
+    {
+      id: 'stamp-process',
+      title: 'Exit Stamp',
+      description: 'Final stamp processing'
+    }
+  ];
+
+  useEffect(() => {
+    const updateStepBasedOnScroll = () => {
+      if (window.location.pathname === '/vat-refund/dashboard') {
+        setCurrentStep(2);
+      } else if (window.location.pathname === '/vat-refund/stamp') {
+        setCurrentStep(3);
+      } else {
+        setCurrentStep(0);
+      }
+    };
+
+    updateStepBasedOnScroll();
+    window.addEventListener('scroll', updateStepBasedOnScroll, { passive: true });
+    return () => window.removeEventListener('scroll', updateStepBasedOnScroll);
+  }, []);
+
+  const handleStepClick = (stepIndex: number) => {
+    const routes = ['/vat-refund', '/vat-refund', '/vat-refund/dashboard', '/vat-refund/stamp'];
+    window.location.href = routes[stepIndex];
+  };
+
+  return (
+    <PageProgress 
+      steps={steps} 
+      currentStep={currentStep} 
+      onStepClick={handleStepClick}
+    />
+  );
+}
+
+// Customs section progress
+export function CustomsProgress() {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    {
+      id: 'overview',
+      title: 'Service Overview',
+      description: 'Automated customs declaration'
+    },
+    {
+      id: 'kyc-setup',
+      title: 'KYC Setup',
+      description: 'Identity verification'
+    },
+    {
+      id: 'nft-receipts',
+      title: 'NFT Receipts',
+      description: 'Blockchain-based receipts'
+    },
+    {
+      id: 'auto-declaration',
+      title: 'Auto Declaration',
+      description: 'One-click customs filing'
+    }
+  ];
+
+  useEffect(() => {
+    const updateStepBasedOnScroll = () => {
+      if (window.location.pathname === '/customs/settings') {
+        setCurrentStep(1);
+      } else if (window.location.pathname === '/customs/receipts') {
+        setCurrentStep(2);
+      } else if (window.location.pathname === '/customs/preview') {
+        setCurrentStep(3);
+      } else {
+        setCurrentStep(0);
+      }
+    };
+
+    updateStepBasedOnScroll();
+    window.addEventListener('scroll', updateStepBasedOnScroll, { passive: true });
+    return () => window.removeEventListener('scroll', updateStepBasedOnScroll);
+  }, []);
+
+  const handleStepClick = (stepIndex: number) => {
+    const routes = ['/customs', '/customs/settings', '/customs/receipts', '/customs/preview'];
+    window.location.href = routes[stepIndex];
+  };
+
+  return (
+    <PageProgress 
+      steps={steps} 
+      currentStep={currentStep} 
+      onStepClick={handleStepClick}
+    />
+  );
+}
+
 // QR Payment specific progress component
 export function QRPaymentProgress() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -207,6 +445,39 @@ export function QRPaymentProgress() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [steps]);
 
+  const highlightElement = (element: HTMLElement) => {
+    // Add highlight effect
+    element.classList.add('highlight-element');
+    element.style.cssText = `
+      animation: highlight-pulse 2s ease-in-out;
+      position: relative;
+    `;
+    
+    // Create highlight overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: absolute;
+      inset: -4px;
+      background: linear-gradient(45deg, rgba(59, 130, 246, 0.15), rgba(147, 51, 234, 0.15));
+      border-radius: 16px;
+      pointer-events: none;
+      animation: highlight-fade 2s ease-in-out forwards;
+      z-index: -1;
+    `;
+    
+    element.style.position = 'relative';
+    element.appendChild(overlay);
+    
+    // Remove highlight after animation
+    setTimeout(() => {
+      element.classList.remove('highlight-element');
+      element.style.animation = '';
+      if (overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+      }
+    }, 2000);
+  };
+
   const handleStepClick = (stepIndex: number) => {
     const stepId = steps[stepIndex].id;
     const element = document.getElementById(stepId);
@@ -217,6 +488,11 @@ export function QRPaymentProgress() {
         top: offsetTop,
         behavior: 'smooth'
       });
+      
+      // Highlight the element after scroll
+      setTimeout(() => {
+        highlightElement(element);
+      }, 500);
     } else {
       // Fallback
       const targetProgress = stepIndex / steps.length;

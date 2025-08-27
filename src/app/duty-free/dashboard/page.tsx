@@ -1,5 +1,7 @@
 'use client';
 
+import { DutyFreeProgress } from '@/components/ui/page-progress';
+
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -34,7 +36,9 @@ export default function DutyFreeDashboardPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <>
+      <DutyFreeProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">면세 한도 대시보드</h1>
@@ -193,6 +197,7 @@ export default function DutyFreeDashboardPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </>
   );
 }

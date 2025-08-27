@@ -1,5 +1,7 @@
 'use client';
 
+import { CustomsProgress } from '@/components/ui/page-progress';
+
 import { DeclarationPreview } from '@/components/CustomsDeclaration';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
@@ -7,7 +9,9 @@ import { Button } from '@/components/ui/button';
 
 export default function CustomsPreviewPage() {
   return (
-    <div className="space-y-6">
+    <>
+      <CustomsProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">세관 신고서 미리보기</h1>
@@ -198,6 +202,7 @@ export default function CustomsPreviewPage() {
           <Button variant="outline">설정 변경</Button>
         </Link>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import { VATRefundProgress } from '@/components/ui/page-progress';
+
 import { VATRefundDashboard } from '@/components/VATRefund';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,7 +9,9 @@ import Link from 'next/link';
 
 export default function VATRefundDashboardPage() {
   return (
-    <div className="space-y-6">
+    <>
+      <VATRefundProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">디지털 VAT 환급</h1>
@@ -223,6 +227,7 @@ export default function VATRefundDashboardPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </>
   );
 }

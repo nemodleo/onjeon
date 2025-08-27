@@ -1,5 +1,7 @@
 'use client';
 
+import { CustomsProgress } from '@/components/ui/page-progress';
+
 import { NFTReceiptWallet } from '@/components/CustomsDeclaration';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
@@ -7,7 +9,9 @@ import { Button } from '@/components/ui/button';
 
 export default function NFTReceiptsPage() {
   return (
-    <div className="space-y-6">
+    <>
+      <CustomsProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">NFT 영수증함</h1>
@@ -225,6 +229,7 @@ export default function NFTReceiptsPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </>
   );
 }

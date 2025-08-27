@@ -22,32 +22,32 @@ interface FlowStep {
 const flowSteps: FlowStep[] = [
   {
     id: 'setup',
-    title: '여행 설정',
-    subtitle: '목적지 & 한도',
+    title: 'Trip Setup',
+    subtitle: 'Destination & Limits',
     icon: Plane,
     color: 'from-blue-500 to-blue-600',
     section: 'setup-section'
   },
   {
     id: 'payment',
-    title: '즉시 결제',
-    subtitle: 'QR 코드 스캔',
+    title: 'Instant Payment',
+    subtitle: 'QR Code Scan',
     icon: CreditCard,
     color: 'from-green-500 to-emerald-600',
     section: 'payment-section'
   },
   {
     id: 'tracking',
-    title: '스마트 추적',
-    subtitle: 'AI 한도 관리',
+    title: 'Smart Tracking',
+    subtitle: 'AI Limit Management',
     icon: Eye,
     color: 'from-purple-500 to-violet-600',
     section: 'tracking-section'
   },
   {
     id: 'completion',
-    title: '자동 처리',
-    subtitle: 'VAT & 세관신고',
+    title: 'Auto Processing',
+    subtitle: 'VAT & Customs',
     icon: CheckCircle,
     color: 'from-orange-500 to-amber-600',
     section: 'completion-section'
@@ -77,11 +77,44 @@ export function ProgressFlow() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const highlightElement = (element: HTMLElement) => {
+    // Add highlight effect
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: absolute;
+      inset: -8px;
+      background: linear-gradient(45deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2));
+      border-radius: 24px;
+      pointer-events: none;
+      animation: highlight-fade 3s ease-in-out forwards;
+      z-index: -1;
+    `;
+    
+    element.style.position = 'relative';
+    element.appendChild(overlay);
+    
+    // Remove highlight after animation
+    setTimeout(() => {
+      if (overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+      }
+    }, 3000);
+  };
+
   const scrollToSection = (sectionId: string, stepIndex: number) => {
     // 실제 섹션이 있다면 해당 섹션으로 스크롤
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const offsetTop = element.offsetTop - 80; // 80px offset for header
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+      
+      // Highlight the element after scroll
+      setTimeout(() => {
+        highlightElement(element);
+      }, 600);
     } else {
       // 섹션이 없다면 전체 진행률 기준으로 스크롤
       const targetProgress = (stepIndex + 0.5) / flowSteps.length;

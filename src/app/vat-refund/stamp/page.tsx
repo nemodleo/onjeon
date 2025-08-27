@@ -1,5 +1,7 @@
 'use client';
 
+import { VATRefundProgress } from '@/components/ui/page-progress';
+
 import { useState } from 'react';
 import { VATStampVerification, VATPayoutConfirmation } from '@/components/VATRefund';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,7 +19,9 @@ export default function VATStampPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <>
+      <VATRefundProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">세관 승인 및 환급 처리</h1>
@@ -210,6 +214,7 @@ export default function VATStampPage() {
           </Link>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }

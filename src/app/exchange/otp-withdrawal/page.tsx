@@ -4,6 +4,7 @@ import { OTPWithdrawalGenerator, OTPVerificationTerminal } from '@/components/OT
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useWalletStore } from '@/store/wallet';
 import { formatCurrency } from '@/lib/utils';
+import { ExchangeProgress } from '@/components/ui/page-progress';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -11,7 +12,9 @@ export default function OTPWithdrawalPage() {
   const { user, balance } = useWalletStore();
 
   return (
-    <div className="space-y-6">
+    <>
+      <ExchangeProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">OTP 현금 인출</h1>
@@ -193,6 +196,7 @@ export default function OTPWithdrawalPage() {
           <Button variant="outline">POS 시스템</Button>
         </Link>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
