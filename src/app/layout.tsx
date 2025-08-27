@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'KRW Stablecoin Demo - 원화스테이블 코인 아이디어톤',
-  description: '원화 스테이블코인을 활용한 환전 게이트웨이, 면세 한도관리, 택스 리펀 시스템 데모',
+  title: 'Onjeon (온전) - 원화 스테이블코인 글로벌 금융 인프라',
+  description: '온전은 단순한 리펀드를 넘어, 여행객이 한국 원화를 안전하게 연결할 수 있는 글로벌 금융 인프라를 지향합니다',
 }
 
 export default function RootLayout({
@@ -23,12 +23,12 @@ export default function RootLayout({
               <div className="flex justify-between h-16">
                 <div className="flex items-center">
                   <h1 className="text-xl font-bold text-gray-900">
-                    KRW Stablecoin Demo
+                    Onjeon (온전)
                   </h1>
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="text-sm text-gray-500">
-                    원화스테이블 코인 아이디어톤
+                    Global KRW Financial Infrastructure
                   </div>
                 </div>
               </div>

@@ -10,11 +10,11 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="text-center py-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          원화 스테이블코인 혁신 솔루션
+          온전(Onjeon) - 글로벌 KRW 금융 인프라
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-          원화 스테이블코인을 활용한 환전 없는 글로벌 결제, 스마트 면세 한도관리, 
-          디지털 VAT 환급, 자동 세관 신고까지. 여행과 결제의 새로운 패러다임을 경험하세요.
+          단순한 리펀드를 넘어, 여행객이 한국 원화를 안전하게 연결할 수 있는 글로벌 금융 인프라입니다.
+          환전 없는 글로벌 결제, 스마트 면세 한도관리, 디지털 VAT 환급, 자동 세관 신고까지 완전한 여행 금융 생태계를 제공합니다.
         </p>
       </div>
 
