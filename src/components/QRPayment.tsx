@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import QRCode from 'qrcode';
  
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,6 +15,7 @@ export function QRPaymentGenerator() {
   const [amount, setAmount] = useState<string>('');
   const [currency, setCurrency] = useState<Currency>('KRW');
   const [qrPayment, setQRPayment] = useState<QRPaymentType | null>(null);
+  const [qrImageUrl, setQrImageUrl] = useState<string>('');
   const [timeLeft, setTimeLeft] = useState<number>(0);
 
   // 타이머 효과
@@ -26,7 +28,7 @@ export function QRPaymentGenerator() {
     }
   }, [qrPayment, timeLeft]);
 
-  const generateQR = () => {
+  const generateQR = async () => {
     if (!amount || !user) return;
     
     const payment: QRPaymentType = {
@@ -50,9 +52,24 @@ export function QRPaymentGenerator() {
 
     payment.qrCode = generateQRData(payment.id, payment.amount, payment.currency);
     
-    setQRPayment(payment);
-    setCurrentPayment(payment);
-    setTimeLeft(120); // 2분 타이머
+    try {
+      // QR 코드 이미지 생성
+      const qrImageDataUrl = await QRCode.toDataURL(payment.qrCode, {
+        width: 200,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
+        }
+      });
+      
+      setQrImageUrl(qrImageDataUrl);
+      setQRPayment(payment);
+      setCurrentPayment(payment);
+      setTimeLeft(120); // 2분 타이머
+    } catch (error) {
+      console.error('QR 코드 생성 실패:', error);
+    }
   };
 
   const handleExpire = () => {
@@ -67,6 +84,7 @@ export function QRPaymentGenerator() {
     setQRPayment(null);
     setCurrentPayment(null);
     setAmount('');
+    setQrImageUrl('');
     setTimeLeft(0);
   };
 
@@ -80,15 +98,20 @@ export function QRPaymentGenerator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex justify-center p-4 bg-white rounded-lg">
-            {qrPayment.status !== 'expired' ? (
+            {qrPayment.status !== 'expired' && qrImageUrl ? (
               <div className="text-center">
-                <div className="mb-2 font-mono text-xs text-gray-500">
-                  {qrPayment.qrCode}
+                <img 
+                  src={qrImageUrl} 
+                  alt="QR Code" 
+                  className="w-48 h-48 mx-auto mb-2"
+                />
+                <div className="font-mono text-xs text-gray-500 break-all">
+                  ID: {qrPayment.id}
                 </div>
-                <div className="w-48 h-48 border-2 border-gray-300 flex items-center justify-center text-xs text-gray-500">
-                  QR 코드 영역<br/>
-                  {qrPayment.qrCode.substring(0, 20)}...
-                </div>
+              </div>
+            ) : qrPayment.status !== 'expired' ? (
+              <div className="w-48 h-48 border-2 border-gray-300 flex items-center justify-center text-xs text-gray-500">
+                QR 코드 생성 중...
               </div>
             ) : (
               <div className="w-48 h-48 border-2 border-red-300 bg-red-50 flex items-center justify-center text-red-500">

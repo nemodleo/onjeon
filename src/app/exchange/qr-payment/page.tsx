@@ -2,6 +2,7 @@
 
 import { QRPaymentGenerator } from '@/components/QRPayment';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { QRPaymentProgress } from '@/components/ui/page-progress';
 import { useWalletStore } from '@/store/wallet';
 import { formatCurrency } from '@/lib/utils';
 import Link from 'next/link';
@@ -11,16 +12,18 @@ export default function QRPaymentPage() {
   const { user, balance } = useWalletStore();
 
   return (
-    <div className="space-y-6">
+    <>
+      <QRPaymentProgress />
+      <div className="space-y-6">
       {/* Header */}
-      <div className="text-center">
+      <div id="setup" className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">QR 결제</h1>
         <p className="text-gray-600">
           원화 스테이블코인으로 해외에서 환전 없이 즉시 결제하세요
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div id="generate" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 지갑 정보 */}
         <Card>
           <CardHeader>
@@ -46,7 +49,7 @@ export default function QRPaymentPage() {
       </div>
 
       {/* 사용법 안내 */}
-      <Card>
+      <Card id="scan">
         <CardHeader>
           <CardTitle>사용 방법</CardTitle>
         </CardHeader>
@@ -84,7 +87,7 @@ export default function QRPaymentPage() {
       </Card>
 
       {/* 관련 링크 */}
-      <div className="flex justify-center space-x-4">
+      <div id="complete" className="flex justify-center space-x-4">
         <Link href="/exchange/pos">
           <Button variant="outline">가맹점용 POS 시스템</Button>
         </Link>
@@ -92,6 +95,7 @@ export default function QRPaymentPage() {
           <Button variant="outline">OTP 현금 인출</Button>
         </Link>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

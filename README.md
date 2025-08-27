@@ -142,10 +142,11 @@ npm start
 
 ## 🎨 디자인 시스템
 
-- **색상 팔레트**: Blue (신뢰), Green (성공), Yellow (경고), Red (주의)
-- **타이포그래피**: Inter 폰트, 반응형 크기 조절
-- **컴포넌트**: Card, Button, Input 등 일관된 디자인
-- **레이아웃**: Mobile-first 반응형 디자인
+- **색상 팔레트**: Blue (신뢰), Green (성공), Purple (혁신), Orange (에너지)
+- **타이포그래피**: Inter 폰트, 그라데이션 텍스트, 반응형 크기 조절
+- **컴포넌트**: Modern Card, Gradient Buttons, Smart Navigation
+- **레이아웃**: Mobile-first 반응형 디자인, Mobbin-스타일 모던 UI
+- **애니메이션**: Smooth transitions, Hover effects, Loading states
 
 ## 🚧 향후 개발 계획
 
@@ -166,6 +167,58 @@ npm start
 - NFT 마켓플레이스 통합
 - 여행 보험 자동 처리
 - 탄소 발자국 추적
+
+## 🚀 배포 가이드
+
+### Vercel 배포 (추천)
+
+1. **GitHub 연결**
+   ```bash
+   git add .
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
+
+2. **Vercel 배포**
+   - [Vercel Dashboard](https://vercel.com/dashboard) 접속
+   - "New Project" 클릭
+   - GitHub 저장소 선택
+   - 자동 배포 완료!
+
+3. **환경 변수 (필요시)**
+   ```
+   NODE_ENV=production
+   NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
+   ```
+
+### 기타 플랫폼 배포
+
+**Netlify**:
+```bash
+npm run build
+# .next 또는 out 폴더를 Netlify에 배포
+```
+
+**Docker**:
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+### 배포 체크리스트
+
+- [ ] `npm run build` 성공 확인
+- [ ] `npm run type-check` 통과  
+- [ ] 모든 페이지 정상 작동 확인
+- [ ] 모바일 반응형 테스트
+- [ ] QR 코드 생성 기능 테스트
+- [ ] 네비게이션 동작 확인
 
 ## 📞 문의
 
