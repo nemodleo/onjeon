@@ -179,64 +179,35 @@ export function MobileNavigation() {
 
 export function DesktopNavigation() {
   const pathname = usePathname();
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   return (
-    <nav className="px-2 py-4">
-      <div className="flex items-center justify-between max-w-md mx-auto">
+    <nav className="px-6">
+      <div className="flex items-center justify-between">
         {navigation.map((item) => {
           const Icon = item.icon;
           const isActive = pathname.startsWith(item.href) && item.href !== '/';
           const isHome = pathname === '/' && item.href === '/';
 
           return (
-            <div 
-              key={item.name} 
-              className="relative flex-1"
-              onTouchStart={() => item.children && setOpenDropdown(item.name)}
-              onClick={() => !item.children && setOpenDropdown(null)}
+            <Link
+              key={item.name}
+              href={item.href}
+              className="flex flex-col items-center py-2 transition-all duration-200 text-center min-w-[60px]"
             >
-              <Link
-                href={item.href}
-                className={cn(
-                  "flex flex-col items-center px-2 py-2 rounded-lg transition-all duration-200 text-center",
-                  (isActive || isHome)
-                    ? "text-gray-900"
-                    : "text-gray-600"
-                )}
-              >
+              <div className={cn(
+                "w-10 h-10 rounded-2xl flex items-center justify-center mb-1 transition-colors",
+                (isActive || isHome) ? "bg-black" : "bg-transparent"
+              )}>
                 <Icon className={cn(
-                  "h-5 w-5 mb-1 sm:h-6 sm:w-6",
-                  (isActive || isHome) ? "text-blue-500" : "text-gray-600"
+                  "h-5 w-5",
+                  (isActive || isHome) ? "text-white" : "text-gray-400"
                 )} />
-                <span className={cn(
-                  "text-xs sm:text-sm",
-                  (isActive || isHome) ? "font-bold text-gray-900" : "font-medium text-gray-600"
-                )}>{item.name}</span>
-              </Link>
-
-              {item.children && openDropdown === item.name && (
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50">
-                  <div className="py-1">
-                    {item.children.map((child, index) => (
-                      <Link
-                        key={child.name}
-                        href={child.href}
-                        className={cn(
-                          "flex items-center px-3 py-2 text-sm transition-colors",
-                          pathname === child.href
-                            ? "text-gray-900 bg-gray-100 font-semibold"
-                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
-                        )}
-                        onClick={() => setOpenDropdown(null)}
-                      >
-                        {child.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+              </div>
+              <span className={cn(
+                "text-xs font-medium",
+                (isActive || isHome) ? "text-black" : "text-gray-400"
+              )}>{item.name}</span>
+            </Link>
           );
         })}
       </div>
@@ -246,34 +217,16 @@ export function DesktopNavigation() {
 
 export function TopBar() {
   return (
-    <div className="flex items-center space-x-3">
-      {/* Notifications */}
-      <Button variant="ghost" size="sm" className="relative rounded-full">
-        <Bell className="w-4 h-4 text-gray-600" />
-        <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
-          <span className="text-[8px] text-white font-bold">3</span>
-        </div>
+    <div className="flex items-center space-x-4">
+      {/* Notifications - minimalist */}
+      <Button variant="ghost" size="sm" className="relative p-2">
+        <Bell className="w-5 h-5 text-black" />
+        <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full"></div>
       </Button>
 
-      {/* Wallet Balance */}
-      <div className="hidden sm:flex items-center space-x-3 px-3 py-2 bg-gray-100 rounded-2xl border border-gray-200">
-        <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
-          <Wallet className="w-4 h-4 text-white" />
-        </div>
-        <div>
-          <div className="text-sm font-bold text-gray-900">₩ 1,234,567</div>
-          <div className="text-xs text-gray-600">KRW-C 잔액</div>
-        </div>
-      </div>
-      
-      {/* User Profile */}
-      <div className="hidden md:flex items-center space-x-2">
-        <Button variant="ghost" size="sm" className="rounded-full">
-          <Settings className="w-4 h-4 text-gray-600" />
-        </Button>
-        <div className="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center">
-          <User className="w-5 h-5 text-white" />
-        </div>
+      {/* User Profile - simplified */}
+      <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+        <User className="w-4 h-4 text-gray-600" />
       </div>
     </div>
   );

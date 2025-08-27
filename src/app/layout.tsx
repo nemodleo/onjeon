@@ -17,27 +17,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={`${inter.className} bg-gray-100`}>
+      <body className={`${inter.className} bg-white`}>
         {/* App Container */}
-        <div className="min-h-screen flex justify-center">
-          <div className="w-full max-w-[600px] bg-white shadow-xl relative">
-            {/* Header */}
-            <header className="sticky top-0 z-50 backdrop-blur-md bg-white/95 border-b border-gray-100">
-              <div className="px-4 sm:px-6 py-4">
+        <div className="min-h-screen bg-white">
+          <div className="w-full max-w-sm mx-auto bg-white relative min-h-screen">
+            {/* Header - iOS style */}
+            <header className="sticky top-0 z-50 bg-white border-b border-gray-100">
+              <div className="px-6 pt-12 pb-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 sm:space-x-3">
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-xl flex items-center justify-center">
-                      <span className="text-white font-bold text-sm sm:text-base">O</span>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-black rounded-2xl flex items-center justify-center">
+                      <span className="text-white font-semibold text-lg">O</span>
                     </div>
                     <div>
-                      <h1 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
+                      <h1 className="text-xl font-semibold text-black">
                         ONJEON
                       </h1>
-                      <p className="text-xs text-gray-500 -mt-1 font-medium hidden sm:block">글로벌 KRW 인프라</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="flex items-center">
                     <TopBar />
                     <MobileNavigation />
                   </div>
@@ -45,16 +44,18 @@ export default function RootLayout({
               </div>
             </header>
 
-            {/* Main Content */}
-            <main className="bg-white min-h-screen pb-20">
-              <div className="p-4 sm:p-6 md:p-8">
+            {/* Main Content - Safe area padding */}
+            <main className="bg-white min-h-screen pb-28 pt-4">
+              <div className="px-6">
                 {children}
               </div>
             </main>
 
-            {/* Bottom Navigation */}
-            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[600px] bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
-              <DesktopNavigation />
+            {/* Bottom Navigation - iOS style */}
+            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-sm bg-white border-t border-gray-100 z-50">
+              <div className="pb-8 pt-2">
+                <DesktopNavigation />
+              </div>
             </div>
 
             {/* Footer */}
