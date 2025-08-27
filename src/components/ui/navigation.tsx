@@ -23,43 +23,43 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 const navigation = [
-  { name: 'Home', href: '/', icon: Home },
+  { name: '홈', href: '/', icon: Home },
   { 
-    name: 'Exchange', 
+    name: '환전', 
     href: '/exchange', 
     icon: CreditCard,
     children: [
-      { name: 'QR Payment', href: '/exchange/qr-payment' },
-      { name: 'OTP Withdrawal', href: '/exchange/otp-withdrawal' },
-      { name: 'POS System', href: '/exchange/pos' }
+      { name: 'QR 결제', href: '/exchange/qr-payment' },
+      { name: 'OTP 출금', href: '/exchange/otp-withdrawal' },
+      { name: 'POS 시스템', href: '/exchange/pos' }
     ]
   },
   { 
-    name: 'Duty Free', 
+    name: '면세점', 
     href: '/duty-free', 
     icon: ShoppingBag,
     children: [
-      { name: 'Dashboard', href: '/duty-free/dashboard' },
-      { name: 'Trip Setup', href: '/duty-free/trip-setup' }
+      { name: '대시보드', href: '/duty-free/dashboard' },
+      { name: '여행 설정', href: '/duty-free/trip-setup' }
     ]
   },
   { 
-    name: 'VAT Refund', 
+    name: 'VAT 환급', 
     href: '/vat-refund', 
     icon: Receipt,
     children: [
-      { name: 'Dashboard', href: '/vat-refund/dashboard' },
-      { name: 'Stamp Process', href: '/vat-refund/stamp' }
+      { name: '대시보드', href: '/vat-refund/dashboard' },
+      { name: '스탬프 처리', href: '/vat-refund/stamp' }
     ]
   },
   { 
-    name: 'Customs', 
+    name: '세관 신고', 
     href: '/customs', 
     icon: FileText,
     children: [
-      { name: 'Settings', href: '/customs/settings' },
-      { name: 'NFT Receipts', href: '/customs/receipts' },
-      { name: 'Preview', href: '/customs/preview' }
+      { name: '설정', href: '/customs/settings' },
+      { name: 'NFT 영수증함', href: '/customs/receipts' },
+      { name: '미리보기', href: '/customs/preview' }
     ]
   }
 ];
@@ -166,7 +166,7 @@ export function MobileNavigation() {
                 <User className="w-5 h-5 text-white" />
               </div>
               <div>
-                <div className="text-sm font-semibold text-gray-900">Demo User</div>
+                <div className="text-sm font-semibold text-gray-900">데모 사용자</div>
                 <div className="text-xs text-gray-500">demo@onjeon.app</div>
               </div>
             </div>
@@ -182,63 +182,63 @@ export function DesktopNavigation() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   return (
-    <nav className="hidden lg:flex items-center space-x-2">
-      {navigation.map((item) => {
-        const Icon = item.icon;
-        const isActive = pathname.startsWith(item.href) && item.href !== '/';
-        const isHome = pathname === '/' && item.href === '/';
+    <nav className="px-6 py-3 overflow-x-auto">
+      <div className="flex items-center space-x-2 min-w-max">
+        {navigation.map((item) => {
+          const Icon = item.icon;
+          const isActive = pathname.startsWith(item.href) && item.href !== '/';
+          const isHome = pathname === '/' && item.href === '/';
 
-        return (
-          <div 
-            key={item.name} 
-            className="relative"
-            onMouseEnter={() => item.children && setOpenDropdown(item.name)}
-            onMouseLeave={() => setOpenDropdown(null)}
-          >
-            <Link
-              href={item.href}
-              className={cn(
-                "flex items-center px-4 py-2 rounded-2xl text-sm font-semibold transition-all duration-200",
-                (isActive || isHome)
-                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25"
-                  : "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
-              )}
+          return (
+            <div 
+              key={item.name} 
+              className="relative"
+              onMouseEnter={() => item.children && setOpenDropdown(item.name)}
+              onMouseLeave={() => setOpenDropdown(null)}
             >
-              <Icon className="mr-2 h-4 w-4" />
-              {item.name}
-              {item.children && (
-                <ChevronDown className={cn(
-                  "ml-1 h-3 w-3 transition-transform",
-                  openDropdown === item.name ? "rotate-180" : ""
-                )} />
-              )}
-            </Link>
+              <Link
+                href={item.href}
+                className={cn(
+                  "flex items-center px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 whitespace-nowrap",
+                  (isActive || isHome)
+                    ? "bg-blue-500 text-white shadow-md"
+                    : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                )}
+              >
+                <Icon className="mr-2 h-4 w-4" />
+                {item.name}
+                {item.children && (
+                  <ChevronDown className={cn(
+                    "ml-1 h-3 w-3 transition-transform",
+                    openDropdown === item.name ? "rotate-180" : ""
+                  )} />
+                )}
+              </Link>
 
-            {item.children && openDropdown === item.name && (
-              <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50">
-                <div className="py-2">
-                  {item.children.map((child, index) => (
-                    <Link
-                      key={child.name}
-                      href={child.href}
-                      className={cn(
-                        "flex items-center px-4 py-3 text-sm transition-colors",
-                        pathname === child.href
-                          ? "text-blue-600 bg-blue-50 font-semibold"
-                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
-                        index === 0 && "pt-3",
-                        index === item.children!.length - 1 && "pb-3"
-                      )}
-                    >
-                      {child.name}
-                    </Link>
-                  ))}
+              {item.children && openDropdown === item.name && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
+                  <div className="py-2">
+                    {item.children.map((child, index) => (
+                      <Link
+                        key={child.name}
+                        href={child.href}
+                        className={cn(
+                          "flex items-center px-4 py-3 text-sm transition-colors",
+                          pathname === child.href
+                            ? "text-blue-600 bg-blue-50 font-semibold"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                        )}
+                      >
+                        {child.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        );
-      })}
+              )}
+            </div>
+          );
+        })}
+      </div>
     </nav>
   );
 }
@@ -266,7 +266,7 @@ export function TopBar() {
         </div>
         <div>
           <div className="text-sm font-bold text-gray-900">₩ 1,234,567</div>
-          <div className="text-xs text-green-600">KRW-C Balance</div>
+          <div className="text-xs text-green-600">KRW-C 잔액</div>
         </div>
       </div>
       

@@ -6,8 +6,8 @@ import { DesktopNavigation, MobileNavigation, TopBar } from '@/components/ui/nav
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Onjeon (온전) - 원화 스테이블코인 글로벌 금융 인프라',
-  description: '온전은 단순한 리펀드를 넘어, 여행객이 한국 원화를 안전하게 연결할 수 있는 글로벌 금융 인프라를 지향합니다',
+  title: 'ONJEON - 글로벌 KRW 금융 인프라',
+  description: '온전한 글로벌 KRW 금융 서비스를 제공합니다',
 }
 
 export default function RootLayout({
@@ -17,65 +17,70 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={inter.className}>
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-          {/* Header */}
-          <header className="sticky top-0 z-40 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-            <div className="container mx-auto px-4">
-              <div className="flex h-16 items-center justify-between">
-                <div className="flex items-center space-x-4">
+      <body className={`${inter.className} bg-gray-100`}>
+        {/* App Container */}
+        <div className="min-h-screen flex justify-center">
+          <div className="w-full max-w-[600px] bg-white shadow-xl relative">
+            {/* Header */}
+            <header className="sticky top-0 z-50 backdrop-blur-md bg-white/95 border-b border-gray-100">
+              <div className="px-6 py-4">
+                <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25">
-                      <span className="text-white font-bold text-lg">O</span>
+                    <div className="w-9 h-9 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                      <span className="text-white font-bold text-base">O</span>
                     </div>
                     <div>
-                      <h1 className="text-xl font-bold text-gray-900 tracking-tight">
+                      <h1 className="text-lg font-bold text-gray-900 tracking-tight">
                         ONJEON
                       </h1>
-                      <p className="text-xs text-gray-500 -mt-1 font-medium">Global KRW Infrastructure</p>
+                      <p className="text-xs text-gray-500 -mt-1 font-medium">글로벌 KRW 인프라</p>
                     </div>
                   </div>
-                  <DesktopNavigation />
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <TopBar />
-                  <MobileNavigation />
-                </div>
-              </div>
-            </div>
-          </header>
-
-          {/* Main Content */}
-          <main className="container mx-auto px-4 py-6">
-            <div className="mx-auto max-w-6xl">
-              {children}
-            </div>
-          </main>
-
-          {/* Footer */}
-          <footer className="border-t bg-gradient-to-r from-gray-50 to-blue-50 backdrop-blur">
-            <div className="container mx-auto px-4 py-12">
-              <div className="flex flex-col items-center justify-center space-y-6 text-center">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-sm">O</span>
+                  
+                  <div className="flex items-center space-x-3">
+                    <TopBar />
+                    <MobileNavigation />
                   </div>
-                  <span className="text-lg font-bold text-gray-900">ONJEON</span>
-                </div>
-                <p className="text-sm text-gray-600 max-w-lg leading-relaxed">
-                  Global KRW Stablecoin Infrastructure • Zero FX Fees • Instant VAT Refund • Smart Duty-Free Management
-                </p>
-                <div className="flex items-center space-x-6 text-xs text-gray-500">
-                  <div>© 2024 Terragon Labs</div>
-                  <div>•</div>
-                  <div>Built with Next.js & Tailwind</div>
-                  <div>•</div>
-                  <div>Global KRW Financial Infrastructure</div>
                 </div>
               </div>
+            </header>
+
+            {/* Navigation */}
+            <div className="border-b border-gray-100">
+              <DesktopNavigation />
             </div>
-          </footer>
+
+            {/* Main Content */}
+            <main className="bg-white min-h-screen">
+              <div className="p-8">
+                {children}
+              </div>
+            </main>
+
+            {/* Footer */}
+            <footer className="bg-white border-t border-gray-100 mt-auto">
+              <div className="p-8">
+                <div className="text-center space-y-4">
+                  <div className="flex items-center justify-center space-x-3">
+                    <div className="w-7 h-7 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">O</span>
+                    </div>
+                    <span className="text-lg font-bold text-gray-900">ONJEON</span>
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    글로벌 KRW 스테이블코인 인프라 • 제로 환전 수수료 • 즉시 VAT 환급 • 스마트 면세점 관리
+                  </p>
+                  <div className="flex items-center justify-center space-x-4 text-xs text-gray-500">
+                    <div>© 2024 Terragon Labs</div>
+                    <div>•</div>
+                    <div>이용약관</div>
+                    <div>•</div>
+                    <div>개인정보처리방침</div>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </div>
         </div>
       </body>
     </html>

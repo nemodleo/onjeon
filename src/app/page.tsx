@@ -32,7 +32,7 @@ export default function HomePage() {
           <div className="flex items-center justify-center mb-6">
             <div className="flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium">
               <Sparkles className="w-4 h-4" />
-              <span>Next-Generation Global Financial Infrastructure</span>
+              <span>차세대 글로벌 금융 인프라</span>
             </div>
           </div>
           
@@ -41,13 +41,13 @@ export default function HomePage() {
               ONJEON
             </span>
             <span className="block text-3xl md:text-4xl mt-2 text-gray-700">
-              Global KRW Stablecoin Ecosystem
+              글로벌 KRW 스테이블코인 생태계
             </span>
           </h1>
           
           <p className="text-xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed">
-            From zero-fee global payments to instant VAT refunds, smart duty-free management, and automated customs declarations<br />
-            <span className="font-semibold text-gray-800">Complete travel financial ecosystem in one place</span>
+            무수수료 글로벌 결제부터 즉시 VAT 환급, 스마트 면세점 관리, 자동 세관신고까지<br />
+            <span className="font-semibold text-gray-800">완전한 여행 금융 생태계가 한곳에</span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
