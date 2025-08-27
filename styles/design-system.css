@@ -1,0 +1,129 @@
+/* 테라곤 디자인 시스템 */
+
+/* 색상 시스템 - 연한 색상 금지, 연한 회색만 허용 */
+:root {
+  /* 기본 색상 */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  
+  /* 회색 계열 (연한 회색 허용) */
+  --color-gray-50: #f9fafb;   /* 연한 회색 - 허용 */
+  --color-gray-100: #f3f4f6;  /* 연한 회색 - 허용 */
+  --color-gray-300: #d1d5db;  /* 연한 회색 - 허용 */
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-900: #111827;
+  
+  /* 원색 - 아이콘과 작은 섹션에만 사용 */
+  --color-primary-blue: #2563eb;
+  --color-primary-red: #dc2626;
+  --color-primary-green: #16a34a;
+  --color-primary-orange: #ea580c;
+  --color-primary-purple: #9333ea;
+}
+
+/* 폰트 시스템 - 크기, 굵기, 밝기로 강약 조절 */
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+/* 폰트 굵기 */
+.font-light {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* 원색 클래스 - 아이콘과 작은 섹션에만 사용 */
+.icon-blue {
+  color: var(--color-primary-blue);
+}
+
+.icon-red {
+  color: var(--color-primary-red);
+}
+
+.icon-green {
+  color: var(--color-primary-green);
+}
+
+.icon-orange {
+  color: var(--color-primary-orange);
+}
+
+.icon-purple {
+  color: var(--color-primary-purple);
+}
+
+/* 작은 섹션용 배경색 */
+.bg-section-blue {
+  background-color: var(--color-primary-blue);
+}
+
+.bg-section-red {
+  background-color: var(--color-primary-red);
+}
+
+.bg-section-green {
+  background-color: var(--color-primary-green);
+}
+
+.bg-section-orange {
+  background-color: var(--color-primary-orange);
+}
+
+.bg-section-purple {
+  background-color: var(--color-primary-purple);
+}
+
+/* 금지된 스타일 */
+/* 그라데이션 사용 금지 */
+.no-gradient {
+  background-image: none !important;
+}
+
+/* 연한 색상 금지 (연한 회색 제외) */
+.no-light-colors {
+  /* 연한 파스텔 톤 등 사용 금지 */
+}
