@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { CreditCard, Smartphone, MonitorSpeaker, ChevronRight } from 'lucide-react';
+import { ExchangeProgress } from '@/components/ui/page-progress';
 
 export default function ExchangePage() {
   const services = [
@@ -29,7 +30,9 @@ export default function ExchangePage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <>
+      <ExchangeProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="pt-4">
         <h1 className="text-2xl font-semibold text-black mb-2">환전</h1>
@@ -122,6 +125,7 @@ export default function ExchangePage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

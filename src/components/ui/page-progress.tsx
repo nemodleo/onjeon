@@ -31,8 +31,8 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
     };
 
     const handleResize = () => {
-      // 화면 너비가 1200px 미만이거나 높이가 700px 미만일 때 숨김
-      const shouldShow = window.innerWidth >= 1200 && window.innerHeight >= 700;
+      // 화면 너비가 1400px 이상일 때만 표시 (사이드바 + 앱 + 프로그래스바 공간 확보)
+      const shouldShow = window.innerWidth >= 1400 && window.innerHeight >= 700;
       setIsVisible(shouldShow);
     };
 

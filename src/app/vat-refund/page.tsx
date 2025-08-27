@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Receipt, Stamp, ChevronRight } from 'lucide-react';
+import { VATRefundProgress } from '@/components/ui/page-progress';
 
 export default function VATRefundPage() {
   const services = [
@@ -22,7 +23,9 @@ export default function VATRefundPage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <>
+      <VATRefundProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="pt-4">
         <h1 className="text-2xl font-semibold text-black mb-2">VAT 환급</h1>
@@ -138,5 +141,6 @@ export default function VATRefundPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -96,35 +96,11 @@ export default function RootLayout({
             </main>
 
             {/* Bottom Navigation - iOS style */}
-            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[600px] bg-white border-t border-gray-100 z-50">
+            <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50">
               <div className="pb-8 pt-2">
                 <DesktopNavigation />
               </div>
             </div>
-
-            {/* Footer */}
-            <footer className="bg-white border-t border-gray-100 mt-auto">
-              <div className="p-8">
-                <div className="text-center space-y-4">
-                  <div className="flex items-center justify-center space-x-3">
-                    <div className="w-7 h-7 bg-gray-800 rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">O</span>
-                    </div>
-                    <span className="text-lg font-bold text-gray-900">ONJEON</span>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    글로벌 KRW 스테이블코인 인프라 • 제로 환전 수수료 • 즉시 VAT 환급 • 스마트 면세점 관리
-                  </p>
-                  <div className="flex items-center justify-center space-x-4 text-xs text-gray-500">
-                    <div>© 2024 Terragon Labs</div>
-                    <div>•</div>
-                    <div>이용약관</div>
-                    <div>•</div>
-                    <div>개인정보처리방침</div>
-                  </div>
-                </div>
-              </div>
-            </footer>
           </div>
         </div>
       </body>

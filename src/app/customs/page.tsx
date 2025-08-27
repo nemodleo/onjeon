@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { FileText, Settings, Eye, ChevronRight } from 'lucide-react';
+import { CustomsProgress } from '@/components/ui/page-progress';
 
 export default function CustomsPage() {
   const services = [
@@ -29,7 +30,9 @@ export default function CustomsPage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <>
+      <CustomsProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="pt-4">
         <h1 className="text-2xl font-semibold text-black mb-2">세관 신고</h1>
@@ -145,5 +148,6 @@ export default function CustomsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

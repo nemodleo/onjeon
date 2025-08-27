@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Settings, TrendingUp, ChevronRight } from 'lucide-react';
+import { DutyFreeProgress } from '@/components/ui/page-progress';
 
 export default function DutyFreePage() {
   const services = [
@@ -22,7 +23,9 @@ export default function DutyFreePage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <>
+      <DutyFreeProgress />
+      <div className="space-y-6">
       {/* Header */}
       <div className="pt-4">
         <h1 className="text-2xl font-semibold text-black mb-2">면세점</h1>
@@ -125,6 +128,7 @@ export default function DutyFreePage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
