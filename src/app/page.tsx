@@ -71,14 +71,20 @@ export default function HomePage() {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 gap-4">
-        <Link href="/exchange/qr-payment" className="bg-gray-50 rounded-2xl p-4 text-center">
-          <div className="text-2xl mb-2">📱</div>
-          <div className="text-sm font-medium text-black">QR 결제</div>
+      <div className="space-y-3">
+        <Link href="/exchange/qr-payment" className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="flex items-center space-x-3">
+            <div className="text-2xl">📱</div>
+            <div className="text-sm font-medium text-black">QR 결제</div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-400" />
         </Link>
-        <Link href="/exchange/otp-withdrawal" className="bg-gray-50 rounded-2xl p-4 text-center">
-          <div className="text-2xl mb-2">💰</div>
-          <div className="text-sm font-medium text-black">현금 인출</div>
+        <Link href="/exchange/otp-withdrawal" className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="flex items-center space-x-3">
+            <div className="text-2xl">💰</div>
+            <div className="text-sm font-medium text-black">현금 인출</div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-400" />
         </Link>
       </div>
 
@@ -107,13 +113,6 @@ export default function HomePage() {
         })}
       </div>
 
-      {/* Footer Info */}
-      <div className="text-center pt-8 pb-4">
-        <div className="text-xs text-gray-400 space-y-1">
-          <div>글로벌 KRW 스테이블코인 인프라</div>
-          <div>© 2024 Terragon Labs</div>
-        </div>
-      </div>
     </div>
   );
 }

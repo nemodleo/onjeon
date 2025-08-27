@@ -50,14 +50,16 @@ export default function DutyFreePage() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-gray-50 rounded-2xl p-4 text-center">
-          <div className="text-2xl font-bold text-black">$450</div>
-          <div className="text-sm text-gray-500">오늘 사용</div>
-        </div>
-        <div className="bg-gray-50 rounded-2xl p-4 text-center">
-          <div className="text-2xl font-bold text-black">5</div>
-          <div className="text-sm text-gray-500">구매 건수</div>
+      <div className="bg-gray-50 rounded-2xl p-4">
+        <div className="flex justify-between items-center">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-black">$450</div>
+            <div className="text-sm text-gray-500">오늘 사용</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-black">5</div>
+            <div className="text-sm text-gray-500">구매 건수</div>
+          </div>
         </div>
       </div>
 

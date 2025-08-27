@@ -43,7 +43,7 @@ export default function ExchangePage() {
             <div className="text-3xl font-bold text-black">₩ 1,234,567</div>
             <div className="text-sm text-gray-500">사용 가능 잔액</div>
           </div>
-          <div className="grid grid-cols-3 gap-4 text-center">
+          <div className="flex justify-between text-center">
             <div>
               <div className="text-lg font-semibold text-black">0%</div>
               <div className="text-xs text-gray-500">수수료</div>
