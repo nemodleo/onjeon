@@ -75,6 +75,40 @@
   }
 }
 
+/* Enhanced typography */
+@layer components {
+  /* Headings */
+  h1 {
+    @apply text-3xl font-bold text-black;
+  }
+  
+  h2 {
+    @apply text-2xl font-bold text-black;
+  }
+  
+  h3 {
+    @apply text-xl font-semibold text-black;
+  }
+  
+  /* Body text */
+  p {
+    @apply text-base leading-relaxed;
+  }
+  
+  /* Stronger text contrast */
+  .text-primary {
+    @apply text-black font-medium;
+  }
+  
+  .text-secondary {
+    @apply text-gray-600;
+  }
+  
+  .text-muted {
+    @apply text-gray-400;
+  }
+}
+
 /* Progress highlight animations */
 @keyframes highlight-pulse {
   0%, 100% { transform: scale(1); opacity: 1; }

@@ -8,22 +8,22 @@ export default function CustomsPage() {
   const services = [
     {
       id: 'settings',
-      title: '신고 설정',
-      description: '개인 정보 및 신고 옵션 설정',
+      title: '자동 신고 설정',
+      description: 'KYC 연동 • ON/OFF 토글',
       href: '/customs/settings',
       icon: Settings,
     },
     {
       id: 'receipts',
       title: 'NFT 영수증함',
-      description: '블록체인 기반 구매 증명서 관리',
+      description: '카드 그리드 • 신고 포함 선택',
       href: '/customs/receipts',
       icon: FileText,
     },
     {
       id: 'preview',
-      title: '신고 미리보기',
-      description: '세관 신고서 검토 및 최종 제출',
+      title: '미리보기 & 제출',
+      description: '신고서 요약 • 접수번호 확인',
       href: '/customs/preview',
       icon: Eye,
     }
@@ -32,40 +32,38 @@ export default function CustomsPage() {
   return (
     <>
       <CustomsProgress />
-      <div className="space-y-6">
+      <div className="space-y-8">
       {/* Header */}
-      <div className="pt-4">
-        <h1 className="text-2xl font-semibold text-black mb-2">세관 신고</h1>
-        <p className="text-gray-500 text-sm">NFT 영수증 • KYC 인증 • 자동 신고</p>
+      <div className="pt-6">
+        <h1 className="text-3xl font-bold text-black mb-3">자동 세관 신고</h1>
+        <p className="text-gray-600 text-base">NFT 영수증 • 원클릭 제출</p>
       </div>
 
       {/* Status Overview - Wallet style */}
       <div className="bg-black rounded-3xl p-6 text-white">
         <div className="flex justify-between items-start mb-4">
           <div>
-            <p className="text-gray-300 text-sm">이번 여행 총 구매액</p>
-            <p className="text-2xl font-semibold">₩ 1,450,000</p>
+            <p className="text-gray-300 text-base">신고 대상 금액</p>
+            <p className="text-3xl font-bold">$1,220</p>
           </div>
           <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
             <FileText className="w-4 h-4" />
           </div>
         </div>
-        <div className="text-sm text-gray-300">
-          자동 신고 준비 완료
+        <div className="text-base text-gray-300">
+          KYC 완료 → 귀국 24시간 전 자동 제출
         </div>
       </div>
 
-      {/* Quick Stats */}
-      <div className="bg-gray-50 rounded-3xl p-6">
-        <div className="grid grid-cols-2 gap-6 text-center">
-          <div>
-            <div className="text-2xl font-semibold text-black">12</div>
-            <div className="text-sm text-gray-500">NFT 영수증</div>
-          </div>
-          <div>
-            <div className="text-2xl font-semibold text-black">₩ 0</div>
-            <div className="text-sm text-gray-500">추가 세금</div>
-          </div>
+      {/* Quick Stats - 2 Column Grid */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <div className="text-2xl font-bold text-black">12</div>
+          <div className="text-sm text-gray-600">NFT 영수증</div>
+        </div>
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <div className="text-2xl font-bold text-green-500">✓</div>
+          <div className="text-sm text-gray-600">KYC 인증</div>
         </div>
       </div>
 
@@ -84,8 +82,8 @@ export default function CustomsPage() {
                   <Icon className="w-5 h-5 text-black" />
                 </div>
                 <div>
-                  <div className="font-medium text-black">{service.title}</div>
-                  <div className="text-sm text-gray-500">{service.description}</div>
+                  <div className="font-semibold text-black text-lg">{service.title}</div>
+                  <div className="text-base text-gray-600">{service.description}</div>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -94,55 +92,64 @@ export default function CustomsPage() {
         })}
       </div>
 
-      {/* Recent Activity */}
+      {/* 최근 활동 - Apple Style */}
       <div className="space-y-4">
-        <h3 className="font-semibold text-black">최근 활동</h3>
-        <div className="space-y-1">
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-blue-600 text-sm">📄</span>
+        <h3 className="text-xl font-bold text-black">최근 활동</h3>
+        <div className="space-y-3">
+          {/* NFT 영수증 생성 */}
+          <div className="bg-white rounded-2xl p-5 border border-gray-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
+                  <span className="text-xl">📄</span>
+                </div>
+                <div>
+                  <div className="font-semibold text-black">NFT 영수증 생성</div>
+                  <div className="text-sm text-gray-600">30분 전 • LV 핸드백</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-medium text-black">NFT 영수증 생성</div>
-                <div className="text-xs text-gray-500">30분 전</div>
+              <div className="text-right">
+                <div className="text-lg font-bold text-black">₩ 850,000</div>
+                <div className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full inline-block">블록체인</div>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="text-sm font-medium text-black">LV 핸드백</div>
-              <div className="text-xs text-gray-500">₩ 850,000</div>
             </div>
           </div>
           
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                <span className="text-green-600 text-sm">✓</span>
+          {/* KYC 인증 완료 */}
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-5 border border-green-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
+                  <span className="text-xl">✅</span>
+                </div>
+                <div>
+                  <div className="font-semibold text-black">KYC 인증 완료</div>
+                  <div className="text-sm text-gray-600">2시간 전 • 신원 확인</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-medium text-black">KYC 인증 완료</div>
-                <div className="text-xs text-gray-500">2시간 전</div>
+              <div className="text-right">
+                <div className="text-lg font-bold text-black">인증완료</div>
+                <div className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full inline-block">활성화</div>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="text-sm font-medium text-black">신원 확인</div>
-              <div className="text-xs text-gray-500">완료</div>
             </div>
           </div>
           
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                <span className="text-purple-600 text-sm">⚙️</span>
+          {/* 자동 신고 설정 */}
+          <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-5 border border-purple-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
+                  <span className="text-xl">⚙️</span>
+                </div>
+                <div>
+                  <div className="font-semibold text-black">자동 신고 설정</div>
+                  <div className="text-sm text-gray-600">어제 • 귀국 24시간 전 자동</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-medium text-black">자동 신고 설정</div>
-                <div className="text-xs text-gray-500">어제</div>
+              <div className="text-right">
+                <div className="text-lg font-bold text-black">설정완료</div>
+                <div className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full inline-block">ON</div>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="text-sm font-medium text-black">설정 완료</div>
-              <div className="text-xs text-gray-500">활성화</div>
             </div>
           </div>
         </div>

@@ -294,7 +294,7 @@ export function OTPVerificationTerminal() {
             onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, '').slice(0, 6))}
             placeholder="6자리 OTP를 입력하세요"
             maxLength={6}
-            className="text-center text-2xl font-mono tracking-widest"
+            className="text-center text-lg font-mono tracking-wide"
           />
         </div>
 

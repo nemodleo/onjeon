@@ -9,21 +9,21 @@ export default function ExchangePage() {
     {
       id: 'qr-payment',
       title: 'QR 결제',
-      description: '스캔으로 즉시 결제',
+      description: '결제 QR 생성 → 가맹점 스캔',
       href: '/exchange/qr-payment',
       icon: CreditCard,
     },
     {
       id: 'otp-withdrawal',
-      title: 'OTP 출금',
-      description: '안전한 현금 인출',
+      title: 'OTP 현금 인출',
+      description: '일회용 OTP로 ATM/대리점 인출',
       href: '/exchange/otp-withdrawal',
       icon: Smartphone,
     },
     {
       id: 'pos-system',
-      title: 'POS 시스템',
-      description: '가맹점 통합 결제',
+      title: 'POS 가맹점 관리',
+      description: '실시간 정산 • 거래 로그',
       href: '/exchange/pos',
       icon: MonitorSpeaker,
     }
@@ -35,31 +35,35 @@ export default function ExchangePage() {
       <div className="space-y-6">
       {/* Header */}
       <div className="pt-4">
-        <h1 className="text-2xl font-semibold text-black mb-2">환전</h1>
-        <p className="text-gray-500 text-sm">수수료 없는 글로벌 결제</p>
+        <h1 className="text-3xl font-bold text-black mb-3">환전 게이트웨이</h1>
+        <p className="text-gray-600 text-base">전 세계 0% 수수료 결제</p>
       </div>
 
-      {/* Balance Overview */}
-      <div className="bg-gray-50 rounded-3xl p-6">
-        <div className="text-center space-y-4">
+      {/* Balance Card */}
+      <div className="bg-black rounded-3xl p-6 text-white">
+        <div className="flex justify-between items-start mb-4">
           <div>
-            <div className="text-3xl font-bold text-black">₩ 1,234,567</div>
-            <div className="text-sm text-gray-500">사용 가능 잔액</div>
+            <p className="text-gray-300 text-base">사용 가능 잔액</p>
+            <p className="text-3xl font-bold">₩ 1,234,567</p>
           </div>
-          <div className="flex justify-between text-center">
-            <div>
-              <div className="text-lg font-semibold text-black">0%</div>
-              <div className="text-xs text-gray-500">수수료</div>
-            </div>
-            <div>
-              <div className="text-lg font-semibold text-black">24/7</div>
-              <div className="text-xs text-gray-500">서비스</div>
-            </div>
-            <div>
-              <div className="text-lg font-semibold text-black">100+</div>
-              <div className="text-xs text-gray-500">지원국가</div>
-            </div>
+          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+            <CreditCard className="w-4 h-4" />
           </div>
+        </div>
+        <div className="text-base text-gray-300">
+          전 세계 어디서든 0% 수수료
+        </div>
+      </div>
+
+      {/* Quick Stats - 2 Column Grid */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <div className="text-2xl font-bold text-black">20-40bps</div>
+          <div className="text-sm text-gray-600">FX 스프레드</div>
+        </div>
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <div className="text-2xl font-bold text-black">120초</div>
+          <div className="text-sm text-gray-600">OTP 유효시간</div>
         </div>
       </div>
 
@@ -78,8 +82,8 @@ export default function ExchangePage() {
                   <Icon className="w-5 h-5 text-black" />
                 </div>
                 <div>
-                  <div className="font-medium text-black">{service.title}</div>
-                  <div className="text-sm text-gray-500">{service.description}</div>
+                  <div className="font-semibold text-black text-lg">{service.title}</div>
+                  <div className="text-base text-gray-600">{service.description}</div>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -90,7 +94,7 @@ export default function ExchangePage() {
 
       {/* Recent Transactions */}
       <div className="space-y-4">
-        <h3 className="font-semibold text-black">최근 거래</h3>
+        <h3 className="text-xl font-bold text-black">최근 거래</h3>
         <div className="space-y-1">
           <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
             <div className="flex items-center space-x-3">
@@ -98,13 +102,13 @@ export default function ExchangePage() {
                 <span className="text-green-600 text-sm">✓</span>
               </div>
               <div>
-                <div className="text-sm font-medium text-black">QR 결제</div>
-                <div className="text-xs text-gray-500">2시간 전</div>
+                <div className="text-base font-semibold text-black">QR 결제</div>
+                <div className="text-sm text-gray-600">2시간 전</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-medium text-black">-₩ 45,000</div>
-              <div className="text-xs text-gray-500">완료</div>
+              <div className="text-base font-semibold text-black">-₩ 45,000</div>
+              <div className="text-sm text-gray-600">완료</div>
             </div>
           </div>
           
@@ -114,13 +118,13 @@ export default function ExchangePage() {
                 <span className="text-blue-600 text-sm">💰</span>
               </div>
               <div>
-                <div className="text-sm font-medium text-black">OTP 출금</div>
-                <div className="text-xs text-gray-500">어제</div>
+                <div className="text-base font-semibold text-black">OTP 출금</div>
+                <div className="text-sm text-gray-600">어제</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-medium text-black">-₩ 200,000</div>
-              <div className="text-xs text-gray-500">완료</div>
+              <div className="text-base font-semibold text-black">-₩ 200,000</div>
+              <div className="text-sm text-gray-600">완료</div>
             </div>
           </div>
         </div>

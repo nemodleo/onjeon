@@ -11,13 +11,11 @@ export default function NFTReceiptsPage() {
   return (
     <>
       <CustomsProgress />
-      <div className="space-y-6">
+      <div className="space-y-8">
       {/* Header */}
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">NFT 영수증함</h1>
-        <p className="text-gray-600">
-          KRW-C로 결제한 모든 구매 내역이 NFT 영수증으로 안전하게 보관됩니다
-        </p>
+      <div className="pt-8">
+        <h1 className="text-3xl font-bold text-black mb-3">NFT 영수증함</h1>
+        <p className="text-gray-600 text-base">카드 그리드 • 신고 포함 선택</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -28,102 +26,90 @@ export default function NFTReceiptsPage() {
 
         {/* 사이드바 */}
         <div className="space-y-6">
-          {/* NFT 정보 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>NFT 영수증이란?</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3 text-sm">
-                <div className="flex items-start space-x-2">
-                  <div className="text-blue-600">🔗</div>
-                  <div>
-                    <div className="font-medium">블록체인 저장</div>
-                    <div className="text-gray-600">
-                      모든 구매 내역이 블록체인에 안전하게 저장됩니다
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <div className="text-green-600">🛡️</div>
-                  <div>
-                    <div className="font-medium">위변조 방지</div>
-                    <div className="text-gray-600">
-                      NFT 기술로 영수증 위변조가 불가능합니다
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <div className="text-purple-600">🔍</div>
-                  <div>
-                    <div className="font-medium">투명한 추적</div>
-                    <div className="text-gray-600">
-                      세관에서 실시간으로 진위를 확인할 수 있습니다
-                    </div>
+          {/* NFT 정보 - Apple Style */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold text-black">NFT 영수증이란?</h3>
+            <div className="bg-gray-50 rounded-2xl p-4 space-y-3">
+              <div className="flex items-start space-x-2">
+                <span>🔗</span>
+                <div>
+                  <div className="font-medium text-black">블록체인 저장</div>
+                  <div className="text-sm text-gray-600">
+                    모든 구매 내역이 블록체인에 안전하게 저장됩니다
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* 신고 현황 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>신고 현황</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="text-center p-3 bg-blue-50 border border-blue-200 rounded">
-                  <div className="text-2xl font-bold text-blue-600">$420</div>
-                  <div className="text-sm text-blue-800">신고 포함 금액</div>
-                </div>
-                
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span>총 영수증 수:</span>
-                    <span className="font-medium">3개</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>신고 포함:</span>
-                    <span className="font-medium text-blue-600">2개</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>신고 제외:</span>
-                    <span className="font-medium text-gray-600">1개</span>
-                  </div>
-                  <div className="flex justify-between border-t pt-2">
-                    <span>예상 세금:</span>
-                    <span className="font-medium text-red-600">$18</span>
+              
+              <div className="flex items-start space-x-2">
+                <span>🛡️</span>
+                <div>
+                  <div className="font-medium text-black">위변조 방지</div>
+                  <div className="text-sm text-gray-600">
+                    NFT 기술로 영수증 위변조가 불가능합니다
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              
+              <div className="flex items-start space-x-2">
+                <span>🔍</span>
+                <div>
+                  <div className="font-medium text-black">투명한 추적</div>
+                  <div className="text-sm text-gray-600">
+                    세관에서 실시간으로 진위를 확인할 수 있습니다
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          {/* 카테고리별 분석 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>카테고리별 구매</CardTitle>
-            </CardHeader>
-            <CardContent>
+          {/* 신고 현황 - Apple Style */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold text-black">신고 현황</h3>
+            <div className="bg-gray-50 rounded-2xl p-4 space-y-3">
+              <div className="text-center p-3 bg-white rounded-xl">
+                <div className="text-2xl font-bold text-black">$420</div>
+                <div className="text-sm text-gray-600">신고 포함 금액</div>
+              </div>
+              
               <div className="space-y-2 text-sm">
-                <div className="flex justify-between p-2 bg-blue-50 rounded">
-                  <span>화장품/패션:</span>
-                  <span className="font-medium">$240</span>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">총 영수증 수:</span>
+                  <span className="font-medium">3개</span>
                 </div>
-                <div className="flex justify-between p-2 bg-green-50 rounded">
-                  <span>전자제품:</span>
-                  <span className="font-medium">$180</span>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">신고 포함:</span>
+                  <span className="font-medium">2개</span>
                 </div>
-                <div className="flex justify-between p-2 bg-gray-50 rounded">
-                  <span>기념품:</span>
-                  <span className="font-medium">$45</span>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">신고 제외:</span>
+                  <span className="font-medium">1개</span>
+                </div>
+                <div className="flex justify-between border-t pt-2">
+                  <span className="text-gray-600">예상 세금:</span>
+                  <span className="font-medium">$18</span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+
+          {/* 카테고리별 분석 - Apple Style */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold text-black">카테고리별 구매</h3>
+            <div className="bg-gray-50 rounded-2xl p-4 space-y-2">
+              <div className="flex justify-between p-2 bg-white rounded-xl">
+                <span className="text-sm">화장품/패션:</span>
+                <span className="font-medium">$240</span>
+              </div>
+              <div className="flex justify-between p-2 bg-white rounded-xl">
+                <span className="text-sm">전자제품:</span>
+                <span className="font-medium">$180</span>
+              </div>
+              <div className="flex justify-between p-2 bg-white rounded-xl">
+                <span className="text-sm">기념품:</span>
+                <span className="font-medium">$45</span>
+              </div>
+            </div>
+          </div>
 
           {/* 빠른 액션 */}
           <Card>
