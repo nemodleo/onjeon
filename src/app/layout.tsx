@@ -23,21 +23,21 @@ export default function RootLayout({
           <div className="w-full max-w-[600px] bg-white shadow-xl relative">
             {/* Header */}
             <header className="sticky top-0 z-50 backdrop-blur-md bg-white/95 border-b border-gray-100">
-              <div className="px-6 py-4">
+              <div className="px-4 sm:px-6 py-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-9 h-9 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                      <span className="text-white font-bold text-base">O</span>
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-xl flex items-center justify-center">
+                      <span className="text-white font-bold text-sm sm:text-base">O</span>
                     </div>
                     <div>
-                      <h1 className="text-lg font-bold text-gray-900 tracking-tight">
+                      <h1 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
                         ONJEON
                       </h1>
-                      <p className="text-xs text-gray-500 -mt-1 font-medium">글로벌 KRW 인프라</p>
+                      <p className="text-xs text-gray-500 -mt-1 font-medium hidden sm:block">글로벌 KRW 인프라</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
                     <TopBar />
                     <MobileNavigation />
                   </div>
@@ -45,24 +45,24 @@ export default function RootLayout({
               </div>
             </header>
 
-            {/* Navigation */}
-            <div className="border-b border-gray-100">
-              <DesktopNavigation />
-            </div>
-
             {/* Main Content */}
-            <main className="bg-white min-h-screen">
-              <div className="p-8">
+            <main className="bg-white min-h-screen pb-20">
+              <div className="p-4 sm:p-6 md:p-8">
                 {children}
               </div>
             </main>
+
+            {/* Bottom Navigation */}
+            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[600px] bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
+              <DesktopNavigation />
+            </div>
 
             {/* Footer */}
             <footer className="bg-white border-t border-gray-100 mt-auto">
               <div className="p-8">
                 <div className="text-center space-y-4">
                   <div className="flex items-center justify-center space-x-3">
-                    <div className="w-7 h-7 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <div className="w-7 h-7 bg-gray-800 rounded-lg flex items-center justify-center">
                       <span className="text-white font-bold text-sm">O</span>
                     </div>
                     <span className="text-lg font-bold text-gray-900">ONJEON</span>
