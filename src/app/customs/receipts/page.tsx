@@ -202,6 +202,7 @@ export default function NFTReceiptsPage() {
           </div>
         </div>
       </div>
+      </div>
     </>
   );
 }

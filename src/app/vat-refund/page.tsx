@@ -25,25 +25,25 @@ export default function VATRefundPage() {
   return (
     <>
       <VATRefundProgress />
-      <div className="space-y-8">
-      {/* Header */}
-      <div className="pt-6">
-        <h1 className="text-3xl font-bold text-black mb-3">디지털 택스 리펀</h1>
-        <p className="text-gray-600 text-base">공항 줄 없이 • 즉시 지갑 입금</p>
+      <div className="space-y-5">
+      {/* Header - 80% scaled */}
+      <div className="pt-3">
+        <h1 className="text-2xl font-bold text-black mb-2">온전한 환급</h1>
+        <p className="text-gray-600 text-sm">NFT 영수증 • 즉시 처리 • 지갑 입금</p>
       </div>
 
-      {/* Status Overview - Wallet style */}
-      <div className="bg-black rounded-3xl p-6 text-white">
-        <div className="flex justify-between items-start mb-4">
+      {/* Status Overview - Wallet style 80% scaled */}
+      <div className="bg-black rounded-2xl p-5 text-white">
+        <div className="flex justify-between items-start mb-3">
           <div>
-            <p className="text-gray-400 text-sm">환급 예상액</p>
-            <p className="text-2xl font-semibold mt-1">₩ 78,300</p>
+            <p className="text-gray-300 text-sm">환급 예상액</p>
+            <p className="text-2xl font-bold">₩ 78,300</p>
           </div>
-          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-            <Receipt className="w-4 h-4" />
+          <div className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center">
+            <Receipt className="w-3.5 h-3.5" />
           </div>
         </div>
-        <div className="text-sm text-gray-400">
+        <div className="text-sm text-gray-300">
           공항에서 스탬프 받기 → 즉시 입금
         </div>
       </div>
@@ -55,8 +55,8 @@ export default function VATRefundPage() {
           <div className="text-sm text-gray-600">부가세 세율</div>
         </div>
         <div className="bg-gray-50 rounded-2xl p-4">
-          <div className="text-2xl font-bold text-black">₩ 30,000</div>
-          <div className="text-sm text-gray-600">최소 구매액</div>
+          <div className="text-2xl font-bold text-black">5초</div>
+          <div className="text-sm text-gray-600">NFT 처리시간</div>
         </div>
       </div>
 
@@ -75,8 +75,8 @@ export default function VATRefundPage() {
                   <Icon className="w-5 h-5 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-lg">{service.title}</div>
-                  <div className="text-base text-gray-600">{service.description}</div>
+                  <div className="font-semibold text-black text-base">{service.title}</div>
+                  <div className="text-sm text-gray-600">{service.description}</div>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -86,21 +86,21 @@ export default function VATRefundPage() {
       </div>
 
       {/* Recent Refunds */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-bold text-black">최근 환급 내역</h3>
-        <div className="space-y-1">
+      <div className="space-y-3">
+        <h3 className="text-lg font-bold text-black">최근 환급 내역</h3>
+        <div className="space-y-2">
           <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                 <span className="text-green-600 text-sm">✓</span>
               </div>
               <div>
-                <div className="text-base font-semibold text-black">롯데면세점</div>
+                <div className="text-sm font-semibold text-black">롯데면세점</div>
                 <div className="text-sm text-gray-600">오늘</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-base font-semibold text-black">+₩ 12,600</div>
+              <div className="text-sm font-semibold text-black">+₩ 12,600</div>
               <div className="text-sm text-gray-600">완료</div>
             </div>
           </div>
@@ -111,12 +111,12 @@ export default function VATRefundPage() {
                 <span className="text-orange-600 text-sm">⏳</span>
               </div>
               <div>
-                <div className="text-base font-semibold text-black">명동 백화점</div>
+                <div className="text-sm font-semibold text-black">명동 백화점</div>
                 <div className="text-sm text-gray-600">어제</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-base font-semibold text-black">+₩ 33,000</div>
+              <div className="text-sm font-semibold text-black">+₩ 33,000</div>
               <div className="text-sm text-gray-600">대기중</div>
             </div>
           </div>
@@ -127,12 +127,12 @@ export default function VATRefundPage() {
                 <span className="text-green-600 text-sm">✓</span>
               </div>
               <div>
-                <div className="text-base font-semibold text-black">동화면세점</div>
+                <div className="text-sm font-semibold text-black">동화면세점</div>
                 <div className="text-sm text-gray-600">3일 전</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-base font-semibold text-black">+₩ 45,800</div>
+              <div className="text-sm font-semibold text-black">+₩ 45,800</div>
               <div className="text-sm text-gray-600">완료</div>
             </div>
           </div>

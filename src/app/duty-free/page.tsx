@@ -25,30 +25,30 @@ export default function DutyFreePage() {
   return (
     <>
       <DutyFreeProgress />
-      <div className="space-y-6">
-      {/* Header */}
-      <div className="pt-4">
-        <h1 className="text-3xl font-bold text-black mb-3">스마트 면세 관리</h1>
-        <p className="text-gray-600 text-base">한도 자동 추적 • 초과 알림</p>
+      <div className="space-y-5">
+      {/* Header - 80% scaled */}
+      <div className="pt-3">
+        <h1 className="text-2xl font-bold text-black mb-2">온전한 투명성</h1>
+        <p className="text-gray-600 text-sm">블록체인 기록 • 세수 자동화 • 데이터 분석</p>
       </div>
 
-      {/* Current Status Card */}
-      <div className="bg-black rounded-3xl p-6 text-white">
-        <div className="flex justify-between items-start mb-4">
+      {/* Current Status Card - 80% scaled */}
+      <div className="bg-black rounded-2xl p-5 text-white">
+        <div className="flex justify-between items-start mb-3">
           <div>
-            <p className="text-gray-300 text-base">이번 여행 한도</p>
-            <p className="text-3xl font-bold">$540 / $800</p>
+            <p className="text-gray-300 text-sm">블록체인 기록</p>
+            <p className="text-2xl font-bold">투명 거래</p>
           </div>
           <div className="text-right">
-            <p className="text-gray-300 text-base">남은 한도</p>
-            <p className="text-2xl font-bold text-green-400">$260</p>
+            <p className="text-gray-300 text-sm">세수 자동화</p>
+            <p className="text-xl font-bold text-green-400">활성화</p>
           </div>
         </div>
-        <div className="w-full bg-gray-700 rounded-full h-2 mb-4">
-          <div className="bg-white h-2 rounded-full" style={{ width: '67.5%' }}></div>
+        <div className="w-full bg-gray-700 rounded-full h-2 mb-3">
+          <div className="bg-white h-2 rounded-full" style={{ width: '100%' }}></div>
         </div>
-        <div className="text-base text-gray-300">
-          한도 80% 사용 시 알림 • 초과 위험 자동 경고
+        <div className="text-sm text-gray-300">
+          실시간 데이터 분석 • 세관 자동 리포팅
         </div>
       </div>
 
@@ -79,8 +79,8 @@ export default function DutyFreePage() {
                   <Icon className="w-5 h-5 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-lg">{service.title}</div>
-                  <div className="text-base text-gray-600">{service.description}</div>
+                  <div className="font-semibold text-black text-base">{service.title}</div>
+                  <div className="text-sm text-gray-600">{service.description}</div>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -89,39 +89,39 @@ export default function DutyFreePage() {
         })}
       </div>
 
-      {/* Recent Purchases */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-bold text-black">최근 구매</h3>
-        <div className="space-y-1">
+      {/* Recent Activity */}
+      <div className="space-y-3">
+        <h3 className="text-lg font-bold text-black">블록체인 활동</h3>
+        <div className="space-y-2">
           <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                <span className="text-sm">🛍️</span>
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <span className="text-sm">🔗</span>
               </div>
               <div>
-                <div className="text-base font-semibold text-black">명품 가방</div>
-                <div className="text-sm text-gray-600">2시간 전</div>
+                <div className="text-sm font-semibold text-black">블록 기록</div>
+                <div className="text-xs text-gray-600">2시간 전 • 거래 해시</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-base font-semibold text-black">$320</div>
-              <div className="text-sm text-gray-600">면세</div>
+              <div className="text-sm font-semibold text-black">확인됨</div>
+              <div className="text-xs text-gray-600">완료</div>
             </div>
           </div>
           
           <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                <span className="text-sm">🥃</span>
+              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                <span className="text-sm">📊</span>
               </div>
               <div>
-                <div className="text-base font-semibold text-black">위스키</div>
-                <div className="text-sm text-gray-600">어제</div>
+                <div className="text-sm font-semibold text-black">데이터 분석</div>
+                <div className="text-xs text-gray-600">어제 • 세수 리포트</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-base font-semibold text-black">$130</div>
-              <div className="text-sm text-gray-600">면세</div>
+              <div className="text-sm font-semibold text-black">자동 완료</div>
+              <div className="text-xs text-gray-600">전송됨</div>
             </div>
           </div>
         </div>
