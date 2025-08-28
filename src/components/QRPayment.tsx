@@ -53,14 +53,16 @@ export function QRPaymentGenerator() {
     payment.qrCode = generateQRData(payment.id, payment.amount, payment.currency);
     
     try {
-      // QR 코드 이미지 생성
+      // QR 코드 이미지 생성 - 정사각형 보장
       const qrImageDataUrl = await QRCode.toDataURL(payment.qrCode, {
-        width: 200,
-        margin: 2,
+        width: 256,
+        height: 256,
+        margin: 1,
         color: {
           dark: '#000000',
           light: '#FFFFFF'
-        }
+        },
+        type: 'image/png'
       });
       
       setQrImageUrl(qrImageDataUrl);
@@ -100,11 +102,14 @@ export function QRPaymentGenerator() {
           <div className="flex justify-center p-4 bg-white rounded-lg">
             {qrPayment.status !== 'expired' && qrImageUrl ? (
               <div className="text-center">
-                <img 
-                  src={qrImageUrl} 
-                  alt="QR Code" 
-                  className="w-48 h-48 mx-auto mb-2"
-                />
+                <div className="w-48 h-48 mx-auto mb-2 flex items-center justify-center bg-white">
+                  <img 
+                    src={qrImageUrl} 
+                    alt="QR Code" 
+                    className="block w-full h-full"
+                    style={{ imageRendering: 'pixelated' }}
+                  />
+                </div>
                 <div className="font-mono text-xs text-gray-500 break-all">
                   ID: {qrPayment.id}
                 </div>

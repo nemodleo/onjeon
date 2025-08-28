@@ -25,41 +25,43 @@ import { Button } from '@/components/ui/button';
 const navigation = [
   { name: '홈', href: '/', icon: Home },
   { 
-    name: '환전', 
-    href: '/exchange', 
+    name: '결제', 
+    href: '/payment', 
     icon: CreditCard,
     children: [
-      { name: 'QR 결제', href: '/exchange/qr-payment' },
-      { name: 'OTP 출금', href: '/exchange/otp-withdrawal' },
-      { name: 'POS 시스템', href: '/exchange/pos' }
+      { name: 'QR 결제', href: '/payment/qr-payment' },
+      { name: 'NFC 결제', href: '/payment/nfc-payment' },
+      { name: '결제 내역', href: '/payment/history' }
     ]
   },
   { 
-    name: '면세점', 
+    name: '환전', 
+    href: '/exchange', 
+    icon: Wallet,
+    children: [
+      { name: '실시간 환율', href: '/exchange/rates' },
+      { name: 'ATM 출금', href: '/exchange/otp-withdrawal' },
+      { name: '환전 내역', href: '/exchange/history' }
+    ]
+  },
+  { 
+    name: '면세', 
     href: '/duty-free', 
     icon: ShoppingBag,
     children: [
-      { name: '대시보드', href: '/duty-free/dashboard' },
+      { name: '한도 확인', href: '/duty-free/dashboard' },
+      { name: 'VAT 환급', href: '/duty-free/vat-refund' },
       { name: '여행 설정', href: '/duty-free/trip-setup' }
     ]
   },
   { 
-    name: 'VAT 환급', 
-    href: '/vat-refund', 
-    icon: Receipt,
-    children: [
-      { name: '대시보드', href: '/vat-refund/dashboard' },
-      { name: '스탬프 처리', href: '/vat-refund/stamp' }
-    ]
-  },
-  { 
-    name: '세관 신고', 
+    name: '세관신고', 
     href: '/customs', 
     icon: FileText,
     children: [
-      { name: '설정', href: '/customs/settings' },
-      { name: 'NFT 영수증함', href: '/customs/receipts' },
-      { name: '미리보기', href: '/customs/preview' }
+      { name: '자동 신고', href: '/customs/settings' },
+      { name: 'NFT 영수증', href: '/customs/receipts' },
+      { name: '신고서 확인', href: '/customs/preview' }
     ]
   }
 ];
@@ -181,8 +183,8 @@ export function DesktopNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="px-6">
-      <div className="flex items-center justify-between">
+    <nav className="w-full h-full">
+      <div className="flex h-full">
         {navigation.map((item) => {
           const Icon = item.icon;
           const isActive = pathname.startsWith(item.href) && item.href !== '/';
@@ -192,20 +194,18 @@ export function DesktopNavigation() {
             <Link
               key={item.name}
               href={item.href}
-              className="flex flex-col items-center py-2 transition-all duration-200 text-center min-w-[60px]"
-            >
-              <div className={cn(
-                "w-10 h-10 rounded-2xl flex items-center justify-center mb-1 transition-colors",
+              className={cn(
+                "flex-1 flex flex-col justify-center items-center py-2 transition-all duration-200",
                 (isActive || isHome) ? "bg-black" : "bg-transparent"
-              )}>
-                <Icon className={cn(
-                  "h-5 w-5",
-                  (isActive || isHome) ? "text-white" : "text-gray-400"
-                )} />
-              </div>
+              )}
+            >
+              <Icon className={cn(
+                "h-5 w-5 mb-0.5",
+                (isActive || isHome) ? "text-white" : "text-gray-400"
+              )} />
               <span className={cn(
-                "text-xs font-medium",
-                (isActive || isHome) ? "text-black" : "text-gray-400"
+                "text-[10px]",
+                (isActive || isHome) ? "text-white" : "text-gray-400"
               )}>{item.name}</span>
             </Link>
           );

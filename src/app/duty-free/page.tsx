@@ -25,42 +25,42 @@ export default function DutyFreePage() {
   return (
     <>
       <DutyFreeProgress />
-      <div className="space-y-5">
-      {/* Header - 80% scaled */}
-      <div className="pt-3">
-        <h1 className="text-2xl font-bold text-black mb-2">온전한 투명성</h1>
-        <p className="text-gray-600 text-sm">블록체인 기록 • 세수 자동화 • 데이터 분석</p>
+      <div className="space-y-4">
+      {/* Header */}
+      <div className="pt-2">
+        <h1 className="text-xl font-bold text-black mb-1">면세점</h1>
+        <p className="text-gray-600 text-xs">유저 면세 현황 • 한도 사용 • 블록체인 기록</p>
       </div>
 
-      {/* Current Status Card - 80% scaled */}
-      <div className="bg-black rounded-2xl p-5 text-white">
-        <div className="flex justify-between items-start mb-3">
+      {/* Current Status Card */}
+      <div className="bg-black rounded-xl p-4 text-white">
+        <div className="flex justify-between items-start mb-2">
           <div>
-            <p className="text-gray-300 text-sm">블록체인 기록</p>
-            <p className="text-2xl font-bold">투명 거래</p>
+            <p className="text-gray-300 text-xs">사용 가능 한도</p>
+            <p className="text-lg font-bold">$120</p>
           </div>
           <div className="text-right">
-            <p className="text-gray-300 text-sm">세수 자동화</p>
-            <p className="text-xl font-bold text-green-400">활성화</p>
+            <p className="text-gray-300 text-xs">총 한도</p>
+            <p className="text-lg font-bold">$600</p>
           </div>
         </div>
-        <div className="w-full bg-gray-700 rounded-full h-2 mb-3">
-          <div className="bg-white h-2 rounded-full" style={{ width: '100%' }}></div>
+        <div className="w-full bg-gray-700 rounded-full h-1.5 mb-2">
+          <div className="bg-green-400 h-1.5 rounded-full" style={{ width: '80%' }}></div>
         </div>
-        <div className="text-sm text-gray-300">
-          실시간 데이터 분석 • 세관 자동 리포팅
+        <div className="text-xs text-gray-300">
+          한도 사용률 80% • 블록체인 자동 기록
         </div>
       </div>
 
       {/* Quick Stats - 2 Column Grid */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="bg-gray-50 rounded-2xl p-4">
-          <div className="text-2xl font-bold text-orange-500">80%</div>
-          <div className="text-sm text-gray-600">한도 사용률</div>
+      <div className="grid grid-cols-2 gap-2">
+        <div className="bg-gray-50 rounded-xl p-3">
+          <div className="text-lg font-bold text-orange-500">80%</div>
+          <div className="text-xs text-gray-600">한도 사용률</div>
         </div>
-        <div className="bg-gray-50 rounded-2xl p-4">
-          <div className="text-2xl font-bold text-black">12</div>
-          <div className="text-sm text-gray-600">NFT 영수증</div>
+        <div className="bg-gray-50 rounded-xl p-3">
+          <div className="text-lg font-bold text-black">12</div>
+          <div className="text-xs text-gray-600">NFT 영수증</div>
         </div>
       </div>
 
@@ -72,15 +72,15 @@ export default function DutyFreePage() {
             <Link
               key={service.id}
               href={service.href}
-              className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 active:bg-gray-50 transition-colors"
+              className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 active:bg-gray-50 transition-colors"
             >
-              <div className="flex items-center space-x-4">
-                <div className="w-10 h-10 bg-gray-100 rounded-2xl flex items-center justify-center">
-                  <Icon className="w-5 h-5 text-black" />
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
+                  <Icon className="w-4 h-4 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-base">{service.title}</div>
-                  <div className="text-sm text-gray-600">{service.description}</div>
+                  <div className="font-semibold text-black text-sm">{service.title}</div>
+                  <div className="text-xs text-gray-600">{service.description}</div>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -91,37 +91,49 @@ export default function DutyFreePage() {
 
       {/* Recent Activity */}
       <div className="space-y-3">
-        <h3 className="text-lg font-bold text-black">블록체인 활동</h3>
+        <h3 className="text-base font-bold text-black">블록체인 기록</h3>
         <div className="space-y-2">
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
+          <div className="bg-gray-50 rounded-xl p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center space-x-2">
+                <div className="text-sm">🔗</div>
+                <span className="font-semibold text-sm">투명 거래</span>
+              </div>
+              <span className="text-xs text-green-600 font-medium">활성화</span>
+            </div>
+            <div className="text-xs text-gray-600 mb-2">세수 자동화 활성화</div>
+            <div className="text-xs text-gray-500">실시간 데이터 분석 • 세관 자동 리포팅</div>
+          </div>
+          
+          <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-sm">🔗</span>
+                <span className="text-sm">💼</span>
               </div>
               <div>
-                <div className="text-sm font-semibold text-black">블록 기록</div>
-                <div className="text-xs text-gray-600">2시간 전 • 거래 해시</div>
+                <div className="text-sm font-semibold text-black">롯데면세점</div>
+                <div className="text-xs text-gray-600">2시간 전 • 구매 기록</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-semibold text-black">확인됨</div>
-              <div className="text-xs text-gray-600">완료</div>
+              <div className="text-sm font-semibold text-black">-$150</div>
+              <div className="text-xs text-gray-600">블록체인 기록</div>
             </div>
           </div>
           
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
+          <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                <span className="text-sm">📊</span>
+                <span className="text-sm">🛍️</span>
               </div>
               <div>
-                <div className="text-sm font-semibold text-black">데이터 분석</div>
-                <div className="text-xs text-gray-600">어제 • 세수 리포트</div>
+                <div className="text-sm font-semibold text-black">신라면세점</div>
+                <div className="text-xs text-gray-600">어제 • 구매 기록</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-semibold text-black">자동 완료</div>
-              <div className="text-xs text-gray-600">전송됨</div>
+              <div className="text-sm font-semibold text-black">-$330</div>
+              <div className="text-xs text-gray-600">블록체인 기록</div>
             </div>
           </div>
         </div>

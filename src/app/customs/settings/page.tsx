@@ -11,51 +11,51 @@ export default function CustomsSettingsPage() {
   return (
     <>
       <CustomsProgress />
-      <div className="space-y-8">
+      <div className="space-y-4">
       {/* Header */}
-      <div className="pt-6">
-        <h1 className="text-3xl font-bold text-black mb-3">자동 세관 신고 설정</h1>
-        <p className="text-gray-600 text-base">KYC 연동 • ON/OFF 토글</p>
+      <div className="pt-2">
+        <h1 className="text-xl font-bold text-black mb-1">자동 세관 신고 설정</h1>
+        <p className="text-gray-600 text-xs">KYC 연동 • ON/OFF 토글</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="space-y-4">
         {/* 설정 패널 */}
         <div>
           <CustomsSettings />
         </div>
 
         {/* 정보 및 가이드 */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* 기능 소개 - Apple Style */}
           <div className="space-y-3">
-            <h3 className="text-lg font-bold text-black">자동 세관 신고란?</h3>
-            <div className="space-y-3">
-              <div className="bg-gray-50 rounded-2xl p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <span className="text-lg">🤖</span>
-                  <span className="font-semibold text-black">완전 자동화</span>
+            <h3 className="text-base font-bold text-black">자동 세관 신고란?</h3>
+            <div className="space-y-2">
+              <div className="bg-gray-50 rounded-xl p-3">
+                <div className="flex items-center space-x-2 mb-1">
+                  <span className="text-sm">🤖</span>
+                  <span className="font-semibold text-sm text-black">완전 자동화</span>
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs text-gray-600">
                   KRW-C 결제 → NFT 영수증 → 자동 신고서
                 </div>
               </div>
               
-              <div className="bg-gray-50 rounded-2xl p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <span className="text-lg">⏰</span>
-                  <span className="font-semibold text-black">스마트 스케줄링</span>
+              <div className="bg-gray-50 rounded-xl p-3">
+                <div className="flex items-center space-x-2 mb-1">
+                  <span className="text-sm">⏰</span>
+                  <span className="font-semibold text-sm text-black">스마트 스케줄링</span>
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs text-gray-600">
                   귀국 24시간 전 자동 작성/제출
                 </div>
               </div>
               
-              <div className="bg-gray-50 rounded-2xl p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <span className="text-lg">🔒</span>
-                  <span className="font-semibold text-black">안전한 인증</span>
+              <div className="bg-gray-50 rounded-xl p-3">
+                <div className="flex items-center space-x-2 mb-1">
+                  <span className="text-sm">🔒</span>
+                  <span className="font-semibold text-sm text-black">안전한 인증</span>
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs text-gray-600">
                   KYC 레벨 2 인증 필수
                 </div>
               </div>
@@ -64,23 +64,23 @@ export default function CustomsSettingsPage() {
 
           {/* 이용 혜택 - Apple Style */}
           <div className="space-y-3">
-            <h3 className="text-lg font-bold text-black">이용 혜택</h3>
-            <div className="bg-gray-50 rounded-2xl p-4">
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="text-center p-3 bg-white rounded-xl">
-                  <div className="font-bold text-black">100%</div>
+            <h3 className="text-base font-bold text-black">이용 혜택</h3>
+            <div className="bg-gray-50 rounded-xl p-3">
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="text-center p-2 bg-white rounded-lg">
+                  <div className="font-bold text-sm text-black">100%</div>
                   <div className="text-gray-600">자동화</div>
                 </div>
-                <div className="text-center p-3 bg-white rounded-xl">
-                  <div className="font-bold text-black">0분</div>
+                <div className="text-center p-2 bg-white rounded-lg">
+                  <div className="font-bold text-sm text-black">0분</div>
                   <div className="text-gray-600">대기시간</div>
                 </div>
-                <div className="text-center p-3 bg-white rounded-xl">
-                  <div className="font-bold text-black">0%</div>
+                <div className="text-center p-2 bg-white rounded-lg">
+                  <div className="font-bold text-sm text-black">0%</div>
                   <div className="text-gray-600">실수율</div>
                 </div>
-                <div className="text-center p-3 bg-white rounded-xl">
-                  <div className="font-bold text-black">24H</div>
+                <div className="text-center p-2 bg-white rounded-lg">
+                  <div className="font-bold text-sm text-black">24H</div>
                   <div className="text-gray-600">사전처리</div>
                 </div>
               </div>
@@ -89,8 +89,8 @@ export default function CustomsSettingsPage() {
 
           {/* KYC 가이드 - Apple Style */}
           <div className="space-y-3">
-            <h3 className="text-lg font-bold text-black">KYC 인증 가이드</h3>
-            <div className="bg-gray-50 rounded-2xl p-4">
+            <h3 className="text-base font-bold text-black">KYC 인증 가이드</h3>
+            <div className="bg-gray-50 rounded-xl p-3">
               <div className="space-y-3">
                 <div className="space-y-2">
                   <div className="font-medium text-sm text-black">필요 서류</div>
@@ -122,8 +122,8 @@ export default function CustomsSettingsPage() {
 
           {/* 주의사항 - Apple Style */}
           <div className="space-y-3">
-            <h3 className="text-lg font-bold text-black">주의사항</h3>
-            <div className="bg-gray-50 rounded-2xl p-4">
+            <h3 className="text-base font-bold text-black">주의사항</h3>
+            <div className="bg-gray-50 rounded-xl p-3">
               <div className="space-y-2 text-sm">
                 <div className="flex items-start space-x-2">
                   <span>⚠️</span>

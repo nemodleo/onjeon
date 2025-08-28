@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { formatCurrency, calculateExchange } from '@/lib/utils';
 import { Currency, PaymentQuote } from '@/types';
 
@@ -11,54 +10,59 @@ interface POSSystemProps {
   merchantName?: string;
 }
 
+interface ScannedQRData {
+  type: string;
+  paymentId: string;
+  amount: number;
+  currency: Currency;
+  timestamp: number;
+}
+
 export function POSSystem({ merchantName = "테스트 매장" }: POSSystemProps) {
-  const [scannedData, setScannedData] = useState<string>('');
-  const [amount, setAmount] = useState<string>('');
-  const [currency, setCurrency] = useState<Currency>('USD');
+  const [scannedData, setScannedData] = useState<ScannedQRData | null>(null);
   const [quote, setQuote] = useState<PaymentQuote | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
 
   // 모의 환율 데이터
   const exchangeRates: Record<string, number> = {
-    'USD-KRW': 1320,
-    'JPY-KRW': 8.9,
-    'EUR-KRW': 1440,
     'KRW-USD': 0.000758,
     'KRW-JPY': 0.112,
     'KRW-EUR': 0.000694,
+    'USD-KRW': 1320,
+    'JPY-KRW': 8.9,
+    'EUR-KRW': 1440,
   };
 
   const simulateScan = () => {
     // 모의 QR 스캔 데이터
-    const mockQRData = {
+    const mockQRData: ScannedQRData = {
       type: 'krw-payment',
       paymentId: 'id_demo123',
-      amount: 100000,
+      amount: 45000,
       currency: 'KRW',
       timestamp: Date.now(),
     };
-    setScannedData(JSON.stringify(mockQRData));
+    setScannedData(mockQRData);
+    
+    // 자동으로 견적 생성
+    generateQuote(mockQRData);
   };
 
-  const getQuote = async () => {
-    if (!amount || !scannedData) return;
-
-    const parsedData = JSON.parse(scannedData);
-    const fromCurrency = parsedData.currency as Currency;
-    const toCurrency = currency;
-    const paymentAmount = parseFloat(amount);
+  const generateQuote = (data: ScannedQRData) => {
+    const fromCurrency = data.currency;
+    const toCurrency = 'USD'; // 기본 정산 통화
     
     // 환율 가져오기
     const rateKey = `${fromCurrency}-${toCurrency}`;
     const exchangeRate = exchangeRates[rateKey] || 1;
     
-    const { exchanged, spreadCost, total } = calculateExchange(paymentAmount, exchangeRate, 0.002);
+    const { exchanged, spreadCost, total } = calculateExchange(data.amount, exchangeRate, 0.002);
     
     const newQuote: PaymentQuote = {
-      amount: paymentAmount,
-      fromCurrency: toCurrency,
-      toCurrency: fromCurrency,
+      amount: data.amount,
+      fromCurrency,
+      toCurrency,
       exchangeRate,
       spread: 0.002,
       fees: spreadCost,
@@ -82,8 +86,7 @@ export function POSSystem({ merchantName = "테스트 매장" }: POSSystemProps)
   };
 
   const reset = () => {
-    setScannedData('');
-    setAmount('');
+    setScannedData(null);
     setQuote(null);
     setIsProcessing(false);
     setIsCompleted(false);
@@ -136,89 +139,82 @@ export function POSSystem({ merchantName = "테스트 매장" }: POSSystemProps)
         <CardTitle>POS 시스템 - {merchantName}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium mb-2">QR 스캔</label>
-          <div className="space-y-2">
-            <Button onClick={simulateScan} variant="outline" className="w-full">
-              📱 QR 코드 스캔 (시뮬레이션)
-            </Button>
-            {scannedData && (
-              <div className="p-2 bg-green-50 border border-green-200 rounded text-xs font-mono">
-                스캔 완료: {scannedData.substring(0, 50)}...
+        {!scannedData ? (
+          <>
+            <div className="text-center py-8">
+              <div className="text-6xl mb-4">📱</div>
+              <div className="text-lg font-semibold mb-2">QR 코드를 스캔하세요</div>
+              <div className="text-sm text-gray-500 mb-4">
+                고객의 결제 QR 코드를 스캔하면<br />
+                결제 정보가 자동으로 표시됩니다
               </div>
-            )}
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2">결제 금액</label>
-          <Input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="결제할 금액을 입력"
-            disabled={!scannedData}
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2">현지 통화</label>
-          <select 
-            value={currency} 
-            onChange={(e) => setCurrency(e.target.value as Currency)}
-            className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-sm"
-            disabled={!scannedData}
-          >
-            <option value="USD">USD (달러)</option>
-            <option value="JPY">JPY (엔화)</option>
-            <option value="EUR">EUR (유로)</option>
-            <option value="KRW">KRW (원화)</option>
-          </select>
-        </div>
-
-        {quote && (
-          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <div className="text-sm font-medium text-blue-800 mb-2">견적</div>
-            <div className="space-y-1 text-sm">
-              <div className="flex justify-between">
-                <span>결제 금액:</span>
-                <span className="font-medium">{formatCurrency(quote.amount, quote.fromCurrency)}</span>
+              <Button onClick={simulateScan} variant="outline" className="w-full max-w-xs">
+                QR 코드 스캔 (시뮬레이션)
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-green-800">QR 스캔 완료</span>
+                <span className="text-xs text-gray-500">ID: {scannedData.paymentId}</span>
               </div>
-              <div className="flex justify-between">
-                <span>환율:</span>
-                <span className="font-medium">{quote.exchangeRate.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>수수료 (0.2%):</span>
-                <span className="font-medium">{formatCurrency(quote.fees, quote.toCurrency)}</span>
-              </div>
-              <div className="flex justify-between border-t pt-1 font-bold">
-                <span>정산 금액:</span>
-                <span>{formatCurrency(quote.finalAmount, quote.toCurrency)}</span>
+              <div className="text-xs text-gray-600">
+                타임스탬프: {new Date(scannedData.timestamp).toLocaleString()}
               </div>
             </div>
-          </div>
-        )}
 
-        <div className="space-y-2">
-          <Button 
-            onClick={getQuote} 
-            className="w-full"
-            variant="outline"
-            disabled={!scannedData || !amount}
-          >
-            견적 조회
-          </Button>
-          
-          {quote && (
-            <Button 
-              onClick={processPayment} 
-              className="w-full"
-            >
-              결제 승인
-            </Button>
-          )}
-        </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="text-sm text-gray-600 mb-1">결제 요청 금액</div>
+              <div className="text-2xl font-bold">
+                {formatCurrency(scannedData.amount, scannedData.currency)}
+              </div>
+            </div>
+
+            {quote && (
+              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="text-sm font-medium text-blue-800 mb-2">정산 정보</div>
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span>결제 금액:</span>
+                    <span className="font-medium">{formatCurrency(quote.amount, quote.fromCurrency)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>적용 환율:</span>
+                    <span className="font-medium">1 {quote.fromCurrency} = {quote.exchangeRate.toFixed(4)} {quote.toCurrency}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>수수료 (0.2%):</span>
+                    <span className="font-medium">{formatCurrency(quote.fees, quote.toCurrency)}</span>
+                  </div>
+                  <div className="flex justify-between border-t pt-1 font-bold">
+                    <span>정산 예정액:</span>
+                    <span>{formatCurrency(quote.finalAmount, quote.toCurrency)}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Button 
+                onClick={processPayment} 
+                className="w-full"
+                disabled={!quote}
+              >
+                결제 승인
+              </Button>
+              
+              <Button 
+                onClick={reset} 
+                className="w-full"
+                variant="outline"
+              >
+                취소
+              </Button>
+            </div>
+          </>
+        )}
       </CardContent>
     </Card>
   );
