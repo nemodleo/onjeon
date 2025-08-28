@@ -205,7 +205,7 @@ export function ProgressFlow() {
               )}>
                 {step.title}
               </div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-sm text-gray-500 mt-1">
                 {step.subtitle}
               </div>
               
@@ -234,7 +234,7 @@ export function ProgressFlow() {
 
       {/* Overall Progress Indicator */}
       <div className="mt-6 bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg border">
-        <div className="text-xs font-medium text-gray-700 mb-1">전체 진행률</div>
+        <div className="text-sm font-medium text-gray-700 mb-1">전체 진행률</div>
         <div className="flex items-center space-x-2">
           <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
             <div 
@@ -242,7 +242,7 @@ export function ProgressFlow() {
               style={{ width: `${scrollProgress * 100}%` }}
             />
           </div>
-          <div className="text-xs font-bold text-gray-900 min-w-[32px]">
+          <div className="text-sm font-bold text-gray-900 min-w-[32px]">
             {Math.round(scrollProgress * 100)}%
           </div>
         </div>

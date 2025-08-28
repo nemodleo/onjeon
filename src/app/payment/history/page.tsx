@@ -161,23 +161,23 @@ export default function PaymentHistoryPage() {
       <PaymentProgress />
       <div className="space-y-4">
         {/* Header */}
-        <div className="pt-2">
-          <h1 className="text-xl font-bold text-black mb-1">결제 내역</h1>
-          <p className="text-gray-600 text-xs">모든 거래 내역 • 영수증 확인</p>
+        <div>
+          <h1 className="text-3xl font-bold text-black">결제 내역</h1>
+          <p className="text-gray-600 text-sm">모든 거래 내역 • 영수증 확인</p>
         </div>
 
         {/* Balance Card */}
-        <div className="bg-black rounded-xl p-4 text-white">
-          <div className="flex justify-between items-start mb-2">
+        <div className="bg-black rounded-2xl p-6 text-white">
+          <div className="flex justify-between items-start mb-6">
             <div>
-              <p className="text-gray-300 text-xs">이번 달 결제</p>
+              <p className="text-gray-300 text-sm">이번 달 결제</p>
               <div className="flex items-baseline space-x-2">
-                <p className="text-lg font-bold">{formatCurrency(totalAmount, 'KRW')}</p>
+                <p className="text-3xl font-bold">{formatCurrency(totalAmount, 'KRW')}</p>
                 <p className="text-sm font-medium text-gray-400">{totalAmount.toLocaleString()} KRW-C</p>
               </div>
             </div>
             <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-              <span className="text-xs text-white font-bold">📋</span>
+              <span className="text-sm text-white font-bold">📋</span>
             </div>
           </div>
           <div className="text-xs text-gray-300">
@@ -187,29 +187,29 @@ export default function PaymentHistoryPage() {
 
         {/* Quick Stats */}
         <div className="grid grid-cols-3 gap-2">
-          <div className="bg-gray-50 rounded-xl p-3">
-            <div className="text-lg font-bold text-black">{filteredTransactions.filter(t => t.status === 'completed').length}</div>
+          <div className="bg-gray-50 rounded-2xl p-5">
+            <div className="text-2xl font-bold text-black">{filteredTransactions.filter(t => t.status === 'completed').length}</div>
             <div className="text-xs text-gray-600">완료</div>
           </div>
-          <div className="bg-gray-50 rounded-xl p-3">
-            <div className="text-lg font-bold text-orange-500">{filteredTransactions.filter(t => t.status === 'pending').length}</div>
+          <div className="bg-gray-50 rounded-2xl p-5">
+            <div className="text-2xl font-bold text-orange-500">{filteredTransactions.filter(t => t.status === 'pending').length}</div>
             <div className="text-xs text-gray-600">대기중</div>
           </div>
-          <div className="bg-gray-50 rounded-xl p-3">
-            <div className="text-lg font-bold text-green-500">₩0</div>
+          <div className="bg-gray-50 rounded-2xl p-5">
+            <div className="text-3xl font-bold text-green-500">₩0</div>
             <div className="text-xs text-gray-600">절약액</div>
           </div>
         </div>
 
         {/* Filter */}
         <div className="space-y-2">
-          <h3 className="text-base font-bold text-black">거래 유형</h3>
+          <h3 className="text-lg font-bold text-black">거래 유형</h3>
           <div className="flex space-x-2">
             <Button
               size="sm"
               variant={filter === 'all' ? 'default' : 'outline'}
               onClick={() => setFilter('all')}
-              className="text-xs"
+              className="text-sm"
             >
               전체
             </Button>
@@ -217,7 +217,7 @@ export default function PaymentHistoryPage() {
               size="sm"
               variant={filter === 'qr' ? 'default' : 'outline'}
               onClick={() => setFilter('qr')}
-              className="text-xs"
+              className="text-sm"
             >
               QR 결제
             </Button>
@@ -225,7 +225,7 @@ export default function PaymentHistoryPage() {
               size="sm"
               variant={filter === 'pos' ? 'default' : 'outline'}
               onClick={() => setFilter('pos')}
-              className="text-xs"
+              className="text-sm"
             >
               POS
             </Button>
@@ -233,7 +233,7 @@ export default function PaymentHistoryPage() {
               size="sm"
               variant={filter === 'transfer' ? 'default' : 'outline'}
               onClick={() => setFilter('transfer')}
-              className="text-xs"
+              className="text-sm"
             >
               송금
             </Button>
@@ -243,15 +243,15 @@ export default function PaymentHistoryPage() {
         {/* Transaction List */}
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h3 className="text-base font-bold text-black">최근 거래</h3>
-            <Button size="sm" variant="ghost" className="text-xs">
+            <h3 className="text-lg font-bold text-black">최근 거래</h3>
+            <Button size="sm" variant="ghost" className="text-sm">
               <Download className="w-3 h-3 mr-1" />
               내보내기
             </Button>
           </div>
           <div className="space-y-1">
             {filteredTransactions.slice(0, 5).map((transaction) => (
-              <div key={transaction.id} className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+              <div key={transaction.id} className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
                 <div className="flex items-center space-x-3">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     transaction.status === 'completed' ? 'bg-green-100' : 
@@ -260,7 +260,7 @@ export default function PaymentHistoryPage() {
                     {getStatusIcon(transaction.status)}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-black">{transaction.merchantName}</div>
+                    <div className="text-base font-semibold text-black">{transaction.merchantName}</div>
                     <div className="text-xs text-gray-600">
                       {formatDate(transaction.timestamp)} • {getTypeLabel(transaction.type)}
                     </div>
@@ -282,12 +282,12 @@ export default function PaymentHistoryPage() {
         {/* Related Services */}
         <div className="grid grid-cols-2 gap-2">
           <Link href="/payment/qr-payment">
-            <Button variant="outline" className="w-full text-xs">
+            <Button variant="outline" className="w-full text-sm">
               QR 결제
             </Button>
           </Link>
           <Link href="/payment/pos">
-            <Button variant="outline" className="w-full text-xs">
+            <Button variant="outline" className="w-full text-sm">
               POS 시스템
             </Button>
           </Link>

@@ -79,11 +79,11 @@
 @layer components {
   /* Headings - scaled down proportionally */
   h1 {
-    @apply text-2xl font-bold text-black; /* was 3xl */
+    @apply text-3xl font-bold text-black; /* updated for better visibility */
   }
   
   h2 {
-    @apply text-xl font-bold text-black; /* was 2xl */
+    @apply text-2xl font-bold text-black; /* updated for better visibility */
   }
   
   h3 {

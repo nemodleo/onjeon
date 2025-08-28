@@ -17,17 +17,17 @@ export default function CustomsSettingsPage() {
       <CustomsProgress />
       <div className="space-y-4">
       {/* Header */}
-      <div className="pt-2">
-        <h1 className="text-xl font-bold text-black mb-1">자동 세관 신고 설정</h1>
-        <p className="text-gray-600 text-xs">KYC 연동 • ON/OFF 토글</p>
+      <div>
+        <h1 className="text-3xl font-bold text-black">자동 세관 신고 설정</h1>
+        <p className="text-gray-600 text-sm">KYC 연동 • ON/OFF 토글</p>
       </div>
 
       {/* Balance Card with Toggle */}
-      <div className="bg-black rounded-xl p-4 text-white">
-        <div className="flex justify-between items-start mb-2">
+      <div className="bg-black rounded-2xl p-6 text-white">
+        <div className="flex justify-between items-start mb-6">
           <div>
-            <p className="text-gray-300 text-xs">자동 세관 신고 상태</p>
-            <p className="text-lg font-bold mt-1">{isActive ? '활성화' : '비활성화'}</p>
+            <p className="text-gray-300 text-sm">자동 세관 신고 상태</p>
+            <p className="text-2xl font-bold mt-1">{isActive ? '활성화' : '비활성화'}</p>
           </div>
           <div className="flex items-center space-x-3">
             {/* Toggle Switch */}
@@ -38,7 +38,7 @@ export default function CustomsSettingsPage() {
               <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 transform ${isActive ? 'translate-x-6' : 'translate-x-1'}`}></div>
             </button>
             <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-              <span className="text-sm">⚙️</span>
+              <span className="text-base">⚙️</span>
             </div>
           </div>
         </div>
@@ -49,16 +49,16 @@ export default function CustomsSettingsPage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-3 gap-2">
-        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
-          <div className="text-sm font-bold text-black">100%</div>
+        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+          <div className="text-base font-bold text-black">100%</div>
           <div className="text-xs text-gray-600">자동화</div>
         </div>
-        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
-          <div className="text-sm font-bold text-black">0분</div>
+        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+          <div className="text-base font-bold text-black">0분</div>
           <div className="text-xs text-gray-600">대기시간</div>
         </div>
-        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
-          <div className="text-sm font-bold text-black">24H</div>
+        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+          <div className="text-base font-bold text-black">24H</div>
           <div className="text-xs text-gray-600">사전처리</div>
         </div>
       </div>
@@ -66,36 +66,36 @@ export default function CustomsSettingsPage() {
 
       {/* Feature Info */}
       <div className="space-y-1">
-        <h3 className="text-base font-bold text-black">자동 세관 신고란?</h3>
-        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+        <h3 className="text-lg font-bold text-black">자동 세관 신고란?</h3>
+        <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
-              <span className="text-sm">🤖</span>
+            <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <span className="text-base">🤖</span>
             </div>
             <div>
-              <div className="font-semibold text-black text-sm">완전 자동화</div>
+              <div className="font-semibold text-black text-base">완전 자동화</div>
               <div className="text-xs text-gray-600">KRW-C 결제 → NFT 영수증 → 자동 신고서</div>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+        <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
-              <span className="text-sm">⏰</span>
+            <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <span className="text-base">⏰</span>
             </div>
             <div>
-              <div className="font-semibold text-black text-sm">스마트 스케줄링</div>
+              <div className="font-semibold text-black text-base">스마트 스케줄링</div>
               <div className="text-xs text-gray-600">귀국 24시간 전 자동 작성/제출</div>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+        <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
-              <span className="text-sm">🔒</span>
+            <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <span className="text-base">🔒</span>
             </div>
             <div>
-              <div className="font-semibold text-black text-sm">안전한 인증</div>
+              <div className="font-semibold text-black text-base">안전한 인증</div>
               <div className="text-xs text-gray-600">KYC 레벨 2 인증 필수</div>
             </div>
           </div>
@@ -104,20 +104,20 @@ export default function CustomsSettingsPage() {
 
       {/* Related Services */}
       <div className="space-y-2">
-        <h3 className="text-base font-bold text-black">관련 서비스</h3>
+        <h3 className="text-lg font-bold text-black">관련 서비스</h3>
         <div className="grid grid-cols-3 gap-2">
           <Link href="/customs/receipts">
-            <Button variant="outline" className="w-full text-xs">
+            <Button variant="outline" className="w-full text-sm">
               NFT 영수증함
             </Button>
           </Link>
           <Link href="/customs/preview">
-            <Button variant="outline" className="w-full text-xs">
+            <Button variant="outline" className="w-full text-sm">
               신고서 미리보기
             </Button>
           </Link>
           <Link href="/duty-free">
-            <Button variant="outline" className="w-full text-xs">
+            <Button variant="outline" className="w-full text-sm">
               면세 / 환급
             </Button>
           </Link>

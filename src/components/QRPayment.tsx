@@ -110,12 +110,12 @@ export function QRPaymentGenerator() {
                     style={{ imageRendering: 'pixelated' }}
                   />
                 </div>
-                <div className="font-mono text-xs text-gray-500 break-all">
+                <div className="font-mono text-sm text-gray-500 break-all">
                   ID: {qrPayment.id}
                 </div>
               </div>
             ) : qrPayment.status !== 'expired' ? (
-              <div className="w-48 h-48 border-2 border-gray-300 flex items-center justify-center text-xs text-gray-500">
+              <div className="w-48 h-48 border-2 border-gray-300 flex items-center justify-center text-sm text-gray-500">
                 QR 코드 생성 중...
               </div>
             ) : (
@@ -126,17 +126,17 @@ export function QRPaymentGenerator() {
           </div>
           
           <div className="text-center space-y-2">
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-bold">
               {formatCurrency(qrPayment.amount, qrPayment.currency)}
             </div>
             
             {qrPayment.status !== 'expired' && (
-              <div className="text-sm text-gray-500">
+              <div className="text-base text-gray-500">
                 남은 시간: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
               </div>
             )}
             
-            <div className="text-xs text-gray-400">
+            <div className="text-sm text-gray-400">
               결제 ID: {qrPayment.id}
             </div>
           </div>
@@ -160,7 +160,7 @@ export function QRPaymentGenerator() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-2">금액</label>
+          <label className="block text-base font-medium mb-2">금액</label>
           <Input
             type="number"
             value={amount}
@@ -170,11 +170,11 @@ export function QRPaymentGenerator() {
         </div>
         
         <div>
-          <label className="block text-sm font-medium mb-2">통화</label>
+          <label className="block text-base font-medium mb-2">통화</label>
           <select 
             value={currency} 
             onChange={(e) => setCurrency(e.target.value as Currency)}
-            className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+            className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-base"
           >
             <option value="KRW">KRW (원화)</option>
             <option value="USD">USD (달러)</option>
@@ -185,7 +185,7 @@ export function QRPaymentGenerator() {
 
         {amount && (
           <div className="p-3 bg-gray-50 rounded-lg">
-            <div className="text-sm text-gray-600">결제 금액</div>
+            <div className="text-base text-gray-600">결제 금액</div>
             <div className="font-bold">
               {formatCurrency(parseFloat(amount), currency)}
             </div>

@@ -46,22 +46,22 @@ export default function HomePage() {
     <div className="space-y-4">
       {/* Header */}
       <div className="pt-2">
-        <h1 className="text-xl mb-1 relative inline-block">
+        <h1 className="text-3xl mb-1 relative inline-block">
           <span className="font-bold text-black">온전</span>
-          <span className="text-sm font-light text-gray-400 ml-0.5">穩錢</span>
+          <span className="text-base font-light text-gray-400 ml-0.5">穩錢</span>
         </h1>
-        <p className="text-gray-600 text-xs">
+        <p className="text-gray-600 text-sm">
           결제·환전·세금 환급·세관신고까지, 온전한 여행 인프라
         </p>
       </div>
 
       {/* Balance Card */}
-      <div className="bg-black rounded-xl p-4 text-white">
-        <div className="flex justify-between items-start mb-2">
+      <div className="bg-black rounded-2xl p-6 text-white">
+        <div className="flex justify-between items-start mb-6">
           <div>
-            <p className="text-gray-300 text-xs">사용 가능 잔액</p>
+            <p className="text-gray-300 text-sm">사용 가능 잔액</p>
             <div className="flex items-baseline space-x-1">
-              <p className="text-lg font-bold">₩ 1,234,567</p>
+              <p className="text-3xl font-bold">₩ 1,234,567</p>
               <p className="text-sm font-medium text-gray-400">~ 1,234,567 KRW-C</p>
             </div>
           </div>
@@ -75,20 +75,26 @@ export default function HomePage() {
       </div>
 
       {/* Quick Actions */}
-      <div className="space-y-1">
-        <Link href="/payment/qr-payment" className="flex items-center justify-between p-3 bg-gray-50 rounded-xl active:bg-gray-100 transition-colors">
-          <div className="flex items-center space-x-2">
-            <div className="text-base">📱</div>
-            <div className="text-xs font-semibold text-black">QR 결제</div>
-          </div>
-          <ChevronRight className="w-4 h-4 text-gray-400" />
+      <div className="grid grid-cols-5 gap-1.5">
+        <Link href="/payment/qr-payment" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-xl mb-1">📱</div>
+          <div className="text-xs font-semibold text-black">QR결제</div>
         </Link>
-        <Link href="/exchange/otp-withdrawal" className="flex items-center justify-between p-3 bg-gray-50 rounded-xl active:bg-gray-100 transition-colors">
-          <div className="flex items-center space-x-2">
-            <div className="text-base">💰</div>
-            <div className="text-xs font-semibold text-black">ATM 출금</div>
-          </div>
-          <ChevronRight className="w-4 h-4 text-gray-400" />
+        <Link href="/exchange/otp-withdrawal" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-xl mb-1">💰</div>
+          <div className="text-xs font-semibold text-black">ATM출금</div>
+        </Link>
+        <Link href="/exchange/instant-exchange" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-xl mb-1">⚡</div>
+          <div className="text-xs font-semibold text-black">즉시환전</div>
+        </Link>
+        <Link href="/duty-free/duty-free/dashboard" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-xl mb-1">🛍️</div>
+          <div className="text-xs font-semibold text-black">면세현황</div>
+        </Link>
+        <Link href="/duty-free/refund/dashboard" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-xl mb-1">💸</div>
+          <div className="text-xs font-semibold text-black">환급현황</div>
         </Link>
       </div>
 
@@ -100,14 +106,14 @@ export default function HomePage() {
             <Link
               key={service.id}
               href={service.href}
-              className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 active:bg-gray-50 transition-colors"
+              className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 active:bg-gray-50 transition-colors"
             >
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
+                <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
                   <Icon className="w-4 h-4 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-sm">{service.title}</div>
+                  <div className="font-semibold text-black text-base">{service.title}</div>
                   <div className="text-xs text-gray-600">{service.description}</div>
                 </div>
               </div>

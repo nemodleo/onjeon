@@ -76,10 +76,10 @@ export function OTPWithdrawalGenerator() {
               <div className="text-4xl font-mono font-bold text-blue-600 mb-2">
                 {withdrawal.otp}
               </div>
-              <div className="text-sm text-blue-500 mb-2">
+              <div className="text-base text-blue-500 mb-2">
                 남은 시간: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-sm text-gray-500">
                 이 코드를 대리점이나 ATM에서 입력하세요
               </div>
             </div>
@@ -99,7 +99,7 @@ export function OTPWithdrawalGenerator() {
             </div>
           )}
 
-          <div className="space-y-2 text-sm">
+          <div className="space-y-2 text-base">
             <div className="flex justify-between">
               <span>인출 금액:</span>
               <span className="font-medium">
@@ -112,7 +112,7 @@ export function OTPWithdrawalGenerator() {
             </div>
             <div className="flex justify-between">
               <span>OTP ID:</span>
-              <span className="font-mono text-xs">{withdrawal.id}</span>
+              <span className="font-mono text-sm">{withdrawal.id}</span>
             </div>
           </div>
 
@@ -135,7 +135,7 @@ export function OTPWithdrawalGenerator() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-2">인출 금액</label>
+          <label className="block text-base font-medium mb-2">인출 금액</label>
           <Input
             type="number"
             value={amount}
@@ -145,11 +145,11 @@ export function OTPWithdrawalGenerator() {
         </div>
         
         <div>
-          <label className="block text-sm font-medium mb-2">현지 통화</label>
+          <label className="block text-base font-medium mb-2">현지 통화</label>
           <select 
             value={currency} 
             onChange={(e) => setCurrency(e.target.value as Currency)}
-            className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+            className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-base"
           >
             <option value="USD">USD (달러)</option>
             <option value="JPY">JPY (엔화)</option>
@@ -158,7 +158,7 @@ export function OTPWithdrawalGenerator() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">인출 위치 (선택)</label>
+          <label className="block text-base font-medium mb-2">인출 위치 (선택)</label>
           <Input
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -168,16 +168,16 @@ export function OTPWithdrawalGenerator() {
 
         {amount && (
           <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg space-y-2">
-            <div className="text-sm text-blue-800">인출 정보</div>
-            <div className="flex justify-between text-sm">
+            <div className="text-base text-blue-800">인출 정보</div>
+            <div className="flex justify-between text-base">
               <span>인출 금액:</span>
               <span className="font-medium">{formatCurrency(parseFloat(amount), currency)}</span>
             </div>
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-base">
               <span>수수료 (1%):</span>
               <span className="font-medium">{formatCurrency(parseFloat(amount) * 0.01, currency)}</span>
             </div>
-            <div className="flex justify-between text-sm font-bold border-t pt-2">
+            <div className="flex justify-between text-base font-bold border-t pt-2">
               <span>차감 KRW-C:</span>
               <span>₩{(parseFloat(amount) * 1320 * 1.01).toLocaleString()}</span>
             </div>
@@ -192,7 +192,7 @@ export function OTPWithdrawalGenerator() {
           OTP 생성
         </Button>
 
-        <div className="text-xs text-gray-500 text-center">
+        <div className="text-sm text-gray-500 text-center">
           생성된 OTP는 2분간 유효하며, 일회용입니다.
         </div>
       </CardContent>
@@ -248,7 +248,7 @@ export function OTPVerificationTerminal() {
           
           {result.success && (
             <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-              <div className="text-sm text-green-800 space-y-1">
+              <div className="text-base text-green-800 space-y-1">
                 <div>인출 금액: $100.00</div>
                 <div>수수료: $1.00</div>
                 <div>지급할 현금: $99.00</div>
@@ -272,7 +272,7 @@ export function OTPVerificationTerminal() {
         </CardHeader>
         <CardContent className="space-y-4 text-center">
           <div className="text-4xl animate-spin">⏳</div>
-          <div className="text-sm text-gray-500">
+          <div className="text-base text-gray-500">
             OTP 유효성 및 잔액을 확인하고 있습니다
           </div>
         </CardContent>
@@ -287,18 +287,18 @@ export function OTPVerificationTerminal() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-2">OTP 입력</label>
+          <label className="block text-base font-medium mb-2">OTP 입력</label>
           <Input
             type="text"
             value={otpInput}
             onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, '').slice(0, 6))}
             placeholder="6자리 OTP를 입력하세요"
             maxLength={6}
-            className="text-center text-lg font-mono tracking-wide"
+            className="text-center text-xl font-mono tracking-wide"
           />
         </div>
 
-        <div className="text-center text-xs text-gray-500 bg-yellow-50 p-2 rounded">
+        <div className="text-center text-sm text-gray-500 bg-yellow-50 p-2 rounded">
           💡 데모용: 123456 입력하면 성공, 다른 숫자면 실패
         </div>
 

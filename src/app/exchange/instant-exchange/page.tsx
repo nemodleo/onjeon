@@ -74,23 +74,23 @@ export default function InstantExchangePage() {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="pt-2">
-        <h1 className="text-xl font-bold text-black mb-1">즉시 환전</h1>
-        <p className="text-gray-600 text-xs">스테이블코인 환전 • KRW-C ↔ USDT • 실시간 차트</p>
+      <div>
+        <h1 className="text-3xl font-bold text-black">즉시 환전</h1>
+        <p className="text-gray-600 text-sm">스테이블코인 환전 • KRW-C ↔ USDT • 실시간 차트</p>
       </div>
 
       {/* Balance Card */}
-      <div className="bg-black rounded-xl p-4 text-white">
-        <div className="flex justify-between items-start mb-2">
+      <div className="bg-black rounded-2xl p-6 text-white">
+        <div className="flex justify-between items-start mb-6">
           <div>
-            <p className="text-gray-300 text-xs">사용 가능 잔액</p>
+            <p className="text-gray-300 text-sm">사용 가능 잔액</p>
             <div className="flex items-baseline space-x-1">
-              <p className="text-lg font-bold">₩ 1,234,567</p>
+              <p className="text-3xl font-bold">₩ 1,234,567</p>
               <p className="text-sm font-medium text-gray-400">~ 1,234,567 KRW-C</p>
             </div>
           </div>
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-            <span className="text-xs text-white font-bold">🔄</span>
+            <span className="text-sm text-white font-bold">🔄</span>
           </div>
         </div>
         <div className="text-xs text-gray-300">
@@ -100,16 +100,16 @@ export default function InstantExchangePage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-3 gap-2">
-        <div className="bg-gray-50 rounded-xl p-3">
-          <div className="text-lg font-bold text-black">0%</div>
+        <div className="bg-gray-50 rounded-2xl p-5">
+          <div className="text-2xl font-bold text-black">%</div>
           <div className="text-xs text-gray-600">수수료</div>
         </div>
-        <div className="bg-gray-50 rounded-xl p-3">
-          <div className="text-lg font-bold text-black">즉시</div>
+        <div className="bg-gray-50 rounded-2xl p-5">
+          <div className="text-xl font-bold text-black">즉시</div>
           <div className="text-xs text-gray-600">처리</div>
         </div>
-        <div className="bg-gray-50 rounded-xl p-3">
-          <div className="text-lg font-bold text-black">실시간</div>
+        <div className="bg-gray-50 rounded-2xl p-5">
+          <div className="text-xl font-bold text-black">실시간</div>
           <div className="text-xs text-gray-600">환율</div>
         </div>
       </div>
@@ -125,17 +125,17 @@ export default function InstantExchangePage() {
             {/* Price Info */}
             <div className="flex justify-between items-center">
               <div>
-                <div className="text-2xl font-bold text-black">₩1,320</div>
-                <div className="text-sm text-green-600">+1.2% (24h)</div>
+                <div className="text-3xl font-bold text-black">₩1,320</div>
+                <div className="text-base text-green-600">+1.2% (24h)</div>
               </div>
               <div className="text-right">
-                <div className="text-sm text-gray-600">30d Volume</div>
+                <div className="text-base text-gray-600">30d Volume</div>
                 <div className="font-semibold">₩ 72B</div>
               </div>
             </div>
             
             {/* Line Chart */}
-            <div className="w-full h-40 bg-gray-50 rounded-lg border border-gray-200 relative">
+            <div className="w-full h-40 bg-gray-50 rounded-xl border border-gray-200 relative">
               <svg width="100%" height="100%" viewBox="0 0 400 160" className="absolute inset-0">
                 <defs>
                   {/* Grid pattern */}
@@ -285,12 +285,12 @@ export default function InstantExchangePage() {
         <CardContent className="space-y-6">
           {/* From Currency */}
           <div className="space-y-3">
-            <div className="text-sm font-medium text-gray-900">보내는 통화</div>
+            <div className="text-base font-medium text-gray-900">보내는 통화</div>
             <div className="flex gap-3">
               <select 
                 value={fromCurrency}
                 onChange={(e) => setFromCurrency(e.target.value as Currency)}
-                className="flex-1 p-3 border rounded-xl text-sm"
+                className="flex-1 p-3 border rounded-2xl text-base"
               >
                 <option value="KRW-C">KRW-C (온전코인)</option>
                 <option value="USDT">USDT (테더)</option>
@@ -305,7 +305,7 @@ export default function InstantExchangePage() {
                 className="flex-1 p-3"
               />
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-base text-gray-600">
               보유: {formatCurrency(balance[fromCurrency], fromCurrency)}
             </div>
           </div>
@@ -324,32 +324,32 @@ export default function InstantExchangePage() {
 
           {/* To Currency */}
           <div className="space-y-3">
-            <div className="text-sm font-medium text-gray-900">받는 통화</div>
+            <div className="text-base font-medium text-gray-900">받는 통화</div>
             <div className="flex gap-3">
               <select 
                 value={toCurrency}
                 onChange={(e) => setToCurrency(e.target.value as Currency)}
-                className="flex-1 p-3 border rounded-xl text-sm"
+                className="flex-1 p-3 border rounded-2xl text-base"
               >
                 <option value="KRW-C">KRW-C (온전코인)</option>
                 <option value="USDT">USDT (테더)</option>
                 <option value="USDC">USDC (USD 코인)</option>
                 <option value="DAI">DAI (다이)</option>
               </select>
-              <div className="flex-1 p-3 bg-gray-50 rounded-xl text-right">
+              <div className="flex-1 p-3 bg-gray-50 rounded-2xl text-right">
                 <div className="font-semibold">
                   {amount ? formatCurrency(calculateExchange(), toCurrency) : '0'}
                 </div>
               </div>
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-base text-gray-600">
               보유: {formatCurrency(balance[toCurrency], toCurrency)}
             </div>
           </div>
 
           {/* Exchange Rate Info */}
-          <div className="bg-blue-50 p-4 rounded-xl">
-            <div className="space-y-2 text-sm">
+          <div className="bg-blue-50 p-4 rounded-2xl">
+            <div className="space-y-2 text-base">
               <div className="flex justify-between">
                 <span>현재 환율</span>
                 <span className="font-semibold">
@@ -363,7 +363,7 @@ export default function InstantExchangePage() {
               {amount && (
                 <div className="flex justify-between border-t pt-2">
                   <span className="font-semibold">받을 금액</span>
-                  <span className="font-bold text-lg">
+                  <span className="font-bold text-3xl">
                     {formatCurrency(calculateExchange(), toCurrency)}
                   </span>
                 </div>
@@ -373,7 +373,7 @@ export default function InstantExchangePage() {
 
           {/* Exchange Button */}
           <Button 
-            className="w-full py-3"
+            className="w-full py-4"
             onClick={handleExchange}
             disabled={!amount || parseFloat(amount) <= 0 || isProcessing}
             size="lg"
@@ -398,10 +398,10 @@ export default function InstantExchangePage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
+            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold">KRW-C</span>
+                  <span className="text-sm font-bold">KRW-C</span>
                 </div>
                 <div>
                   <div className="font-semibold">USDT/KRW-C</div>
@@ -410,14 +410,14 @@ export default function InstantExchangePage() {
               </div>
               <div className="text-right">
                 <div className="font-bold">1,320</div>
-                <div className="text-xs text-green-600">+1.2%</div>
+                <div className="text-sm text-green-600">+1.2%</div>
               </div>
             </div>
             
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
+            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold">USDC</span>
+                  <span className="text-sm font-bold">USDC</span>
                 </div>
                 <div>
                   <div className="font-semibold">USDC/KRW-C</div>
@@ -426,14 +426,14 @@ export default function InstantExchangePage() {
               </div>
               <div className="text-right">
                 <div className="font-bold">1,320.00</div>
-                <div className="text-xs text-green-600">+0.05%</div>
+                <div className="text-sm text-green-600">+0.05%</div>
               </div>
             </div>
             
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
+            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold">DAI</span>
+                  <span className="text-sm font-bold">DAI</span>
                 </div>
                 <div>
                   <div className="font-semibold">DAI/KRW-C</div>
@@ -442,7 +442,7 @@ export default function InstantExchangePage() {
               </div>
               <div className="text-right">
                 <div className="font-bold">1,318.50</div>
-                <div className="text-xs text-red-600">-0.12%</div>
+                <div className="text-sm text-red-600">-0.12%</div>
               </div>
             </div>
           </div>
@@ -462,7 +462,7 @@ export default function InstantExchangePage() {
               </div>
               <div>
                 <div className="font-semibold text-black">최저 수수료</div>
-                <div className="text-sm text-gray-600">스테이블코인 간 초저비용 환전</div>
+                <div className="text-base text-gray-600">스테이블코인 간 초저비용 환전</div>
               </div>
             </div>
             
@@ -472,7 +472,7 @@ export default function InstantExchangePage() {
               </div>
               <div>
                 <div className="font-semibold text-black">실시간 차트</div>
-                <div className="text-sm text-gray-600">24시간 가격 변동 모니터링</div>
+                <div className="text-base text-gray-600">24시간 가격 변동 모니터링</div>
               </div>
             </div>
             
@@ -482,7 +482,7 @@ export default function InstantExchangePage() {
               </div>
               <div>
                 <div className="font-semibold text-black">즉시 처리</div>
-                <div className="text-sm text-gray-600">블록체인 기반 즉시 환전</div>
+                <div className="text-base text-gray-600">블록체인 기반 즉시 환전</div>
               </div>
             </div>
             
@@ -492,7 +492,7 @@ export default function InstantExchangePage() {
               </div>
               <div>
                 <div className="font-semibold text-black">안전한 거래</div>
-                <div className="text-sm text-gray-600">스마트 컨트랙트 기반 보안</div>
+                <div className="text-base text-gray-600">스마트 컨트랙트 기반 보안</div>
               </div>
             </div>
           </div>

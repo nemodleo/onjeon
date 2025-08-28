@@ -62,7 +62,7 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
                 style={{ width: `${((currentStep + scrollProgress) / steps.length) * 100}%` }}
               />
             </div>
-            <span className="text-xs font-medium text-gray-600 min-w-[40px]">
+            <span className="text-sm font-medium text-gray-600 min-w-[40px]">
               {Math.round(((currentStep + scrollProgress) / steps.length) * 100)}%
             </span>
           </div>
@@ -99,7 +99,7 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
                   {isCompleted ? (
                     <CheckCircle className="w-4 h-4 text-white" />
                   ) : isActive ? (
-                    <span className="text-white font-bold text-xs">{index + 1}</span>
+                    <span className="text-white font-bold text-sm">{index + 1}</span>
                   ) : (
                     <Circle className="w-3 h-3 text-gray-400" />
                   )}
@@ -146,7 +146,7 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
 
         {/* Footer */}
         <div className="mt-6 pt-4 border-t border-gray-200">
-          <div className="flex items-center justify-between text-xs text-gray-500">
+          <div className="flex items-center justify-between text-sm text-gray-500">
             <span>단계 {currentStep + 1}/{steps.length}</span>
             <span>스크롤하여 진행</span>
           </div>

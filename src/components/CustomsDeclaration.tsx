@@ -44,13 +44,13 @@ export function CustomsSettings() {
               </div>
               
               {kycCompleted ? (
-                <div className="text-sm text-green-700">
+                <div className="text-base text-green-700">
                   <div>• 신분 확인 완료</div>
                   <div>• 여권 정보 연동</div>
                   <div>• 자동 세관 신고 가능</div>
                 </div>
               ) : (
-                <div className="text-sm text-yellow-700">
+                <div className="text-base text-yellow-700">
                   <div>• 추가 신분 인증 필요</div>
                   <div>• 여권 정보 업로드 필요</div>
                   <div>• 자동 신고 기능 제한</div>
@@ -77,7 +77,7 @@ export function CustomsSettings() {
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex-1">
                 <div className="font-medium">자동 세관 신고</div>
-                <div className="text-sm text-gray-600">
+                <div className="text-base text-gray-600">
                   귀국 24시간 전 자동으로 신고서를 작성하고 제출합니다
                 </div>
               </div>
@@ -102,14 +102,14 @@ export function CustomsSettings() {
             </div>
 
             {autoDeclaration && (
-              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
+              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-base text-blue-800">
                 <div className="font-medium mb-1">자동 신고 활성화</div>
                 <div>귀국 예정일 24시간 전에 모든 NFT 영수증을 기반으로 자동으로 세관 신고서가 작성되어 제출됩니다.</div>
               </div>
             )}
             
             {!kycCompleted && (
-              <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
+              <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-base text-yellow-800">
                 KYC 레벨 2 인증을 완료하면 자동 세관 신고 기능을 사용할 수 있습니다.
               </div>
             )}
@@ -123,7 +123,7 @@ export function CustomsSettings() {
           <CardTitle>신고 규칙</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3 text-sm">
+          <div className="space-y-3 text-base">
             <div className="flex justify-between p-2 bg-gray-50 rounded">
               <span>면세 한도 초과시:</span>
               <span className="font-medium">자동 신고 필수</span>
@@ -253,7 +253,7 @@ export function NFTReceiptWallet({ nftReceipts: propReceipts, onToggleDeclaratio
                       {receipt.date} • {receipt.category}
                     </p>
                   </div>
-                  <div className="text-xs px-2 py-1 rounded-full bg-blue-500 text-white">
+                  <div className="text-sm px-2 py-1 rounded-full bg-blue-500 text-white">
                     NFT
                   </div>
                 </div>
@@ -263,7 +263,7 @@ export function NFTReceiptWallet({ nftReceipts: propReceipts, onToggleDeclaratio
               <div className="px-4 py-3 flex-grow flex flex-col">
                 <div className="space-y-2 flex-grow">
                   {receipt.items.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center text-sm">
+                    <div key={index} className="flex justify-between items-center text-base">
                       <span className={`flex-1 min-w-0 truncate pr-2 ${
                         receipt.includedInDeclaration ? 'text-white' : 'text-gray-700'
                       }`}>{item}</span>
@@ -282,7 +282,7 @@ export function NFTReceiptWallet({ nftReceipts: propReceipts, onToggleDeclaratio
                 }`}>
                   <div className="flex justify-between items-center">
                     <span className="font-semibold">TOTAL</span>
-                    <span className="font-bold text-lg">${receipt.amount}</span>
+                    <span className="font-bold text-xl">${receipt.amount}</span>
                   </div>
                 </div>
               </div>
@@ -294,7 +294,7 @@ export function NFTReceiptWallet({ nftReceipts: propReceipts, onToggleDeclaratio
                   : 'border-gray-100 bg-gray-50'
               }`}>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium">
+                  <span className="text-sm font-medium">
                     {receipt.includedInDeclaration ? '신고 포함됨' : '신고 제외됨'}
                   </span>
                   <div className={`flex items-center gap-2 text-xs ${
@@ -369,13 +369,13 @@ export function DeclarationPreview() {
           <div className="text-6xl text-green-600">📋</div>
           <div className="space-y-2">
             <div className="font-medium">세관 신고가 완료되었습니다</div>
-            <div className="text-sm text-gray-600">
+            <div className="text-base text-gray-600">
               접수번호를 확인해주세요
             </div>
           </div>
           
           <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-            <div className="text-sm text-green-800 space-y-1">
+            <div className="text-base text-green-800 space-y-1">
               <div className="font-medium">접수번호: {declarationData.declarationNumber}</div>
               <div>제출시간: {new Date().toLocaleString('ko-KR')}</div>
               <div>처리상태: 접수완료</div>
@@ -383,7 +383,7 @@ export function DeclarationPreview() {
             </div>
           </div>
           
-          <div className="text-xs text-gray-500">
+          <div className="text-sm text-gray-500">
             블록체인 해시: 0x{Math.random().toString(16).substr(2, 40)}
           </div>
         </CardContent>
@@ -399,7 +399,7 @@ export function DeclarationPreview() {
         </CardHeader>
         <CardContent className="space-y-4 text-center">
           <div className="text-4xl animate-spin">📋</div>
-          <div className="text-sm text-gray-500">
+          <div className="text-base text-gray-500">
             세관 시스템으로 전송 중입니다
           </div>
         </CardContent>
@@ -416,8 +416,8 @@ export function DeclarationPreview() {
       <CardContent className="space-y-4">
         {/* 개인정보 */}
         <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-          <div className="text-sm font-medium mb-2">개인정보</div>
-          <div className="space-y-1 text-sm text-gray-600">
+          <div className="text-base font-medium mb-2">개인정보</div>
+          <div className="space-y-1 text-base text-gray-600">
             <div>성명: {declarationData.personalInfo.name}</div>
             <div>여권번호: {declarationData.personalInfo.passport}</div>
             <div>국적: {declarationData.personalInfo.nationality}</div>
@@ -428,15 +428,15 @@ export function DeclarationPreview() {
 
         {/* 구매 내역 */}
         <div className="space-y-2">
-          <div className="text-sm font-medium">구매 내역</div>
+          <div className="text-base font-medium">구매 내역</div>
           {declarationData.purchases.map((item, index) => (
             <div key={index} className="flex justify-between p-3 bg-blue-50 border border-blue-200 rounded">
               <div>
-                <div className="font-medium text-sm">{item.category}</div>
-                <div className="text-xs text-gray-600">${item.amount}</div>
+                <div className="font-medium text-base">{item.category}</div>
+                <div className="text-sm text-gray-600">${item.amount}</div>
               </div>
               <div className="text-right">
-                <div className="text-sm">세금: ${item.taxDue}</div>
+                <div className="text-base">세금: ${item.taxDue}</div>
               </div>
             </div>
           ))}
@@ -444,11 +444,11 @@ export function DeclarationPreview() {
 
         {/* 합계 */}
         <div className="border-t pt-3 space-y-2">
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-base">
             <span>총 구매금액:</span>
             <span className="font-medium">${declarationData.totalAmount}</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-base">
             <span>납부할 세금:</span>
             <span className="font-medium text-red-600">${declarationData.totalTax}</span>
           </div>
@@ -458,7 +458,7 @@ export function DeclarationPreview() {
           세관 신고서 제출
         </Button>
 
-        <div className="text-xs text-gray-500 text-center">
+        <div className="text-sm text-gray-500 text-center">
           제출 후에는 수정할 수 없으니 내용을 정확히 확인해주세요
         </div>
       </CardContent>

@@ -75,11 +75,11 @@ export function TripSetupForm() {
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">출발국</label>
+            <label className="block text-base font-medium mb-2">출발국</label>
             <select
               value={fromCountry}
               onChange={(e) => setFromCountry(e.target.value)}
-              className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+              className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-base"
             >
               {COUNTRIES.map(country => (
                 <option key={country.code} value={country.code}>
@@ -90,11 +90,11 @@ export function TripSetupForm() {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2">목적지</label>
+            <label className="block text-base font-medium mb-2">목적지</label>
             <select
               value={toCountry}
               onChange={(e) => setToCountry(e.target.value)}
-              className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-sm"
+              className="w-full h-9 rounded-md border border-input bg-transparent px-3 text-base"
             >
               {COUNTRIES.filter(c => c.code !== fromCountry).map(country => (
                 <option key={country.code} value={country.code}>
@@ -107,7 +107,7 @@ export function TripSetupForm() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">출발일</label>
+            <label className="block text-base font-medium mb-2">출발일</label>
             <div className="relative">
               <Input
                 type="date"
@@ -120,7 +120,7 @@ export function TripSetupForm() {
                 📅
               </div>
             </div>
-            <div className="text-xs text-gray-500 mt-1">
+            <div className="text-sm text-gray-500 mt-1">
               {new Date(departureDate).toLocaleDateString('ko-KR', { 
                 weekday: 'short', 
                 year: 'numeric', 
@@ -131,7 +131,7 @@ export function TripSetupForm() {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2">귀국일</label>
+            <label className="block text-base font-medium mb-2">귀국일</label>
             <div className="relative">
               <Input
                 type="date"
@@ -144,7 +144,7 @@ export function TripSetupForm() {
                 📅
               </div>
             </div>
-            <div className="text-xs text-gray-500 mt-1">
+            <div className="text-sm text-gray-500 mt-1">
               {new Date(returnDate).toLocaleDateString('ko-KR', { 
                 weekday: 'short', 
                 year: 'numeric', 
@@ -157,8 +157,8 @@ export function TripSetupForm() {
 
         {/* 여행 정보 미리보기 */}
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <div className="text-sm text-blue-800 font-medium mb-2">여행 정보</div>
-          <div className="space-y-1 text-sm text-blue-600">
+          <div className="text-base text-blue-800 font-medium mb-2">여행 정보</div>
+          <div className="space-y-1 text-base text-blue-600">
             <div className="flex items-center justify-between">
               <span>{fromCountryData?.flag} {fromCountryData?.name}</span>
               <span>→</span>
@@ -226,7 +226,7 @@ export function TripHistory() {
                 </div>
               </div>
               
-              <div className="text-sm text-gray-600 space-y-1">
+              <div className="text-base text-gray-600 space-y-1">
                 <div>
                   {trip.departureDate.toLocaleDateString('ko-KR')} ~ {trip.returnDate.toLocaleDateString('ko-KR')}
                 </div>

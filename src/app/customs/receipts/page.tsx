@@ -77,23 +77,23 @@ export default function NFTReceiptsPage() {
       <CustomsProgress />
       <div className="space-y-4">
       {/* Header */}
-      <div className="pt-2">
-        <h1 className="text-xl font-bold text-black mb-1">NFT 영수증함</h1>
-        <p className="text-gray-600 text-xs">카드 그리드 • 신고 포함 선택</p>
+      <div>
+        <h1 className="text-3xl font-bold text-black">NFT 영수증함</h1>
+        <p className="text-gray-600 text-sm">카드 그리드 • 신고 포함 선택</p>
       </div>
 
       {/* Balance Card */}
-      <div className="bg-black rounded-xl p-4 text-white">
-        <div className="flex justify-between items-start mb-2">
+      <div className="bg-black rounded-2xl p-6 text-white">
+        <div className="flex justify-between items-start mb-6">
           <div>
-            <p className="text-gray-300 text-xs">신고할 금액</p>
+            <p className="text-gray-300 text-sm">신고할 금액</p>
             <div className="flex items-baseline space-x-1">
-              <p className="text-lg font-bold">$ {declarableAmount}</p>
+              <p className="text-3xl font-bold">$ {declarableAmount}</p>
               <p className="text-sm font-medium text-gray-400">~ {krwAmount.toLocaleString()} KRW-C</p>
             </div>
           </div>
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-            <span className="text-sm">📄</span>
+            <span className="text-base">📄</span>
           </div>
         </div>
         <div className="text-xs text-gray-300">
@@ -103,16 +103,16 @@ export default function NFTReceiptsPage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-3 gap-2">
-        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
-          <div className="text-sm font-bold text-black">{totalCount}개</div>
+        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+          <div className="text-base font-bold text-black">{totalCount}개</div>
           <div className="text-xs text-gray-600">총 영수증</div>
         </div>
-        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
-          <div className="text-sm font-bold text-black">{includedCount}개</div>
+        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+          <div className="text-base font-bold text-black">{includedCount}개</div>
           <div className="text-xs text-gray-600">신고 포함</div>
         </div>
-        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
-          <div className="text-sm font-bold text-black">$ 18</div>
+        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+          <div className="text-base font-bold text-black">$ 18</div>
           <div className="text-xs text-gray-600">예상 세금</div>
         </div>
       </div>
@@ -126,36 +126,36 @@ export default function NFTReceiptsPage() {
 
       {/* NFT Info */}
       <div className="space-y-1">
-        <h3 className="text-base font-bold text-black">NFT 영수증이란?</h3>
-        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+        <h3 className="text-lg font-bold text-black">NFT 영수증이란?</h3>
+        <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
-              <span className="text-sm">🔗</span>
+            <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <span className="text-base">🔗</span>
             </div>
             <div>
-              <div className="font-semibold text-black text-sm">블록체인 저장</div>
+              <div className="font-semibold text-black text-base">블록체인 저장</div>
               <div className="text-xs text-gray-600">모든 구매 내역이 블록체인에 안전하게 저장</div>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+        <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
-              <span className="text-sm">🛡️</span>
+            <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <span className="text-base">🛡️</span>
             </div>
             <div>
-              <div className="font-semibold text-black text-sm">위변조 방지</div>
+              <div className="font-semibold text-black text-base">위변조 방지</div>
               <div className="text-xs text-gray-600">NFT 기술로 영수증 위변조가 불가능</div>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+        <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
-              <span className="text-sm">🔍</span>
+            <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <span className="text-base">🔍</span>
             </div>
             <div>
-              <div className="font-semibold text-black text-sm">투명한 추적</div>
+              <div className="font-semibold text-black text-base">투명한 추적</div>
               <div className="text-xs text-gray-600">세관에서 실시간으로 진위를 확인 가능</div>
             </div>
           </div>
@@ -164,20 +164,20 @@ export default function NFTReceiptsPage() {
 
       {/* Related Services */}
       <div className="space-y-2">
-        <h3 className="text-base font-bold text-black">관련 서비스</h3>
+        <h3 className="text-lg font-bold text-black">관련 서비스</h3>
         <div className="grid grid-cols-3 gap-2">
           <Link href="/customs/preview">
-            <Button variant="outline" className="w-full text-xs">
+            <Button variant="outline" className="w-full text-sm">
               신고서 미리보기
             </Button>
           </Link>
           <Link href="/payment/qr-payment">
-            <Button variant="outline" className="w-full text-xs">
+            <Button variant="outline" className="w-full text-sm">
               추가 구매하기
             </Button>
           </Link>
           <Link href="/customs/settings">
-            <Button variant="outline" className="w-full text-xs">
+            <Button variant="outline" className="w-full text-sm">
               설정 변경
             </Button>
           </Link>
