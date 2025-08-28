@@ -29,7 +29,7 @@ export default function DutyFreePage() {
               <Package className="w-4 h-4 text-black" />
             </div>
             <div>
-              <div className="font-semibold text-black text-base">면세</div>
+              <div className="font-semibold text-black text-lg">면세</div>
               <div className="text-xs text-gray-600">한도 관리 • 구매 내역 • 여행 설정</div>
             </div>
           </div>
@@ -45,7 +45,7 @@ export default function DutyFreePage() {
               <Receipt className="w-4 h-4 text-black" />
             </div>
             <div>
-              <div className="font-semibold text-black text-base">환급</div>
+              <div className="font-semibold text-black text-lg">환급</div>
               <div className="text-xs text-gray-600">VAT 환급 • 공항 스탬프 • 즉시 지급</div>
             </div>
           </div>

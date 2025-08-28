@@ -76,24 +76,24 @@ export default function HomePage() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-5 gap-1.5">
-        <Link href="/payment/qr-payment" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
-          <div className="text-xl mb-1">📱</div>
+        <Link href="/payment/qr-payment" className="flex flex-col items-center justify-center py-8 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-2xl mb-2">📱</div>
           <div className="text-xs font-semibold text-black">QR결제</div>
         </Link>
-        <Link href="/exchange/otp-withdrawal" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
-          <div className="text-xl mb-1">💰</div>
+        <Link href="/exchange/otp-withdrawal" className="flex flex-col items-center justify-center py-8 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-2xl mb-2">💰</div>
           <div className="text-xs font-semibold text-black">ATM출금</div>
         </Link>
-        <Link href="/exchange/instant-exchange" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
-          <div className="text-xl mb-1">⚡</div>
+        <Link href="/exchange/instant-exchange" className="flex flex-col items-center justify-center py-8 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-2xl mb-2">⚡</div>
           <div className="text-xs font-semibold text-black">즉시환전</div>
         </Link>
-        <Link href="/duty-free/duty-free/dashboard" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
-          <div className="text-xl mb-1">🛍️</div>
+        <Link href="/duty-free/duty-free/dashboard" className="flex flex-col items-center justify-center py-8 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-2xl mb-2">🛍️</div>
           <div className="text-xs font-semibold text-black">면세현황</div>
         </Link>
-        <Link href="/duty-free/refund/dashboard" className="flex flex-col items-center justify-center py-5 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
-          <div className="text-xl mb-1">💸</div>
+        <Link href="/duty-free/refund/dashboard" className="flex flex-col items-center justify-center py-8 px-0.5 bg-gray-50 rounded-2xl active:bg-gray-100 transition-colors">
+          <div className="text-2xl mb-2">💸</div>
           <div className="text-xs font-semibold text-black">환급현황</div>
         </Link>
       </div>
@@ -113,7 +113,7 @@ export default function HomePage() {
                   <Icon className="w-4 h-4 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-base">{service.title}</div>
+                  <div className="font-semibold text-black text-lg">{service.title}</div>
                   <div className="text-xs text-gray-600">{service.description}</div>
                 </div>
               </div>

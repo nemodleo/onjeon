@@ -68,7 +68,7 @@ export default function DutyFreeSubPage() {
                   <TrendingUp className="w-4 h-4 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-base">면세 한도 대시보드</div>
+                  <div className="font-semibold text-black text-lg">면세 한도 대시보드</div>
                   <div className="text-xs text-gray-600">실시간 한도 집계 • 품목별 분류</div>
                 </div>
               </div>
@@ -84,7 +84,7 @@ export default function DutyFreeSubPage() {
                   <Package className="w-4 h-4 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-base">구매 내역</div>
+                  <div className="font-semibold text-black text-lg">구매 내역</div>
                   <div className="text-xs text-gray-600">면세품 구매 이력 • 영수증 관리</div>
                 </div>
               </div>
@@ -100,7 +100,7 @@ export default function DutyFreeSubPage() {
                   <Settings className="w-4 h-4 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-base">여행 설정</div>
+                  <div className="font-semibold text-black text-lg">여행 설정</div>
                   <div className="text-xs text-gray-600">출발/귀국일 • 목적지 한도 규칙</div>
                 </div>
               </div>

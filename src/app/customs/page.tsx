@@ -85,7 +85,7 @@ export default function CustomsPage() {
                     <Icon className="w-4 h-4 text-black" />
                   </div>
                   <div>
-                    <div className="font-semibold text-black text-base">{service.title}</div>
+                    <div className="font-semibold text-black text-lg">{service.title}</div>
                     <div className="text-xs text-gray-600">{service.description}</div>
                   </div>
                 </div>

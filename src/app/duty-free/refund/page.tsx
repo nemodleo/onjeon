@@ -63,7 +63,7 @@ export default function RefundPage() {
                   <Receipt className="w-4 h-4 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-base">VAT 환급 대시보드</div>
+                  <div className="font-semibold text-black text-lg">VAT 환급 대시보드</div>
                   <div className="text-xs text-gray-600">리펀 내역 • 환급률 확인</div>
                 </div>
               </div>
@@ -79,7 +79,7 @@ export default function RefundPage() {
                   <CheckCircle className="w-4 h-4 text-black" />
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-base">공항 스탬프</div>
+                  <div className="font-semibold text-black text-lg">공항 스탬프</div>
                   <div className="text-xs text-gray-600">디지털 승인 • QR 인증</div>
                 </div>
               </div>
