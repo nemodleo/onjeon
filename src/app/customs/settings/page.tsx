@@ -1,13 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import { CustomsProgress } from '@/components/ui/page-progress';
 
 import { CustomsSettings } from '@/components/CustomsDeclaration';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { ChevronRight } from 'lucide-react';
 
 export default function CustomsSettingsPage() {
+  const [isActive, setIsActive] = useState(false);
+
   return (
     <>
       <CustomsProgress />
@@ -18,156 +22,106 @@ export default function CustomsSettingsPage() {
         <p className="text-gray-600 text-xs">KYC 연동 • ON/OFF 토글</p>
       </div>
 
-      <div className="space-y-4">
-        {/* 설정 패널 */}
-        <div>
-          <CustomsSettings />
+      {/* Balance Card with Toggle */}
+      <div className="bg-black rounded-xl p-4 text-white">
+        <div className="flex justify-between items-start mb-2">
+          <div>
+            <p className="text-gray-300 text-xs">자동 세관 신고 상태</p>
+            <p className="text-lg font-bold mt-1">{isActive ? '활성화' : '비활성화'}</p>
+          </div>
+          <div className="flex items-center space-x-3">
+            {/* Toggle Switch */}
+            <button 
+              onClick={() => setIsActive(!isActive)}
+              className={`w-12 h-6 rounded-full cursor-pointer relative transition-colors duration-300 ${isActive ? 'bg-green-500' : 'bg-gray-600'}`}
+            >
+              <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 transform ${isActive ? 'translate-x-6' : 'translate-x-1'}`}></div>
+            </button>
+            <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+              <span className="text-sm">⚙️</span>
+            </div>
+          </div>
         </div>
+        <div className="text-xs text-gray-300">
+          KYC 레벨 2 인증 • 24시간 전 자동 신고
+        </div>
+      </div>
 
-        {/* 정보 및 가이드 */}
-        <div className="space-y-4">
-          {/* 기능 소개 - Apple Style */}
-          <div className="space-y-3">
-            <h3 className="text-base font-bold text-black">자동 세관 신고란?</h3>
-            <div className="space-y-2">
-              <div className="bg-gray-50 rounded-xl p-3">
-                <div className="flex items-center space-x-2 mb-1">
-                  <span className="text-sm">🤖</span>
-                  <span className="font-semibold text-sm text-black">완전 자동화</span>
-                </div>
-                <div className="text-xs text-gray-600">
-                  KRW-C 결제 → NFT 영수증 → 자동 신고서
-                </div>
-              </div>
-              
-              <div className="bg-gray-50 rounded-xl p-3">
-                <div className="flex items-center space-x-2 mb-1">
-                  <span className="text-sm">⏰</span>
-                  <span className="font-semibold text-sm text-black">스마트 스케줄링</span>
-                </div>
-                <div className="text-xs text-gray-600">
-                  귀국 24시간 전 자동 작성/제출
-                </div>
-              </div>
-              
-              <div className="bg-gray-50 rounded-xl p-3">
-                <div className="flex items-center space-x-2 mb-1">
-                  <span className="text-sm">🔒</span>
-                  <span className="font-semibold text-sm text-black">안전한 인증</span>
-                </div>
-                <div className="text-xs text-gray-600">
-                  KYC 레벨 2 인증 필수
-                </div>
-              </div>
+      {/* Quick Stats */}
+      <div className="grid grid-cols-3 gap-2">
+        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
+          <div className="text-sm font-bold text-black">100%</div>
+          <div className="text-xs text-gray-600">자동화</div>
+        </div>
+        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
+          <div className="text-sm font-bold text-black">0분</div>
+          <div className="text-xs text-gray-600">대기시간</div>
+        </div>
+        <div className="text-center p-3 bg-white rounded-xl border border-gray-100">
+          <div className="text-sm font-bold text-black">24H</div>
+          <div className="text-xs text-gray-600">사전처리</div>
+        </div>
+      </div>
+
+
+      {/* Feature Info */}
+      <div className="space-y-1">
+        <h3 className="text-base font-bold text-black">자동 세관 신고란?</h3>
+        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
+              <span className="text-sm">🤖</span>
+            </div>
+            <div>
+              <div className="font-semibold text-black text-sm">완전 자동화</div>
+              <div className="text-xs text-gray-600">KRW-C 결제 → NFT 영수증 → 자동 신고서</div>
             </div>
           </div>
-
-          {/* 이용 혜택 - Apple Style */}
-          <div className="space-y-3">
-            <h3 className="text-base font-bold text-black">이용 혜택</h3>
-            <div className="bg-gray-50 rounded-xl p-3">
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="text-center p-2 bg-white rounded-lg">
-                  <div className="font-bold text-sm text-black">100%</div>
-                  <div className="text-gray-600">자동화</div>
-                </div>
-                <div className="text-center p-2 bg-white rounded-lg">
-                  <div className="font-bold text-sm text-black">0분</div>
-                  <div className="text-gray-600">대기시간</div>
-                </div>
-                <div className="text-center p-2 bg-white rounded-lg">
-                  <div className="font-bold text-sm text-black">0%</div>
-                  <div className="text-gray-600">실수율</div>
-                </div>
-                <div className="text-center p-2 bg-white rounded-lg">
-                  <div className="font-bold text-sm text-black">24H</div>
-                  <div className="text-gray-600">사전처리</div>
-                </div>
-              </div>
+        </div>
+        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
+              <span className="text-sm">⏰</span>
+            </div>
+            <div>
+              <div className="font-semibold text-black text-sm">스마트 스케줄링</div>
+              <div className="text-xs text-gray-600">귀국 24시간 전 자동 작성/제출</div>
             </div>
           </div>
-
-          {/* KYC 가이드 - Apple Style */}
-          <div className="space-y-3">
-            <h3 className="text-base font-bold text-black">KYC 인증 가이드</h3>
-            <div className="bg-gray-50 rounded-xl p-3">
-              <div className="space-y-3">
-                <div className="space-y-2">
-                  <div className="font-medium text-sm text-black">필요 서류</div>
-                  <div className="grid grid-cols-1 gap-2 text-sm">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                      <span className="text-gray-700">여권 사진 (신분확인용)</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                      <span className="text-gray-700">셀피 사진 (본인확인용)</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                      <span className="text-gray-700">휴대폰 본인인증</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="font-medium text-sm text-black">인증 절차</div>
-                  <div className="text-xs text-gray-600">
-                    1. 서류 업로드 → 2. AI 검증 → 3. 휴대폰 인증 → 4. 승인 완료 (약 5분 소요)
-                  </div>
-                </div>
-              </div>
+        </div>
+        <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
+              <span className="text-sm">🔒</span>
             </div>
-          </div>
-
-          {/* 주의사항 - Apple Style */}
-          <div className="space-y-3">
-            <h3 className="text-base font-bold text-black">주의사항</h3>
-            <div className="bg-gray-50 rounded-xl p-3">
-              <div className="space-y-2 text-sm">
-                <div className="flex items-start space-x-2">
-                  <span>⚠️</span>
-                  <div>
-                    <div className="font-medium text-black">신고 대상 품목</div>
-                    <div className="text-gray-600">
-                      전자제품, 주류, 담배, 고가품($600 이상)은 반드시 신고 대상입니다
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <span>💡</span>
-                  <div>
-                    <div className="font-medium text-black">신고 기한</div>
-                    <div className="text-gray-600">
-                      입국 24시간 전까지 신고를 완료해야 하며, 늦으면 공항에서 별도 신고가 필요합니다
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <span>ℹ️</span>
-                  <div>
-                    <div className="font-medium text-black">개인정보 보호</div>
-                    <div className="text-gray-600">
-                      KYC 정보는 암호화되어 저장되며, 세관 신고 목적으로만 사용됩니다
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div>
+              <div className="font-semibold text-black text-sm">안전한 인증</div>
+              <div className="text-xs text-gray-600">KYC 레벨 2 인증 필수</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 네비게이션 */}
-      <div className="flex justify-center space-x-4">
-        <Link href="/customs/receipts">
-          <Button variant="outline">NFT 영수증함 보기</Button>
-        </Link>
-        <Link href="/customs/preview">
-          <Button variant="outline">신고서 미리보기</Button>
-        </Link>
+      {/* Related Services */}
+      <div className="space-y-2">
+        <h3 className="text-base font-bold text-black">관련 서비스</h3>
+        <div className="grid grid-cols-3 gap-2">
+          <Link href="/customs/receipts">
+            <Button variant="outline" className="w-full text-xs">
+              NFT 영수증함
+            </Button>
+          </Link>
+          <Link href="/customs/preview">
+            <Button variant="outline" className="w-full text-xs">
+              신고서 미리보기
+            </Button>
+          </Link>
+          <Link href="/duty-free">
+            <Button variant="outline" className="w-full text-xs">
+              면세 / 환급
+            </Button>
+          </Link>
+        </div>
       </div>
       </div>
     </>

@@ -394,8 +394,8 @@ export function CustomsProgress() {
   );
 }
 
-// QR Payment specific progress component
-export function QRPaymentProgress() {
+// Payment specific progress component
+export function PaymentProgress() {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -528,3 +528,5 @@ export function QRPaymentProgress() {
     />
   );
 }
+// Alias for backward compatibility
+export const QRPaymentProgress = PaymentProgress;

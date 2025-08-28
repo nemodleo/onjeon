@@ -7,7 +7,7 @@ import { DesktopNavigation, MobileNavigation, TopBar } from '@/components/ui/nav
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: '온전 | 온전한 여행 인프라',
+  title: '온전(穩錢) | Global Smart Travel Wallet',
   description: '결제·환전·세금 환급·세관신고까지, 온전한 여행 인프라',
   icons: {
     icon: '/onjeon_icon.png',
@@ -41,36 +41,36 @@ export default function RootLayout({
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
                   <div>
-                    <div className="font-medium text-black">환전1번</div>
-                    <div className="text-xs text-gray-500">KRW-C로 전 세계 0% 수수료</div>
+                    <div className="font-medium text-black">온전한 결제</div>
+                    <div className="text-xs text-gray-500">카드 수수료 없는 즉시 결제, 블록체인 자동 기록</div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
+                  <div>
+                    <div className="font-medium text-black">온전한 환전</div>
+                    <div className="text-xs text-gray-500">KRW-C로 전 세계 어디서나 0% 수수료</div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
+                  <div>
+                    <div className="font-medium text-black">온전한 면세</div>
+                    <div className="text-xs text-gray-500">면세 한도 자동 추적, 초과 위험 제로</div>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
                   <div>
                     <div className="font-medium text-black">온전한 환급</div>
-                    <div className="text-xs text-gray-500">NFT 영수증로 즉시 환급</div>
+                    <div className="text-xs text-gray-500">NFT 영수증으로 세금 즉시 환급</div>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
                   <div>
-                    <div className="font-medium text-black">온전한 세관 신고</div>
-                    <div className="text-xs text-gray-500">자동 계산, 원클릭 제출</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
-                  <div>
-                    <div className="font-medium text-black">투명 거래</div>
-                    <div className="text-xs text-gray-500">세수 자동화 활성화</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
-                  <div>
-                    <div className="font-medium text-black">실시간 데이터 분석</div>
-                    <div className="text-xs text-gray-500">세관 자동 리포팅</div>
+                    <div className="font-medium text-black">온전한 세관신고</div>
+                    <div className="text-xs text-gray-500">자동 계산·원클릭 제출, 세관 리포팅까지 완벽</div>
                   </div>
                 </div>
               </div>

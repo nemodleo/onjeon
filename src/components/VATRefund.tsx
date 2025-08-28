@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { formatCurrency, generateId } from '@/lib/utils';
 import { VATRefund } from '@/types';
+import QRCode from 'qrcode';
 
 export function VATRefundDashboard() {
   // 모의 영수증 데이터
@@ -44,37 +45,6 @@ export function VATRefundDashboard() {
 
   return (
     <div className="space-y-6">
-      {/* 환급 예상액 */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center">VAT 환급 예상액</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center space-y-4">
-            <div className="text-5xl font-bold text-green-600">
-              ₩{(totalRefundAmount * 1320).toLocaleString()}
-            </div>
-            <div className="text-lg text-gray-600">
-              ${totalRefundAmount.toFixed(2)} USD
-            </div>
-            
-            <div className="grid grid-cols-3 gap-4 text-sm">
-              <div className="text-center p-3 bg-blue-50 rounded">
-                <div className="font-medium text-blue-800">구매 총액</div>
-                <div className="text-blue-600">${eligibleReceipts.reduce((sum, r) => sum + r.amount, 0)}</div>
-              </div>
-              <div className="text-center p-3 bg-green-50 rounded">
-                <div className="font-medium text-green-800">부가세</div>
-                <div className="text-green-600">${eligibleReceipts.reduce((sum, r) => sum + r.taxAmount, 0).toFixed(2)}</div>
-              </div>
-              <div className="text-center p-3 bg-purple-50 rounded">
-                <div className="font-medium text-purple-800">환급률</div>
-                <div className="text-purple-600">80%</div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* 환급 가능 영수증 목록 */}
       <Card>
@@ -146,6 +116,38 @@ export function VATStampVerification() {
   const [isStampProcessing, setIsStampProcessing] = useState(false);
   const [isStamped, setIsStamped] = useState(false);
   const [boardingNumber, setBoardingNumber] = useState('');
+  const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const [isQrGenerated, setIsQrGenerated] = useState(false);
+
+  // QR 코드 생성 함수
+  const generateQRCode = async () => {
+    try {
+      const qrData = {
+        type: 'VAT_REFUND',
+        bundleId: `QR_REFUND_${Date.now()}`,
+        amount: 33.60,
+        currency: 'USD',
+        timestamp: new Date().toISOString(),
+        receipts: ['receipt_001', 'receipt_002'],
+        status: 'pending'
+      };
+      
+      const qrDataString = JSON.stringify(qrData);
+      const qrImageDataUrl = await QRCode.toDataURL(qrDataString, {
+        width: 200,
+        margin: 1,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
+        }
+      });
+      
+      setQrCodeUrl(qrImageDataUrl);
+      setIsQrGenerated(true);
+    } catch (error) {
+      console.error('QR 코드 생성 실패:', error);
+    }
+  };
 
   const processStamp = () => {
     setIsStampProcessing(true);
@@ -223,17 +225,43 @@ export function VATStampVerification() {
         <div className="space-y-3">
           <div className="text-sm font-medium">방법 1: QR 코드 스캔</div>
           <div className="p-4 bg-blue-50 border-2 border-dashed border-blue-300 rounded-lg text-center">
-            <div className="text-4xl mb-2">📱</div>
-            <div className="text-sm text-blue-600">
-              공항 직원이 스캔할 QR 코드
-            </div>
-            <div className="font-mono text-xs mt-2 text-gray-500">
-              QR_REFUND_BUNDLE_001
-            </div>
+            {!isQrGenerated ? (
+              <>
+                <div className="text-4xl mb-2">📱</div>
+                <div className="text-sm text-blue-600 mb-3">
+                  공항 직원이 스캔할 QR 코드
+                </div>
+                <Button 
+                  onClick={generateQRCode}
+                  variant="outline"
+                  className="mb-2"
+                >
+                  QR 코드 생성
+                </Button>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-center mb-2">
+                  <img 
+                    src={qrCodeUrl} 
+                    alt="VAT Refund QR Code" 
+                    className="w-48 h-48"
+                  />
+                </div>
+                <div className="text-sm text-blue-600 mb-1">
+                  공항 직원에게 이 QR 코드를 보여주세요
+                </div>
+                <div className="font-mono text-xs text-gray-500">
+                  ID: QR_REFUND_{Date.now()}
+                </div>
+              </>
+            )}
           </div>
-          <Button onClick={processStamp} className="w-full">
-            QR 스캔 완료 (시뮬레이션)
-          </Button>
+          {isQrGenerated && (
+            <Button onClick={processStamp} className="w-full">
+              QR 스캔 완료 (시뮬레이션)
+            </Button>
+          )}
         </div>
 
         <div className="flex items-center space-x-2">
@@ -272,7 +300,7 @@ export function VATStampVerification() {
 
 export function VATPayoutConfirmation() {
   const [swapOption, setSwapOption] = useState<string>('KRW-C');
-  const refundAmount = 33.6; // $33.60
+  const refundAmount = 33.6; // $ 33.60
 
   const exchangeRates = {
     'KRW-C': 1,
@@ -347,15 +375,15 @@ export function VATPayoutConfirmation() {
           <div className="space-y-1 text-gray-600">
             <div className="flex justify-between">
               <span>환급 기준 금액:</span>
-              <span>$420.00</span>
+              <span>$ 420.00</span>
             </div>
             <div className="flex justify-between">
               <span>부가세 (10%):</span>
-              <span>$42.00</span>
+              <span>$ 42.00</span>
             </div>
             <div className="flex justify-between">
               <span>환급률 (80%):</span>
-              <span>$33.60</span>
+              <span>$ 33.60</span>
             </div>
             <div className="flex justify-between">
               <span>처리 시간:</span>

@@ -17,7 +17,8 @@ import {
   ChevronDown,
   Zap,
   Bell,
-  Search
+  Search,
+  ArrowLeftRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -30,22 +31,22 @@ const navigation = [
     icon: CreditCard,
     children: [
       { name: 'QR 결제', href: '/payment/qr-payment' },
-      { name: 'NFC 결제', href: '/payment/nfc-payment' },
+      { name: 'POS 시스템', href: '/payment/pos' },
       { name: '결제 내역', href: '/payment/history' }
     ]
   },
   { 
     name: '환전', 
     href: '/exchange', 
-    icon: Wallet,
+    icon: ArrowLeftRight,
     children: [
-      { name: '실시간 환율', href: '/exchange/rates' },
-      { name: 'ATM 출금', href: '/exchange/otp-withdrawal' },
+      { name: '즉시 환전', href: '/exchange/instant-exchange' },
+      { name: 'OTP 현금 인출', href: '/exchange/otp-withdrawal' },
       { name: '환전 내역', href: '/exchange/history' }
     ]
   },
   { 
-    name: '면세', 
+    name: '면세 / 환급', 
     href: '/duty-free', 
     icon: ShoppingBag,
     children: [

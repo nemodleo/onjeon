@@ -13,10 +13,10 @@ export default function PaymentPage() {
       icon: Smartphone
     },
     {
-      id: 'nfc-payment',
-      title: 'NFC 결제',
-      description: '탭 결제 • 비접촉 간편 결제',
-      href: '/payment/nfc-payment',
+      id: 'pos',
+      title: 'POS 시스템',
+      description: '가맹점용 결제 • 실시간 정산',
+      href: '/payment/pos',
       icon: CreditCard
     },
     {
@@ -33,7 +33,7 @@ export default function PaymentPage() {
       {/* Header */}
       <div className="pt-2">
         <h1 className="text-xl font-bold text-black mb-1">온전한 결제</h1>
-        <p className="text-gray-600 text-xs">전 세계 0% 수수료 결제</p>
+        <p className="text-gray-600 text-xs">전 세계 어디든 자동 환전 결제</p>
       </div>
 
       {/* Balance Card */}
@@ -41,14 +41,17 @@ export default function PaymentPage() {
         <div className="flex justify-between items-start mb-2">
           <div>
             <p className="text-gray-300 text-xs">사용 가능 잔액</p>
-            <p className="text-lg font-bold">₩ 1,234,567</p>
+            <div className="flex items-baseline space-x-1">
+              <p className="text-lg font-bold">₩ 1,234,567</p>
+              <p className="text-sm font-medium text-gray-400">~ 1,234,567 KRW-C</p>
+            </div>
           </div>
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
             <CreditCard className="w-3 h-3" />
           </div>
         </div>
         <div className="text-xs text-gray-300">
-          KRW-C로 전 세계 어디서든
+          KRW-C로 전 세계 어디서든 0% 수수료
         </div>
       </div>
 

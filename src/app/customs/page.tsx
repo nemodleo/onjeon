@@ -35,7 +35,7 @@ export default function CustomsPage() {
       <div className="space-y-4">
         {/* Header */}
         <div className="pt-2">
-          <h1 className="text-xl font-bold text-black mb-1">온전한 세관 신고</h1>
+          <h1 className="text-xl font-bold text-black mb-1">온전한 세관신고</h1>
           <p className="text-gray-600 text-xs">NFT 영수증 • 원클릭 제출</p>
         </div>
 
@@ -44,7 +44,10 @@ export default function CustomsPage() {
           <div className="flex justify-between items-start mb-2">
             <div>
               <p className="text-gray-300 text-xs">신고 대상 금액</p>
-              <p className="text-lg font-bold">$1,220</p>
+              <div className="flex items-baseline space-x-1">
+                <p className="text-lg font-bold">$ 1,220</p>
+                <p className="text-sm font-medium text-gray-400">~ 1,610,400 KRW-C</p>
+              </div>
             </div>
             <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
               <FileText className="w-3 h-3" />

@@ -147,16 +147,32 @@ export function CustomsSettings() {
   );
 }
 
-export function NFTReceiptWallet() {
-  // 모의 NFT 영수증 데이터
-  const [nftReceipts, setNftReceipts] = useState([
+export interface NFTReceipt {
+  id: string;
+  tokenId: string;
+  merchantName: string;
+  amount: number;
+  items: string[];
+  date: string;
+  includedInDeclaration: boolean;
+  category: string;
+}
+
+interface NFTReceiptWalletProps {
+  nftReceipts?: NFTReceipt[];
+  onToggleDeclaration?: (id: string) => void;
+}
+
+export function NFTReceiptWallet({ nftReceipts: propReceipts, onToggleDeclaration }: NFTReceiptWalletProps) {
+  // 기본 데이터 (props가 없을 때 사용)
+  const [defaultReceipts, setDefaultReceipts] = useState([
     {
       id: 'nft_001',
       tokenId: 'KRW_NFT_001',
       merchantName: 'Luxury Department Store',
       amount: 240,
       items: ['명품 향수', '브랜드 가방'],
-      date: '2024-01-15',
+      date: '2025-8-29',
       includedInDeclaration: true,
       category: '화장품/패션'
     },
@@ -166,7 +182,7 @@ export function NFTReceiptWallet() {
       merchantName: 'Electronics Shop',
       amount: 180,
       items: ['무선 이어폰', '휴대폰 케이스'],
-      date: '2024-01-16',
+      date: '2025-8-29',
       includedInDeclaration: true,
       category: '전자제품'
     },
@@ -176,20 +192,26 @@ export function NFTReceiptWallet() {
       merchantName: 'Local Souvenir Shop',
       amount: 45,
       items: ['기념품', '엽서'],
-      date: '2024-01-16',
+      date: '2025-8-29',
       includedInDeclaration: false,
       category: '기념품'
     }
   ]);
 
+  const nftReceipts = propReceipts || defaultReceipts;
+
   const toggleDeclaration = (id: string) => {
-    setNftReceipts(receipts => 
-      receipts.map(receipt => 
-        receipt.id === id 
-          ? { ...receipt, includedInDeclaration: !receipt.includedInDeclaration }
-          : receipt
-      )
-    );
+    if (onToggleDeclaration) {
+      onToggleDeclaration(id);
+    } else {
+      setDefaultReceipts(receipts => 
+        receipts.map(receipt => 
+          receipt.id === id 
+            ? { ...receipt, includedInDeclaration: !receipt.includedInDeclaration }
+            : receipt
+        )
+      );
+    }
   };
 
   const declarationTotal = nftReceipts
@@ -198,72 +220,109 @@ export function NFTReceiptWallet() {
 
   return (
     <div className="space-y-6">
-      {/* 신고 금액 합계 */}
-      <Card>
-        <CardHeader>
-          <CardTitle>신고 금액 합계</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center space-y-2">
-            <div className="text-3xl font-bold text-blue-600">
-              ${declarationTotal.toLocaleString()}
-            </div>
-            <div className="text-sm text-gray-600">
-              {nftReceipts.filter(r => r.includedInDeclaration).length}개 품목 포함
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* NFT 영수증 목록 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {nftReceipts.map((receipt) => (
-          <Card key={receipt.id} className={`cursor-pointer transition-all ${
-            receipt.includedInDeclaration 
-              ? 'border-blue-300 bg-blue-50' 
-              : 'border-gray-200 bg-white'
-          }`}>
-            <CardHeader className="pb-2">
-              <div className="flex justify-between items-start">
-                <CardTitle className="text-sm font-medium">
-                  {receipt.merchantName}
-                </CardTitle>
-                <div className={`text-xs px-2 py-1 rounded ${
-                  receipt.includedInDeclaration 
-                    ? 'bg-blue-100 text-blue-800' 
-                    : 'bg-gray-100 text-gray-600'
-                }`}>
-                  NFT
+      {/* NFT 영수증 목록 - 영수증 스타일 슬라이드 */}
+      <div className="overflow-x-auto scrollbar-hide">
+        <div className="flex gap-3 px-1 pb-2">
+          {nftReceipts.map((receipt) => (
+            <div 
+              key={receipt.id} 
+              className={`flex flex-col flex-shrink-0 w-72 h-64 transition-all duration-200 cursor-pointer ${
+                receipt.includedInDeclaration 
+                  ? 'bg-black text-white' 
+                  : 'bg-white border border-gray-200 hover:border-gray-300 text-gray-900'
+              } rounded-xl overflow-hidden shadow-sm`}
+              onClick={() => toggleDeclaration(receipt.id)}
+            >
+              {/* 영수증 헤더 */}
+              <div className={`px-4 py-3 border-b ${
+                receipt.includedInDeclaration 
+                  ? 'border-gray-600' 
+                  : 'border-gray-100'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex-1 min-w-0">
+                    <h3 className={`font-semibold text-sm truncate mb-1 ${
+                      receipt.includedInDeclaration ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {receipt.merchantName}
+                    </h3>
+                    <p className={`text-xs ${
+                      receipt.includedInDeclaration ? 'text-gray-300' : 'text-gray-500'
+                    }`}>
+                      {receipt.date} • {receipt.category}
+                    </p>
+                  </div>
+                  <div className="text-xs px-2 py-1 rounded-full bg-blue-500 text-white">
+                    NFT
+                  </div>
                 </div>
               </div>
-              <CardDescription className="text-xs">
-                {receipt.date} • {receipt.category}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="text-lg font-bold">${receipt.amount}</div>
-              
-              <div className="text-xs text-gray-600">
-                <div className="truncate">구매: {receipt.items.join(', ')}</div>
-                <div className="font-mono mt-1">ID: {receipt.tokenId}</div>
+
+              {/* 구매 아이템 목록 - flex-grow로 공간 채우기 */}
+              <div className="px-4 py-3 flex-grow flex flex-col">
+                <div className="space-y-2 flex-grow">
+                  {receipt.items.map((item, index) => (
+                    <div key={index} className="flex justify-between items-center text-sm">
+                      <span className={`flex-1 min-w-0 truncate pr-2 ${
+                        receipt.includedInDeclaration ? 'text-white' : 'text-gray-700'
+                      }`}>{item}</span>
+                      <span className={`text-xs font-mono ${
+                        receipt.includedInDeclaration ? 'text-gray-300' : 'text-gray-500'
+                      }`}>
+                        {Math.round(receipt.amount / receipt.items.length)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* 구분선 - 항상 하단에 위치 */}
+                <div className={`border-t pt-2 mt-auto ${
+                  receipt.includedInDeclaration ? 'border-gray-600' : 'border-gray-200'
+                }`}>
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">TOTAL</span>
+                    <span className="font-bold text-lg">${receipt.amount}</span>
+                  </div>
+                </div>
               </div>
-              
-              <div className="flex items-center justify-between">
-                <span className="text-xs">신고 포함</span>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={receipt.includedInDeclaration}
-                    onChange={() => toggleDeclaration(receipt.id)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
+
+              {/* 하단 상태 - 항상 맨 아래 고정 */}
+              <div className={`px-4 py-3 border-t ${
+                receipt.includedInDeclaration 
+                  ? 'border-gray-600 bg-gray-800' 
+                  : 'border-gray-100 bg-gray-50'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium">
+                    {receipt.includedInDeclaration ? '신고 포함됨' : '신고 제외됨'}
+                  </span>
+                  <div className={`flex items-center gap-2 text-xs ${
+                    receipt.includedInDeclaration ? 'text-gray-300' : 'text-gray-500'
+                  }`}>
+                    <span className="font-mono">{receipt.tokenId}</span>
+                    <div className={`w-3 h-3 rounded-full ${
+                      receipt.includedInDeclaration 
+                        ? 'bg-green-400' 
+                        : 'bg-gray-300'
+                    }`}></div>
+                  </div>
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
+      
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 }

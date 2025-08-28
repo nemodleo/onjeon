@@ -1,229 +1,165 @@
-# 🌏 온전(Onjeon) - 글로벌 KRW 금융 인프라
+# <img src="public/onjeon_icon.png" alt="온전" width="32" height="32" style="vertical-align: middle;"> 온전(穩錢) | global smart travel wallet
 
-단순한 리펀드를 넘어, 여행객이 한국 원화를 안전하게 연결할 수 있는 글로벌 금융 인프라
+-결제·환전·세금 환급·세관신고까지, 온전한 여행 인프라-
+> *"외국인 관광객에게는 한국을 더 편리하게, 한국인 관광객에게는 해외 여행을 더 스마트하게"*
 
-## 🌟 프로젝트 소개
+## 🚩 여행자의 Pain Point
 
-온전(Onjeon)은 원화 스테이블코인(KRW-C)을 기반으로 한 완전한 여행 금융 생태계입니다. 
-단순한 VAT 리펀드 서비스를 넘어서, 여행객이 한국 원화를 전 세계 어디서나 안전하고 편리하게 사용할 수 있는 
-글로벌 금융 인프라를 지향합니다. 환전 없는 글로벌 결제, 스마트 면세 한도관리, 디지털 VAT 환급, 
-자동 세관 신고까지 - 완전히 새로운 여행 경험을 제공합니다.
+### 해외 결제의 문제점
+- **높은 수수료**: 카드 해외 수수료 3-7%
+- **불리한 환율**: 은행/카드사 환율 마진
+- **환전소 불편**: 불규칙한 위치, 제각각인 운영시간
 
-## 🚀 핵심 기능
+### 세금 환급의 복잡함
+- **공항 대기**: 긴 줄과 복잡한 서류 절차
+- **계산의 어려움**: 환급 대상과 금액 확인 복잡
+- **처리 지연**: 1-3개월 소요되는 환급 처리
 
-### 1️⃣ 환전 게이트웨이
-- **QR 결제**: 해외에서 환전 없이 KRW-C로 즉시 결제
-- **OTP 현금 인출**: 일회용 비밀번호로 안전한 현지 통화 인출
-- **실시간 환율**: 투명한 환율과 최소 수수료 (기존 3-7% → 0.2%)
-- **POS 시스템**: 가맹점용 통합 결제 처리 시스템
+### 세관 신고의 번거로움
+- **누락 위험**: 현금·고가품 신고 누락 시 벌금
+- **시간 낭비**: 복잡한 서류 작성과 대기 시간
+- **투명성 부족**: 불명확한 신고 기준과 절차
 
-### 2️⃣ 스마트 면세 한도관리
-- **실시간 추적**: 결제 시마다 자동으로 면세 한도 사용량 업데이트
-- **스마트 알림**: 70%, 90% 도달 시 자동 경고로 초과 방지
-- **초과 경고**: 결제 전 한도 초과 위험 미리 알림
-- **카테고리별 분석**: 품목별 소비 패턴 분석
+👉 **이러한 불편은 여행자에게 행정 절차라는 장벽을 남기며, 스테이블코인을 활용한 새로운 인프라의 필요성을 보여줍니다.**
 
-### 3️⃣ 디지털 VAT 환급
-- **자동 계산**: 구매 시 VAT 환급 대상 자동 판별
-- **즉시 처리**: 출국 시 QR 스캔으로 즉시 KRW-C 입금
-- **공항 줄서기 없음**: 기존 1-3개월 → 즉시 처리
-- **다중 통화 지원**: KRW-C, USDT, USD, EUR 등으로 자유 스왑
+## ✨ 핵심 기능
 
-### 4️⃣ 자동 세관 신고
-- **NFT 영수증**: 모든 구매 내역이 위변조 불가능한 NFT로 저장
-- **KYC 연동**: 레벨 2 인증으로 안전한 자동 신고
-- **24시간 전 처리**: 귀국 전 자동으로 신고서 작성 및 제출
-- **블록체인 검증**: 세관에서 실시간 영수증 진위 확인
+### 📱 온전한 결제
+- **QR 결제**: 전 세계 어디서든 환전 없이 즉시 결제
+- **POS 시스템**: 가맹점용 통합 결제 처리 시스템  
+- **0% 수수료**: 기존 환전 수수료 없는 직접 결제
+- **실시간 환율**: 투명하고 공정한 환율 적용
+
+### 💰 온전한 환전
+- **즉시 전환**: KRW-C ↔ USD/JPY/EUR 실시간 환전
+- **OTP ATM 출금**: 일회용 비밀번호로 안전한 현지 현금 인출
+- **다중 통화 지원**: 6개 주요 통화 및 스테이블코인 지원
+- **거래 기록**: 모든 환전 내역 투명하게 추적
+
+### 🛍️ 온전한 면세 관리
+- **면세 한도 추적**: 실시간 사용량 모니터링
+- **여행 설정**: 목적지별 면세 한도 자동 설정
+- **스마트 알림**: 한도 초과 위험 사전 경고
+- **구매 이력**: 카테고리별 소비 패턴 분석
+
+### 📄 온전한 VAT 환급  
+- **자동 계산**: 구매 시 VAT 환급액 실시간 계산
+- **즉시 처리**: 출국 시 QR 스캔으로 즉시 환급
+- **스탬프 인증**: 디지털 세관 승인 시스템
+- **다중 통화 지급**: KRW-C, USDT 등 원하는 통화로 환급
+
+### 🏛️ 온전한 세관 신고
+- **NFT 영수증**: 블록체인 기반 위변조 불가능한 디지털 영수증
+- **자동 신고서**: KYC 기반 자동 세관 신고서 생성
+- **사전 제출**: 귀국 24시간 전 자동 제출
+- **실시간 검증**: 세관에서 블록체인으로 영수증 진위 확인
 
 ## 🛠️ 기술 스택
 
-- **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS
-- **State Management**: Zustand
-- **UI Components**: Custom components with shadcn/ui design system
-- **Styling**: Tailwind CSS with custom design tokens
-- **Build System**: Next.js with TypeScript strict mode
+- **Frontend**: Next.js 14 (App Router), TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand  
+- **UI Components**: Custom components with shadcn/ui 디자인 시스템
+- **QR Code**: qrcode, html5-qrcode 라이브러리
+- **Icons**: Lucide React
 
-## 📦 설치 및 실행
+## 📱 앱 구조
 
-### 전제 조건
-- Node.js 18+ 
+```
+/                          # 홈페이지 - 서비스 소개 및 빠른 액션
+├── payment/              # 결제 서비스
+│   ├── qr-payment/      # QR 결제 생성 및 스캔
+│   ├── pos/             # POS 시스템 (가맹점용)
+│   └── history/         # 결제 내역
+├── exchange/            # 환전 서비스  
+│   ├── instant-exchange/# 즉시 환전
+│   ├── otp-withdrawal/  # OTP ATM 출금
+│   └── history/         # 환전 내역
+├── duty-free/           # 면세 관리
+│   ├── trip-setup/      # 여행 설정
+│   ├── dashboard/       # 면세 한도 대시보드
+│   ├── purchase-history/# 구매 이력
+│   └── vat-refund/      # VAT 환급
+│       ├── dashboard/   # 환급 현황
+│       └── stamp/       # 세관 스탬프
+└── customs/             # 세관 신고
+    ├── settings/        # KYC 및 자동 신고 설정
+    ├── receipts/        # NFT 영수증함
+    └── preview/         # 신고서 미리보기
+```
+
+## 🎯 사용자 여정
+
+### 1️⃣ 여행 준비
+1. **여행 설정** (`/duty-free/trip-setup`)에서 목적지와 기간 설정
+2. 면세 한도가 자동으로 계산되어 설정됨
+3. KRW-C 잔액 충전 및 확인
+
+### 2️⃣ 현지에서 결제
+1. **QR 결제** (`/payment/qr-payment`)로 상점에서 결제
+2. 면세 한도가 실시간으로 차감
+3. NFT 영수증이 자동 생성되어 블록체인에 저장
+
+### 3️⃣ 현금이 필요할 때
+1. **OTP 출금** (`/exchange/otp-withdrawal`)에서 OTP 생성
+2. 현지 ATM에서 OTP 입력하여 현금 인출
+3. KRW-C가 현지 통화로 자동 환전
+
+### 4️⃣ 출국 시 환급
+1. **VAT 환급** (`/duty-free/vat-refund/stamp`)에서 탑승권 정보 입력
+2. QR 코드가 생성되어 세관에서 스캔
+3. 환급액이 즉시 KRW-C로 입금
+
+### 5️⃣ 세관 신고
+1. **세관 신고** (`/customs/preview`)에서 자동 생성된 신고서 확인
+2. 원클릭으로 제출 완료
+3. NFT 영수증으로 투명한 검증
+
+## 🎨 디자인 특징
+
+### 모바일 퍼스트 디자인
+- **480px 고정폭**: 모바일 최적화된 앱 형태 UI
+- **iOS 스타일**: 깔끔하고 직관적인 인터페이스
+- **하단 네비게이션**: 쉬운 탭 이동
+
+### 브랜딩
+- **온전(穩錢)**: 한자로 "안정된 돈"을 의미
+- **블랙 & 화이트**: 신뢰감과 전문성을 강조
+- **아이콘 기반**: 직관적인 기능 구분
+
+### 반응형 레이아웃
+- **데스크톱**: 좌측 사이드바로 상세 설명 제공
+- **모바일**: 전체 화면 활용한 최적화된 경험
+
+## 🚀 설치 및 실행
+
+### 요구사항
+- Node.js 18+
 - npm 또는 yarn
 
-### 설치
+### 설치 및 개발 서버 실행
 ```bash
 # 저장소 클론
 git clone <repository-url>
-cd krw-stablecoin-demo
+cd onjeon
 
 # 의존성 설치
 npm install
 
 # 개발 서버 실행
 npm run dev
+
+# http://localhost:3000에서 확인
 ```
 
-### 빌드
+### 빌드 및 배포
 ```bash
 # 프로덕션 빌드
 npm run build
 
-# 빌드된 앱 실행
+# 타입 체크
+npm run type-check
+
+# 프로덕션 서버 실행
 npm start
 ```
-
-## 🎯 데모 시나리오
-
-### 추천 체험 순서
-
-1. **홈페이지** (`/`) - 전체 기능 개요
-2. **여행 설정** (`/duty-free/trip-setup`) - 목적지와 면세 한도 설정  
-3. **QR 결제** (`/exchange/qr-payment`) - KRW-C로 결제 체험
-4. **면세 한도 확인** (`/duty-free/dashboard`) - 실시간 한도 추적
-5. **VAT 환급** (`/vat-refund/dashboard`) - 환급액 확인 및 처리
-6. **세관 신고** (`/customs/settings`) - 자동 신고 설정
-
-### 주요 체험 포인트
-
-- **OTP 인출**: `/exchange/otp-withdrawal`에서 123456 입력으로 성공 시뮬레이션
-- **한도 경고**: 면세 대시보드에서 $700 결제 버튼으로 초과 경고 체험
-- **VAT 스탬프**: 탑승권 번호 입력으로 셀프 인증 체험
-- **NFT 영수증**: 각 결제마다 생성되는 블록체인 영수증 확인
-
-## 📱 페이지 구조
-
-```
-/                          # 홈페이지 - 전체 기능 소개
-├── exchange/             # 환전 게이트웨이
-│   ├── qr-payment/      # QR 결제 시스템
-│   ├── pos/             # POS 시스템 (가맹점용)
-│   └── otp-withdrawal/  # OTP 현금 인출
-├── duty-free/           # 스마트 면세 한도관리  
-│   ├── dashboard/       # 실시간 한도 추적
-│   └── trip-setup/      # 여행 설정
-├── vat-refund/          # 디지털 VAT 환급
-│   ├── dashboard/       # 환급 현황 및 계산
-│   └── stamp/           # 세관 승인 및 즉시 환급
-└── customs/             # 자동 세관 신고
-    ├── settings/        # KYC 및 자동 신고 설정
-    ├── receipts/        # NFT 영수증함
-    └── preview/         # 신고서 미리보기 및 제출
-```
-
-## 💡 혁신적인 가치 제안
-
-### 사용자 관점
-- **편의성**: 환전 없는 글로벌 결제, 줄서기 없는 VAT 환급
-- **경제성**: 환전 수수료 0%, 투명한 환율, 즉시 환급
-- **안전성**: 블록체인 기반 위변조 방지, KYC 인증
-
-### 비즈니스 관점  
-- **새로운 수익모델**: 결제 게이트웨이, 환율 스프레드, 부가서비스
-- **시장 확장**: 국내외 관광객, 온라인 쇼핑몰, 면세점 연계
-- **운영 효율성**: 완전 자동화된 프로세스, 인력 비용 절감
-
-### 사회적 가치
-- **금융 포용성**: 누구나 쉽게 접근 가능한 글로벌 결제
-- **행정 효율성**: 세관 업무 디지털화, 처리 시간 단축
-- **관광 산업 발전**: 더 나은 여행 경험으로 관광 활성화
-
-## 🔧 주요 컴포넌트
-
-### 상태 관리
-- `useWalletStore`: 지갑, 잔액, 사용자 정보 관리
-- `useTripStore`: 여행 정보, 면세 한도, 영수증 관리
-
-### 핵심 컴포넌트
-- `QRPaymentGenerator`: QR 코드 생성 및 결제 관리
-- `POSSystem`: 가맹점용 결제 처리 시스템  
-- `OTPWithdrawal`: 일회용 비밀번호 현금 인출
-- `DutyFreeWidget`: 실시간 면세 한도 추적
-- `VATRefund`: VAT 환급 처리 및 스왑 기능
-- `CustomsDeclaration`: 자동 세관 신고 및 NFT 영수증 관리
-
-## 🎨 디자인 시스템
-
-- **색상 팔레트**: Blue (신뢰), Green (성공), Purple (혁신), Orange (에너지)
-- **타이포그래피**: Inter 폰트, 그라데이션 텍스트, 반응형 크기 조절
-- **컴포넌트**: Modern Card, Gradient Buttons, Smart Navigation
-- **레이아웃**: Mobile-first 반응형 디자인, Mobbin-스타일 모던 UI
-- **애니메이션**: Smooth transitions, Hover effects, Loading states
-
-## 🚧 향후 개발 계획
-
-### Phase 2
-- 실제 블록체인 네트워크 연동
-- 다중 스테이블코인 지원 (USDT, USDC, DAI)
-- 실시간 환율 API 연동
-- Push 알림 시스템
-
-### Phase 3  
-- 가맹점 온보딩 플랫폼
-- 대량 거래 처리 최적화
-- AI 기반 소비 패턴 분석
-- 글로벌 세관 시스템 연동
-
-### Phase 4
-- 대출/신용 서비스 확장
-- NFT 마켓플레이스 통합
-- 여행 보험 자동 처리
-- 탄소 발자국 추적
-
-## 🚀 배포 가이드
-
-### Vercel 배포 (추천)
-
-1. **GitHub 연결**
-   ```bash
-   git add .
-   git commit -m "Ready for deployment"
-   git push origin main
-   ```
-
-2. **Vercel 배포**
-   - [Vercel Dashboard](https://vercel.com/dashboard) 접속
-   - "New Project" 클릭
-   - GitHub 저장소 선택
-   - 자동 배포 완료!
-
-3. **환경 변수 (필요시)**
-   ```
-   NODE_ENV=production
-   NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
-   ```
-
-### 기타 플랫폼 배포
-
-**Netlify**:
-```bash
-npm run build
-# .next 또는 out 폴더를 Netlify에 배포
-```
-
-**Docker**:
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-RUN npm run build
-EXPOSE 3000
-CMD ["npm", "start"]
-```
-
-### 배포 체크리스트
-
-- [ ] `npm run build` 성공 확인
-- [ ] `npm run type-check` 통과  
-- [ ] 모든 페이지 정상 작동 확인
-- [ ] 모바일 반응형 테스트
-- [ ] QR 코드 생성 기능 테스트
-- [ ] 네비게이션 동작 확인
-
-## 📞 문의
-
-온전(Onjeon) 글로벌 KRW 금융 인프라에 대한 문의사항이나 피드백은 언제든 환영합니다.
-
----
-
-**🌏 온전(Onjeon) - 한국 원화가 전 세계를 연결하는 글로벌 금융 인프라의 새로운 패러다임**

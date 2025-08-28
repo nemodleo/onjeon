@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronLeft, TrendingUp, Package, AlertCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, TrendingUp, Package, Settings, AlertCircle } from 'lucide-react';
 import { DutyFreeProgress } from '@/components/ui/page-progress';
 
-export default function DutyFreeDashboardPage() {
+export default function DutyFreeSubPage() {
   return (
     <>
       <DutyFreeProgress />
@@ -15,12 +15,12 @@ export default function DutyFreeDashboardPage() {
             <ChevronLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="text-xl font-bold text-black">면세 한도 대시보드</h1>
-            <p className="text-gray-600 text-xs">실시간 한도 집계 • 품목별 분류</p>
+            <h1 className="text-xl font-bold text-black">면세</h1>
+            <p className="text-gray-600 text-xs">면세 한도 관리 • 구매 내역 • 여행 설정</p>
           </div>
         </div>
 
-        {/* 사용액 현황 */}
+        {/* Current Status Card */}
         <div className="bg-black rounded-xl p-4 text-white">
           <div className="flex justify-between items-start mb-2">
             <div>
@@ -44,6 +44,76 @@ export default function DutyFreeDashboardPage() {
           </div>
         </div>
 
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 gap-2">
+          <div className="bg-gray-50 rounded-xl p-3">
+            <div className="text-lg font-bold text-orange-500">80%</div>
+            <div className="text-xs text-gray-600">한도 사용률</div>
+          </div>
+          <div className="bg-gray-50 rounded-xl p-3">
+            <div className="text-lg font-bold text-black">12</div>
+            <div className="text-xs text-gray-600">NFT 영수증</div>
+          </div>
+        </div>
+
+        {/* 면세 관련 서비스 */}
+        <div className="space-y-4">
+          <div>
+            <h2 className="text-base font-bold text-black mb-1">면세 서비스</h2>
+            <p className="text-gray-600 text-xs">실시간 한도 • 구매 내역 • 여행 설정</p>
+          </div>
+          
+          <div className="space-y-1">
+            <Link
+              href="/duty-free/dashboard"
+              className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 active:bg-gray-50 transition-colors"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 text-black" />
+                </div>
+                <div>
+                  <div className="font-semibold text-black text-sm">면세 한도 대시보드</div>
+                  <div className="text-xs text-gray-600">실시간 한도 집계 • 품목별 분류</div>
+                </div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400" />
+            </Link>
+            
+            <Link
+              href="/duty-free/purchase-history"
+              className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 active:bg-gray-50 transition-colors"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
+                  <Package className="w-4 h-4 text-black" />
+                </div>
+                <div>
+                  <div className="font-semibold text-black text-sm">구매 내역</div>
+                  <div className="text-xs text-gray-600">면세품 구매 이력 • 영수증 관리</div>
+                </div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400" />
+            </Link>
+            
+            <Link
+              href="/duty-free/trip-setup"
+              className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 active:bg-gray-50 transition-colors"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gray-100 rounded-xl flex items-center justify-center">
+                  <Settings className="w-4 h-4 text-black" />
+                </div>
+                <div>
+                  <div className="font-semibold text-black text-sm">여행 설정</div>
+                  <div className="text-xs text-gray-600">출발/귀국일 • 목적지 한도 규칙</div>
+                </div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400" />
+            </Link>
+          </div>
+        </div>
+
         {/* 품목별 사용 현황 */}
         <div className="space-y-4">
           <div>
@@ -52,7 +122,6 @@ export default function DutyFreeDashboardPage() {
           </div>
           
           <div className="space-y-2">
-            {/* 향수 */}
             <div className="bg-white rounded-xl p-3 border border-gray-100">
               <div className="flex justify-between items-center mb-2">
                 <div className="flex items-center space-x-2">
@@ -70,7 +139,6 @@ export default function DutyFreeDashboardPage() {
               </div>
             </div>
 
-            {/* 주류 */}
             <div className="bg-white rounded-xl p-3 border border-gray-100">
               <div className="flex justify-between items-center mb-2">
                 <div className="flex items-center space-x-2">
@@ -88,7 +156,6 @@ export default function DutyFreeDashboardPage() {
               </div>
             </div>
 
-            {/* 담배 */}
             <div className="bg-white rounded-xl p-3 border border-gray-100">
               <div className="flex justify-between items-center mb-2">
                 <div className="flex items-center space-x-2">
@@ -105,24 +172,6 @@ export default function DutyFreeDashboardPage() {
                 <span className="text-xs text-gray-600">잔여 $150</span>
               </div>
             </div>
-
-            {/* 기타 */}
-            <div className="bg-white rounded-xl p-3 border border-gray-100">
-              <div className="flex justify-between items-center mb-2">
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm">📦</span>
-                  <span className="text-sm font-semibold">기타 품목</span>
-                </div>
-                <span className="text-sm font-bold">$0 / $600</span>
-              </div>
-              <div className="w-full bg-gray-100 rounded-full h-1.5">
-                <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: '0%' }}></div>
-              </div>
-              <div className="flex justify-between mt-1">
-                <span className="text-xs text-gray-600">0% 사용</span>
-                <span className="text-xs text-gray-600">잔여 $600</span>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -136,55 +185,6 @@ export default function DutyFreeDashboardPage() {
                 면세 한도의 80%를 사용하셨습니다. 
                 초과 구매시 입국시 세금이 부과됩니다.
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* NFT 영수증 현황 */}
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-base font-bold text-black mb-1">NFT 영수증</h2>
-            <p className="text-gray-600 text-xs">블록체인 기록 • 투명 거래</p>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-gray-50 rounded-xl p-3">
-              <div className="text-lg font-bold text-black">12</div>
-              <div className="text-xs text-gray-600">전체 영수증</div>
-            </div>
-            <div className="bg-blue-50 rounded-xl p-3">
-              <div className="text-lg font-bold text-blue-600">3</div>
-              <div className="text-xs text-gray-600">이번 달 발급</div>
-            </div>
-          </div>
-
-          <div className="text-center py-3 bg-gray-50 rounded-xl">
-            <div className="text-xs text-gray-600 mb-1">블록체인 주소</div>
-            <div className="font-mono text-xs text-black">0x7a9f...3d2c</div>
-          </div>
-        </div>
-
-        {/* 통계 */}
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-base font-bold text-black mb-1">구매 통계</h2>
-            <p className="text-gray-600 text-xs">이번 달 구매 • 건수</p>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-white rounded-xl p-3 border border-gray-100">
-              <div className="flex items-center space-x-2 mb-1">
-                <TrendingUp className="w-3 h-3 text-green-600" />
-                <span className="text-xs text-gray-600">이번 달 구매</span>
-              </div>
-              <div className="text-lg font-bold">$480</div>
-            </div>
-            <div className="bg-white rounded-xl p-3 border border-gray-100">
-              <div className="flex items-center space-x-2 mb-1">
-                <Package className="w-3 h-3 text-blue-600" />
-                <span className="text-xs text-gray-600">구매 건수</span>
-              </div>
-              <div className="text-lg font-bold">8건</div>
             </div>
           </div>
         </div>
