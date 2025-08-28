@@ -75,6 +75,40 @@
   }
 }
 
+/* Enhanced typography - 80% scaled for 480px app width */
+@layer components {
+  /* Headings - scaled down proportionally */
+  h1 {
+    @apply text-2xl font-bold text-black; /* was 3xl */
+  }
+  
+  h2 {
+    @apply text-xl font-bold text-black; /* was 2xl */
+  }
+  
+  h3 {
+    @apply text-lg font-semibold text-black; /* was xl */
+  }
+  
+  /* Body text */
+  p {
+    @apply text-sm leading-relaxed; /* was base */
+  }
+  
+  /* Stronger text contrast */
+  .text-primary {
+    @apply text-black font-medium;
+  }
+  
+  .text-secondary {
+    @apply text-gray-600;
+  }
+  
+  .text-muted {
+    @apply text-gray-400;
+  }
+}
+
 /* Progress highlight animations */
 @keyframes highlight-pulse {
   0%, 100% { transform: scale(1); opacity: 1; }
@@ -103,10 +137,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #3b82f6, #9333ea);
+  background: #6b7280;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, #2563eb, #7c3aed);
+  background: #4b5563;
 }

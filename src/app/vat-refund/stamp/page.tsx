@@ -23,180 +23,148 @@ export default function VATStampPage() {
       <VATRefundProgress />
       <div className="space-y-6">
       {/* Header */}
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">세관 승인 및 환급 처리</h1>
-        <p className="text-gray-600">
-          출국 전 마지막 단계: 세관 승인 후 즉시 VAT 환급을 받으세요
+      <div className="pt-8">
+        <h1 className="text-3xl font-bold text-black mb-3">세관 승인 및 환급 처리</h1>
+        <p className="text-gray-600 text-base">
+          세관 승인 • QR 스캔 • 즉시 환급
         </p>
       </div>
 
+      {/* 스탬프 받기 - 1열 */}
+      <div className="bg-gray-50 rounded-2xl p-6">
+        <Link href="/vat-refund/stamp" className="block">
+          <div className="bg-black text-white rounded-xl py-4 px-6 text-center font-medium hover:opacity-90 transition-opacity">
+            🎫 공항에서 스탬프 받기
+          </div>
+        </Link>
+        <div className="text-xs text-gray-500 text-center mt-3">
+          출국 전 세관에서 승인 필요
+        </div>
+      </div>
+
       {/* 진행 상황 */}
-      <div className="flex justify-center">
-        <div className="flex items-center space-x-4">
+      <div className="bg-gray-50 rounded-2xl p-4 mb-6">
+        <div className="flex items-center justify-center space-x-4">
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="text-sm text-green-600">영수증 수집</span>
+            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+            <span className="text-xs">영수증 수집</span>
           </div>
-          <div className="w-8 h-0.5 bg-green-500"></div>
+          <div className="w-8 h-0.5 bg-gray-300"></div>
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="text-sm text-green-600">환급액 계산</span>
+            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+            <span className="text-xs">환급액 계산</span>
           </div>
-          <div className={`w-8 h-0.5 ${currentStep === 'payout' ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+          <div className={`w-8 h-0.5 ${currentStep === 'payout' ? 'bg-gray-400' : 'bg-gray-600'}`}></div>
           <div className="flex items-center space-x-2">
-            <div className={`w-3 h-3 rounded-full ${currentStep === 'payout' ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-            <span className={`text-sm ${currentStep === 'payout' ? 'text-green-600' : 'text-yellow-600'}`}>세관 승인</span>
+            <div className={`w-2 h-2 rounded-full ${currentStep === 'payout' ? 'bg-gray-400' : 'bg-gray-600'}`}></div>
+            <span className={`text-xs ${currentStep === 'payout' ? '' : 'font-medium'}`}>세관 승인</span>
           </div>
-          <div className={`w-8 h-0.5 ${currentStep === 'payout' ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+          <div className={`w-8 h-0.5 ${currentStep === 'payout' ? 'bg-gray-400' : 'bg-gray-300'}`}></div>
           <div className="flex items-center space-x-2">
-            <div className={`w-3 h-3 rounded-full ${currentStep === 'payout' ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-            <span className={`text-sm ${currentStep === 'payout' ? 'text-green-600' : 'text-gray-500'}`}>환급 완료</span>
+            <div className={`w-2 h-2 rounded-full ${currentStep === 'payout' ? 'bg-gray-400' : 'bg-gray-300'}`}></div>
+            <span className={`text-xs ${currentStep === 'payout' ? '' : 'text-gray-500'}`}>환급 완료</span>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 메인 컨텐츠 */}
-        <div className="lg:col-span-2 flex justify-center">
-          {currentStep === 'verification' ? (
-            <div className="w-full max-w-md">
-              <VATStampVerification />
-              {/* 자동으로 다음 단계로 이동하는 숨겨진 핸들러 */}
-              <div className="hidden" onLoad={handleStampComplete}></div>
+      {/* 메인 컨텐츠 */}
+      <div className="flex justify-center mb-6">
+        {currentStep === 'verification' ? (
+          <div className="w-full max-w-md">
+            <VATStampVerification />
+            {/* 자동으로 다음 단계로 이동하는 숨겨진 핸들러 */}
+            <div className="hidden" onLoad={handleStampComplete}></div>
+          </div>
+        ) : (
+          <VATPayoutConfirmation />
+        )}
+      </div>
+
+      {/* 하단 정보 카드들 - 3열 */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* 환급 요약 */}
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <h3 className="font-semibold text-black mb-3">환급 요약</h3>
+          <div className="space-y-3">
+            <div className="text-center p-3 bg-white rounded-xl">
+              <div className="text-xl font-bold text-black">₩44,352</div>
+              <div className="text-xs text-gray-600">총 환급 금액</div>
             </div>
-          ) : (
-            <VATPayoutConfirmation />
-          )}
+            
+            <div className="space-y-1 text-xs">
+              <div className="flex justify-between">
+                <span className="text-gray-600">구매 총액:</span>
+                <span>$420.00</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">부가세:</span>
+                <span>$42.00</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">환급률:</span>
+                <span>80%</span>
+              </div>
+              <div className="flex justify-between font-medium pt-1 border-t">
+                <span>환급액:</span>
+                <span>$33.60</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* 사이드바 */}
-        <div className="space-y-6">
-          {/* 환급 요약 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>환급 요약</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="text-center p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600">₩44,352</div>
-                  <div className="text-sm text-gray-600">총 환급 금액</div>
-                </div>
-                
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span>구매 총액:</span>
-                    <span>$420.00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>부가세:</span>
-                    <span>$42.00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>환급률:</span>
-                    <span>80%</span>
-                  </div>
-                  <div className="flex justify-between font-medium border-t pt-2">
-                    <span>환급액:</span>
-                    <span>$33.60</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        {/* 공항 정보 */}
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <h3 className="font-semibold text-black mb-3">공항 정보</h3>
+          <div className="space-y-2 text-xs">
+            <div className="flex justify-between">
+              <span className="text-gray-600">공항:</span>
+              <span>인천국제공항</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">터미널:</span>
+              <span>제1터미널</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">위치:</span>
+              <span>출국장 세관</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">운영시간:</span>
+              <span>24시간</span>
+            </div>
+          </div>
+          
+          <div className="mt-3 p-2 bg-white rounded-xl text-xs text-gray-600">
+            💡 KRW-C 전용 창구에서 빠른 처리 가능
+          </div>
+        </div>
 
-          {/* 공항 정보 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>공항 정보</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span>공항:</span>
-                  <span>인천국제공항</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>터미널:</span>
-                  <span>제1터미널</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>위치:</span>
-                  <span>출국장 세관</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>운영시간:</span>
-                  <span>24시간</span>
-                </div>
+        {/* 주의사항 */}
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <h3 className="font-semibold text-black mb-3">주의사항</h3>
+          <div className="space-y-2 text-xs">
+            <div className="flex items-start space-x-2">
+              <span>⚠️</span>
+              <div>
+                <div className="font-medium text-black">탑승 전 필수</div>
+                <div className="text-gray-600">보안검색대 통과 전 승인</div>
               </div>
-              
-              <div className="mt-3 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-800">
-                💡 KRW-C 사용자는 전용 창구에서 더 빠른 처리가 가능합니다
+            </div>
+            <div className="flex items-start space-x-2">
+              <span>ℹ️</span>
+              <div>
+                <div className="font-medium text-black">신분증 지참</div>
+                <div className="text-gray-600">여권과 탑승권 준비</div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* 주의사항 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>주의사항</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-start space-x-2">
-                  <div className="text-yellow-600">⚠️</div>
-                  <div>
-                    <div className="font-medium">탑승 전 필수</div>
-                    <div className="text-gray-600">보안검색대 통과 전에 승인받으세요</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <div className="text-blue-600">ℹ️</div>
-                  <div>
-                    <div className="font-medium">신분증 지참</div>
-                    <div className="text-gray-600">여권과 탑승권을 준비해주세요</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <div className="text-green-600">✅</div>
-                  <div>
-                    <div className="font-medium">즉시 처리</div>
-                    <div className="text-gray-600">승인과 동시에 지갑 입금됩니다</div>
-                  </div>
-                </div>
+            </div>
+            <div className="flex items-start space-x-2">
+              <span>✅</span>
+              <div>
+                <div className="font-medium text-black">즉시 처리</div>
+                <div className="text-gray-600">승인 후 지갑 입금</div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* 도움말 */}
-          {currentStep === 'verification' && (
-            <Card>
-              <CardHeader>
-                <CardTitle>도움말</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div>
-                    <div className="font-medium mb-1">QR 스캔 방식</div>
-                    <div className="text-gray-600">
-                      세관 직원이 QR 코드를 스캔하여 모든 영수증을 한번에 확인합니다.
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div className="font-medium mb-1">셀프 인증 (데모)</div>
-                    <div className="text-gray-600">
-                      실제 서비스 체험을 위한 데모 기능입니다. 탑승권 번호를 입력하세요.
-                    </div>
-                  </div>
-
-                  <div className="p-2 bg-gray-50 border border-gray-200 rounded text-xs">
-                    문의사항이 있으시면 공항 KRW-C 전용 데스크로 문의하세요.
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+            </div>
+          </div>
         </div>
       </div>
 

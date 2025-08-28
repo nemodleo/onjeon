@@ -108,20 +108,50 @@ export function TripSetupForm() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">출발일</label>
-            <Input
-              type="date"
-              value={departureDate}
-              onChange={(e) => setDepartureDate(e.target.value)}
-            />
+            <div className="relative">
+              <Input
+                type="date"
+                value={departureDate}
+                onChange={(e) => setDepartureDate(e.target.value)}
+                className="w-full pl-10"
+                min={new Date().toISOString().split('T')[0]}
+              />
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                📅
+              </div>
+            </div>
+            <div className="text-xs text-gray-500 mt-1">
+              {new Date(departureDate).toLocaleDateString('ko-KR', { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </div>
           </div>
           
           <div>
             <label className="block text-sm font-medium mb-2">귀국일</label>
-            <Input
-              type="date"
-              value={returnDate}
-              onChange={(e) => setReturnDate(e.target.value)}
-            />
+            <div className="relative">
+              <Input
+                type="date"
+                value={returnDate}
+                onChange={(e) => setReturnDate(e.target.value)}
+                className="w-full pl-10"
+                min={departureDate}
+              />
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                📅
+              </div>
+            </div>
+            <div className="text-xs text-gray-500 mt-1">
+              {new Date(returnDate).toLocaleDateString('ko-KR', { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </div>
           </div>
         </div>
 

@@ -20,6 +20,7 @@ interface PageProgressProps {
 
 export function PageProgress({ steps, currentStep, onStepClick, className }: PageProgressProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,14 +30,27 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
       setScrollProgress(progress);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
+    const handleResize = () => {
+      // 화면 너비가 1400px 이상일 때만 표시 (사이드바 + 앱 + 프로그래스바 공간 확보)
+      const shouldShow = window.innerWidth >= 1400 && window.innerHeight >= 700;
+      setIsVisible(shouldShow);
+    };
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    handleScroll();
+    handleResize();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
+  if (!isVisible) return null;
+
   return (
-    <div className={cn("fixed right-6 top-1/2 -translate-y-1/2 z-30 hidden lg:block", className)}>
+    <div className={cn("fixed right-6 top-1/2 -translate-y-1/2 z-30", className)}>
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border p-4 min-w-[280px]">
         {/* Header */}
         <div className="mb-6">
@@ -44,7 +58,7 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
           <div className="flex items-center space-x-2">
             <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500"
+                className="h-full bg-blue-500 rounded-full transition-all duration-500"
                 style={{ width: `${((currentStep + scrollProgress) / steps.length) * 100}%` }}
               />
             </div>
@@ -67,8 +81,8 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
                 className={cn(
                   "flex items-start space-x-3 p-3 rounded-xl cursor-pointer transition-all duration-300",
                   isCurrent 
-                    ? "bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200" 
-                    : "hover:bg-gray-50",
+                    ? "bg-gray-100 border border-gray-200" 
+                    : "hover:bg-gray-100",
                   onStepClick && "cursor-pointer"
                 )}
                 onClick={() => onStepClick?.(index)}
@@ -79,7 +93,7 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
                   isCompleted
                     ? "bg-green-500 border-green-500"
                     : isActive 
-                      ? "bg-gradient-to-r from-blue-500 to-purple-600 border-transparent"
+                      ? "bg-blue-500 border-transparent"
                       : "border-gray-300 bg-white"
                 )}>
                   {isCompleted ? (
@@ -111,7 +125,7 @@ export function PageProgress({ steps, currentStep, onStepClick, className }: Pag
                     <div className="mt-2">
                       <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500"
+                          className="h-full bg-blue-500 rounded-full transition-all duration-500"
                           style={{ width: `${scrollProgress * 100}%` }}
                         />
                       </div>
@@ -149,23 +163,23 @@ export function ExchangeProgress() {
   const steps = [
     {
       id: 'overview',
-      title: 'Service Overview',
-      description: 'Explore exchange gateway services'
+      title: '서비스 개요',
+      description: '환전 게이트웨이 서비스 탐색'
     },
     {
       id: 'qr-payment',
-      title: 'QR Payment',
-      description: 'Generate QR for instant payment'
+      title: 'QR 결제',
+      description: '즉시 결제용 QR 생성'
     },
     {
       id: 'otp-withdrawal',
-      title: 'OTP Withdrawal',
-      description: 'Secure cash withdrawal with OTP'
+      title: 'OTP 출금',
+      description: 'OTP로 안전한 현금 출금'
     },
     {
       id: 'pos-system',
-      title: 'POS Integration',
-      description: 'Merchant POS system setup'
+      title: 'POS 연동',
+      description: '가맹점 POS 시스템 설정'
     }
   ];
 
@@ -214,23 +228,23 @@ export function DutyFreeProgress() {
   const steps = [
     {
       id: 'overview',
-      title: 'Service Overview',
-      description: 'Smart duty-free management'
+      title: '서비스 개요',
+      description: '스마트 면세점 관리'
     },
     {
       id: 'trip-setup',
-      title: 'Trip Setup',
-      description: 'Configure destination and limits'
+      title: '여행 설정',
+      description: '목적지 및 한도 설정'
     },
     {
       id: 'dashboard',
-      title: 'Live Dashboard',
-      description: 'Monitor real-time usage'
+      title: '실시간 대시보드',
+      description: '실시간 사용량 모니터링'
     },
     {
       id: 'optimization',
-      title: 'AI Optimization',
-      description: 'Smart purchase recommendations'
+      title: 'AI 최적화',
+      description: '스마트 구매 추천'
     }
   ];
 
@@ -271,23 +285,23 @@ export function VATRefundProgress() {
   const steps = [
     {
       id: 'overview',
-      title: 'Service Overview',
-      description: 'Instant VAT refund system'
+      title: '서비스 개요',
+      description: '즉시 VAT 환급 시스템'
     },
     {
       id: 'auto-calculation',
-      title: 'Auto Calculation',
-      description: 'Purchase-time VAT calculation'
+      title: '자동 계산',
+      description: '구매 시점 VAT 계산'
     },
     {
       id: 'dashboard',
-      title: 'Refund Dashboard',
-      description: 'Track refund status'
+      title: '환급 대시보드',
+      description: '환급 상태 추적'
     },
     {
       id: 'stamp-process',
-      title: 'Exit Stamp',
-      description: 'Final stamp processing'
+      title: '출국 스탬프',
+      description: '최종 스탬프 처리'
     }
   ];
 
@@ -328,23 +342,23 @@ export function CustomsProgress() {
   const steps = [
     {
       id: 'overview',
-      title: 'Service Overview',
-      description: 'Automated customs declaration'
+      title: '서비스 개요',
+      description: '자동화된 세관 신고'
     },
     {
       id: 'kyc-setup',
-      title: 'KYC Setup',
-      description: 'Identity verification'
+      title: 'KYC 설정',
+      description: '신원 확인'
     },
     {
       id: 'nft-receipts',
-      title: 'NFT Receipts',
-      description: 'Blockchain-based receipts'
+      title: 'NFT 영수증',
+      description: '블록체인 기반 영수증'
     },
     {
       id: 'auto-declaration',
-      title: 'Auto Declaration',
-      description: 'One-click customs filing'
+      title: '자동 신고',
+      description: '원클릭 세관 신고'
     }
   ];
 
