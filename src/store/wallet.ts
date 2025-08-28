@@ -25,23 +25,27 @@ export const useWalletStore = create<WalletState>((set, get) => ({
     nationality: 'KR',
     walletAddress: '0x1234...abcd',
     balance: {
+      'KRW-C': 1234567,
       KRW: 1000000,
       USD: 500,
       JPY: 50000,
       EUR: 200,
       USDT: 1000,
       USDC: 800,
+      DAI: 1100,
     }
   },
   currentPayment: null,
   currentWithdrawal: null,
   balance: {
+    'KRW-C': 1234567,
     KRW: 1000000,
     USD: 500,
     JPY: 50000,
     EUR: 200,
     USDT: 1000,
     USDC: 800,
+    DAI: 1100,
   },
   
   setUser: (user) => set({ user }),

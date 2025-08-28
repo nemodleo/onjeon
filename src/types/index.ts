@@ -1,5 +1,5 @@
 // 기본 통화 타입
-export type Currency = 'KRW' | 'USD' | 'JPY' | 'EUR' | 'USDT' | 'USDC';
+export type Currency = 'KRW-C' | 'KRW' | 'USD' | 'JPY' | 'EUR' | 'USDT' | 'USDC' | 'DAI';
 
 // 결제 상태
 export type PaymentStatus = 'pending' | 'processing' | 'completed' | 'failed' | 'expired';

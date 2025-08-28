@@ -1,15 +1,66 @@
 'use client';
 
+import { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { POSSystem } from '@/components/POSSystem';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PaymentProgress } from '@/components/ui/page-progress';
+import { PageProgress } from '@/components/ui/page-progress';
 import Link from 'next/link';
 
 export default function POSSystemPage() {
+  const [currentStep, setCurrentStep] = useState(2);
+  const router = useRouter();
+  const posRef = useRef<HTMLDivElement>(null);
+
+  const steps = [
+    {
+      id: 'setup',
+      title: '결제 정보 입력',
+      description: '금액과 통화를 선택하세요',
+      href: '/payment/qr-payment'
+    },
+    {
+      id: 'generate', 
+      title: '결제 QR 생성',
+      description: 'QR 코드를 생성합니다',
+      href: '/payment/qr-payment'
+    },
+    {
+      id: 'scan',
+      title: '가맹점 스캔',
+      description: '가맹점에서 QR 코드 스캔',
+      href: '/payment/pos'
+    },
+    {
+      id: 'approve',
+      title: '자동 승인',
+      description: '곧바로 자동 승인 처리',
+      href: '/payment/history'
+    }
+  ];
+
+  const handleStepClick = (stepIndex: number) => {
+    setCurrentStep(stepIndex);
+    const step = steps[stepIndex];
+    
+    if (step.href && stepIndex !== 2) {
+      router.push(step.href);
+    } else if (posRef.current) {
+      posRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <>
-      <PaymentProgress />
+      <PageProgress 
+        steps={steps} 
+        currentStep={currentStep} 
+        onStepClick={handleStepClick}
+      />
       <div className="space-y-4">
       {/* Header */}
       <div>
@@ -37,21 +88,24 @@ export default function POSSystemPage() {
       </div>
 
       {/* POS System */}
-      <POSSystem />
+      <div 
+        ref={posRef}
+        className={`transition-all duration-700 ${
+          currentStep === 2 ? 'scale-[1.05] shadow-2xl ring-4 ring-purple-500/50 bg-purple-50/50 rounded-2xl p-4' : ''
+        }`}
+      >
+        <POSSystem />
+      </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <div className="bg-gray-50 rounded-2xl p-5">
-          <div className="text-2xl font-bold text-black">초</div>
+          <div className="text-2xl font-bold text-black">즉시</div>
           <div className="text-xs text-gray-600">정산시간</div>
         </div>
         <div className="bg-gray-50 rounded-2xl p-5">
-          <div className="text-xl font-bold text-green-500">0.5%</div>
+          <div className="text-xl font-bold text-green-500">0.5% / ZeroPay0%</div>
           <div className="text-xs text-gray-600">수수료</div>
-        </div>
-        <div className="bg-gray-50 rounded-2xl p-5">
-          <div className="text-2xl font-bold text-black">4/7</div>
-          <div className="text-xs text-gray-600">운영시간</div>
         </div>
       </div>
 

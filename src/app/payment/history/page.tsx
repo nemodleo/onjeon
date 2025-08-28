@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PaymentProgress } from '@/components/ui/page-progress';
+import { PageProgress } from '@/components/ui/page-progress';
 import { Clock, CheckCircle, XCircle, AlertCircle, Filter, Download, Receipt } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 
@@ -25,6 +26,54 @@ interface Transaction {
 
 export default function PaymentHistoryPage() {
   const [filter, setFilter] = useState<'all' | TransactionType>('all');
+  const [currentStep, setCurrentStep] = useState(3);
+  const router = useRouter();
+  const historyRef = useRef<HTMLDivElement>(null);
+
+  const steps = [
+    {
+      id: 'setup',
+      title: '결제 정보 입력',
+      description: '금액과 통화를 선택하세요',
+      href: '/payment/qr-payment',
+      isCompleted: true
+    },
+    {
+      id: 'generate', 
+      title: '결제 QR 생성',
+      description: 'QR 코드를 생성합니다',
+      href: '/payment/qr-payment',
+      isCompleted: true
+    },
+    {
+      id: 'scan',
+      title: '가맹점 스캔',
+      description: '가맹점에서 QR 코드 스캔',
+      href: '/payment/pos',
+      isCompleted: true
+    },
+    {
+      id: 'approve',
+      title: '결제 완료',
+      description: '자동 승인 완료',
+      href: '/payment/history',
+      isCompleted: true
+    }
+  ];
+
+  const handleStepClick = (stepIndex: number) => {
+    setCurrentStep(stepIndex);
+    const step = steps[stepIndex];
+    
+    if (step.href && stepIndex !== 3) {
+      router.push(step.href);
+    } else if (historyRef.current) {
+      historyRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
   const [transactions] = useState<Transaction[]>([
     {
       id: 'TXN-001',
@@ -158,7 +207,11 @@ export default function PaymentHistoryPage() {
 
   return (
     <>
-      <PaymentProgress />
+      <PageProgress 
+        steps={steps} 
+        currentStep={currentStep} 
+        onStepClick={handleStepClick}
+      />
       <div className="space-y-4">
         {/* Header */}
         <div>
@@ -241,7 +294,12 @@ export default function PaymentHistoryPage() {
         </div>
 
         {/* Transaction List */}
-        <div className="space-y-3">
+        <div 
+          ref={historyRef}
+          className={`space-y-3 transition-all duration-700 ${
+            currentStep === 3 ? 'scale-[1.05] shadow-2xl ring-4 ring-green-500/50 bg-green-50/50 rounded-2xl p-4' : ''
+          }`}
+        >
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-bold text-black">최근 거래</h3>
             <Button size="sm" variant="ghost" className="text-sm">

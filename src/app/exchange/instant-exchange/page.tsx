@@ -7,8 +7,7 @@ import { Input } from '@/components/ui/input';
 import { useWalletStore } from '@/store/wallet';
 import { formatCurrency } from '@/lib/utils';
 import { ArrowDownUp, TrendingUp, Zap, Clock } from 'lucide-react';
-
-type Currency = 'KRW-C' | 'USDT' | 'USDC' | 'DAI';
+import { Currency } from '@/types';
 
 const exchangeRates: Record<string, number> = {
   'KRW-C_USDT': 0.00076,
@@ -47,7 +46,7 @@ export default function InstantExchangePage() {
   const handleExchange = async () => {
     const inputAmount = parseFloat(amount);
     if (isNaN(inputAmount) || inputAmount <= 0) return;
-    if (balance[fromCurrency] < inputAmount) {
+    if ((balance[fromCurrency] || 0) < inputAmount) {
       alert('잔액이 부족합니다.');
       return;
     }
@@ -58,8 +57,8 @@ export default function InstantExchangePage() {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     const exchangedAmount = calculateExchange();
-    updateBalance(fromCurrency, balance[fromCurrency] - inputAmount);
-    updateBalance(toCurrency, balance[toCurrency] + exchangedAmount);
+    updateBalance(fromCurrency, (balance[fromCurrency] || 0) - inputAmount);
+    updateBalance(toCurrency, (balance[toCurrency] || 0) + exchangedAmount);
     
     setIsProcessing(false);
     setAmount('');
@@ -306,7 +305,7 @@ export default function InstantExchangePage() {
               />
             </div>
             <div className="text-base text-gray-600">
-              보유: {formatCurrency(balance[fromCurrency], fromCurrency)}
+              보유: {formatCurrency(balance[fromCurrency] || 0, fromCurrency)}
             </div>
           </div>
 
@@ -343,7 +342,7 @@ export default function InstantExchangePage() {
               </div>
             </div>
             <div className="text-base text-gray-600">
-              보유: {formatCurrency(balance[toCurrency], toCurrency)}
+              보유: {formatCurrency(balance[toCurrency] || 0, toCurrency)}
             </div>
           </div>
 
