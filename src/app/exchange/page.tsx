@@ -32,25 +32,25 @@ export default function ExchangePage() {
   return (
     <>
       <ExchangeProgress />
-      <div className="space-y-6">
-      {/* Header */}
-      <div className="pt-4">
-        <h1 className="text-3xl font-bold text-black mb-3">환전 게이트웨이</h1>
-        <p className="text-gray-600 text-base">전 세계 0% 수수료 결제</p>
+      <div className="space-y-5">
+      {/* Header - 80% scaled */}
+      <div className="pt-3">
+        <h1 className="text-2xl font-bold text-black mb-2">온전한 결제</h1>
+        <p className="text-gray-600 text-sm">전 세계 0% 수수료 결제</p>
       </div>
 
-      {/* Balance Card */}
-      <div className="bg-black rounded-3xl p-6 text-white">
-        <div className="flex justify-between items-start mb-4">
+      {/* Balance Card - 80% scaled */}
+      <div className="bg-black rounded-2xl p-5 text-white">
+        <div className="flex justify-between items-start mb-3">
           <div>
-            <p className="text-gray-300 text-base">사용 가능 잔액</p>
-            <p className="text-3xl font-bold">₩ 1,234,567</p>
+            <p className="text-gray-300 text-sm">사용 가능 잔액</p>
+            <p className="text-2xl font-bold">₩ 1,234,567</p>
           </div>
-          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-            <CreditCard className="w-4 h-4" />
+          <div className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center">
+            <CreditCard className="w-3.5 h-3.5" />
           </div>
         </div>
-        <div className="text-base text-gray-300">
+        <div className="text-sm text-gray-300">
           전 세계 어디서든 0% 수수료
         </div>
       </div>
@@ -58,11 +58,17 @@ export default function ExchangePage() {
       {/* Quick Stats - 2 Column Grid */}
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-gray-50 rounded-2xl p-4">
-          <div className="text-2xl font-bold text-black">20-40bps</div>
+          <div className="flex items-baseline">
+            <span className="text-2xl font-bold text-black">20-40</span>
+            <span className="text-sm text-gray-600 ml-1">bps</span>
+          </div>
           <div className="text-sm text-gray-600">FX 스프레드</div>
         </div>
         <div className="bg-gray-50 rounded-2xl p-4">
-          <div className="text-2xl font-bold text-black">120초</div>
+          <div className="flex items-baseline">
+            <span className="text-2xl font-bold text-black">120</span>
+            <span className="text-sm text-gray-600 ml-1">초</span>
+          </div>
           <div className="text-sm text-gray-600">OTP 유효시간</div>
         </div>
       </div>

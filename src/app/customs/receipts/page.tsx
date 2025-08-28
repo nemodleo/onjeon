@@ -18,14 +18,19 @@ export default function NFTReceiptsPage() {
         <p className="text-gray-600 text-base">카드 그리드 • 신고 포함 선택</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* 메인 컨텐츠 */}
-        <div className="lg:col-span-3">
-          <NFTReceiptWallet />
+      {/* 신고 금액 합계 */}
+      <div className="bg-gray-50 rounded-2xl p-6 mb-6">
+        <div className="text-center">
+          <div className="text-3xl font-bold text-black">$420</div>
+          <div className="text-sm text-gray-600 mt-1">신고 포함 금액</div>
         </div>
+      </div>
 
-        {/* 사이드바 */}
-        <div className="space-y-6">
+      {/* 메인 컨텐츠 */}
+      <NFTReceiptWallet />
+
+      {/* 하단 정보 카드들 - 3열 */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
           {/* NFT 정보 - Apple Style */}
           <div className="space-y-3">
             <h3 className="text-lg font-bold text-black">NFT 영수증이란?</h3>
@@ -62,159 +67,140 @@ export default function NFTReceiptsPage() {
             </div>
           </div>
 
-          {/* 신고 현황 - Apple Style */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-bold text-black">신고 현황</h3>
-            <div className="bg-gray-50 rounded-2xl p-4 space-y-3">
-              <div className="text-center p-3 bg-white rounded-xl">
-                <div className="text-2xl font-bold text-black">$420</div>
-                <div className="text-sm text-gray-600">신고 포함 금액</div>
-              </div>
-              
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">총 영수증 수:</span>
-                  <span className="font-medium">3개</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">신고 포함:</span>
-                  <span className="font-medium">2개</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">신고 제외:</span>
-                  <span className="font-medium">1개</span>
-                </div>
-                <div className="flex justify-between border-t pt-2">
-                  <span className="text-gray-600">예상 세금:</span>
-                  <span className="font-medium">$18</span>
-                </div>
-              </div>
+        {/* 신고 현황 */}
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <h3 className="font-semibold text-black mb-3">신고 현황</h3>
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-gray-600">총 영수증:</span>
+              <span className="font-medium">3개</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">신고 포함:</span>
+              <span className="font-medium">2개</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">신고 제외:</span>
+              <span className="font-medium">1개</span>
+            </div>
+            <div className="flex justify-between border-t pt-2">
+              <span className="text-gray-600">예상 세금:</span>
+              <span className="font-medium">$18</span>
             </div>
           </div>
+        </div>
 
-          {/* 카테고리별 분석 - Apple Style */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-bold text-black">카테고리별 구매</h3>
-            <div className="bg-gray-50 rounded-2xl p-4 space-y-2">
-              <div className="flex justify-between p-2 bg-white rounded-xl">
-                <span className="text-sm">화장품/패션:</span>
-                <span className="font-medium">$240</span>
-              </div>
-              <div className="flex justify-between p-2 bg-white rounded-xl">
-                <span className="text-sm">전자제품:</span>
-                <span className="font-medium">$180</span>
-              </div>
-              <div className="flex justify-between p-2 bg-white rounded-xl">
-                <span className="text-sm">기념품:</span>
-                <span className="font-medium">$45</span>
-              </div>
+        {/* 카테고리별 구매 */}
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <h3 className="font-semibold text-black mb-3">카테고리별 구매</h3>
+          <div className="space-y-2">
+            <div className="flex justify-between p-2 bg-white rounded-xl text-sm">
+              <span>화장품/패션:</span>
+              <span className="font-medium">$240</span>
+            </div>
+            <div className="flex justify-between p-2 bg-white rounded-xl text-sm">
+              <span>전자제품:</span>
+              <span className="font-medium">$180</span>
+            </div>
+            <div className="flex justify-between p-2 bg-white rounded-xl text-sm">
+              <span>기념품:</span>
+              <span className="font-medium">$45</span>
             </div>
           </div>
+        </div>
 
-          {/* 빠른 액션 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>빠른 액션</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <Link href="/customs/preview">
-                <Button className="w-full" size="sm">
-                  신고서 미리보기
-                </Button>
-              </Link>
-              <Link href="/exchange/qr-payment">
-                <Button className="w-full" size="sm" variant="outline">
-                  추가 구매하기
-                </Button>
-              </Link>
-              <Link href="/customs/settings">
-                <Button className="w-full" size="sm" variant="outline">
-                  설정 변경
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+        {/* 빠른 액션 */}
+        <div className="bg-gray-50 rounded-2xl p-4">
+          <h3 className="font-semibold text-black mb-3">빠른 액션</h3>
+          <div className="space-y-2">
+            <Link href="/customs/preview" className="block">
+              <div className="bg-black text-white rounded-xl py-2 px-3 text-sm text-center font-medium hover:opacity-90 transition-opacity">
+                신고서 미리보기
+              </div>
+            </Link>
+            <Link href="/exchange/qr-payment" className="block">
+              <div className="bg-white border border-gray-200 rounded-xl py-2 px-3 text-sm text-center font-medium hover:bg-gray-50 transition-colors">
+                추가 구매하기
+              </div>
+            </Link>
+            <Link href="/customs/settings" className="block">
+              <div className="bg-white border border-gray-200 rounded-xl py-2 px-3 text-sm text-center font-medium hover:bg-gray-50 transition-colors">
+                설정 변경
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* NFT 기술 설명 */}
-      <Card>
-        <CardHeader>
-          <CardTitle>NFT 영수증의 기술적 장점</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center space-y-2">
-              <div className="text-3xl">🔐</div>
-              <h3 className="font-medium">암호학적 보안</h3>
-              <p className="text-sm text-gray-600">
-                해시 함수와 디지털 서명으로 영수증의 무결성을 보장합니다
-              </p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="text-3xl">🌐</div>
-              <h3 className="font-medium">분산 저장</h3>
-              <p className="text-sm text-gray-600">
-                여러 노드에 분산 저장되어 단일 장애점이 없습니다
-              </p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="text-3xl">🔍</div>
-              <h3 className="font-medium">실시간 검증</h3>
-              <p className="text-sm text-gray-600">
-                세관에서 블록체인을 통해 즉시 진위를 확인할 수 있습니다
-              </p>
-            </div>
+      {/* NFT 기술 설명 - Apple Style */}
+      <div className="space-y-4 mt-8">
+        <h3 className="text-xl font-bold text-black">NFT 영수증의 기술적 장점</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gray-50 rounded-2xl p-6 text-center">
+            <div className="text-3xl mb-3">🔐</div>
+            <h3 className="font-medium text-black mb-2">암호학적 보안</h3>
+            <p className="text-xs text-gray-600">
+              해시 함수와 디지털 서명으로 영수증의 무결성을 보장합니다
+            </p>
           </div>
-        </CardContent>
-      </Card>
+          <div className="bg-gray-50 rounded-2xl p-6 text-center">
+            <div className="text-3xl mb-3">🌐</div>
+            <h3 className="font-medium text-black mb-2">분산 저장</h3>
+            <p className="text-xs text-gray-600">
+              여러 노드에 분산 저장되어 단일 장애점이 없습니다
+            </p>
+          </div>
+          <div className="bg-gray-50 rounded-2xl p-6 text-center">
+            <div className="text-3xl mb-3">🔍</div>
+            <h3 className="font-medium text-black mb-2">실시간 검증</h3>
+            <p className="text-xs text-gray-600">
+              세관에서 블록체인을 통해 즉시 진위를 확인할 수 있습니다
+            </p>
+          </div>
+        </div>
+      </div>
 
-      {/* 사용법 안내 */}
-      <Card>
-        <CardHeader>
-          <CardTitle>NFT 영수증 관리법</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="text-center space-y-2">
-              <div className="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mx-auto">
-                1
-              </div>
-              <h3 className="font-medium">자동 발행</h3>
-              <p className="text-sm text-gray-600">
-                KRW-C 결제 완료 시 NFT 영수증이 자동으로 지갑에 저장됩니다
-              </p>
+      {/* 사용법 안내 - Apple Style */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-bold text-black">NFT 영수증 관리법</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="bg-gray-50 rounded-2xl p-4 text-center">
+            <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-3 font-bold">
+              1
             </div>
-            <div className="text-center space-y-2">
-              <div className="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center mx-auto">
-                2
-              </div>
-              <h3 className="font-medium">분류 관리</h3>
-              <p className="text-sm text-gray-600">
-                구매 카테고리별로 자동 분류되어 관리가 쉽습니다
-              </p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="bg-yellow-100 text-yellow-800 rounded-full w-8 h-8 flex items-center justify-center mx-auto">
-                3
-              </div>
-              <h3 className="font-medium">신고 선택</h3>
-              <p className="text-sm text-gray-600">
-                각 영수증별로 세관 신고 포함 여부를 자유롭게 선택할 수 있습니다
-              </p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="bg-purple-100 text-purple-800 rounded-full w-8 h-8 flex items-center justify-center mx-auto">
-                4
-              </div>
-              <h3 className="font-medium">자동 신고</h3>
-              <p className="text-sm text-gray-600">
-                선택된 영수증들이 자동으로 세관 신고서에 포함됩니다
-              </p>
-            </div>
+            <h3 className="font-medium text-black mb-2">자동 발행</h3>
+            <p className="text-xs text-gray-600">
+              KRW-C 결제 완료 시 NFT 영수증 자동 저장
+            </p>
           </div>
-        </CardContent>
-      </Card>
+          <div className="bg-gray-50 rounded-2xl p-4 text-center">
+            <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-3 font-bold">
+              2
+            </div>
+            <h3 className="font-medium text-black mb-2">분류 관리</h3>
+            <p className="text-xs text-gray-600">
+              구매 카테고리별 자동 분류
+            </p>
+          </div>
+          <div className="bg-gray-50 rounded-2xl p-4 text-center">
+            <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-3 font-bold">
+              3
+            </div>
+            <h3 className="font-medium text-black mb-2">신고 선택</h3>
+            <p className="text-xs text-gray-600">
+              세관 신고 포함 여부 자유 선택
+            </p>
+          </div>
+          <div className="bg-gray-50 rounded-2xl p-4 text-center">
+            <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-3 font-bold">
+              4
+            </div>
+            <h3 className="font-medium text-black mb-2">자동 신고</h3>
+            <p className="text-xs text-gray-600">
+              선택된 영수증 자동 신고서 포함
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );

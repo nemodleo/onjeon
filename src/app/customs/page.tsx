@@ -97,10 +97,10 @@ export default function CustomsPage() {
         <h3 className="text-xl font-bold text-black">최근 활동</h3>
         <div className="space-y-3">
           {/* NFT 영수증 생성 */}
-          <div className="bg-white rounded-2xl p-5 border border-gray-200">
+          <div className="bg-gray-50 rounded-2xl p-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center">
                   <span className="text-xl">📄</span>
                 </div>
                 <div>
@@ -110,16 +110,16 @@ export default function CustomsPage() {
               </div>
               <div className="text-right">
                 <div className="text-lg font-bold text-black">₩ 850,000</div>
-                <div className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full inline-block">블록체인</div>
+                <div className="text-xs bg-white px-2 py-0.5 rounded-full inline-block">블록체인</div>
               </div>
             </div>
           </div>
           
           {/* KYC 인증 완료 */}
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-5 border border-green-200">
+          <div className="bg-gray-50 rounded-2xl p-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center">
                   <span className="text-xl">✅</span>
                 </div>
                 <div>
@@ -129,16 +129,16 @@ export default function CustomsPage() {
               </div>
               <div className="text-right">
                 <div className="text-lg font-bold text-black">인증완료</div>
-                <div className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full inline-block">활성화</div>
+                <div className="text-xs bg-white px-2 py-0.5 rounded-full inline-block">활성화</div>
               </div>
             </div>
           </div>
           
           {/* 자동 신고 설정 */}
-          <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-5 border border-purple-200">
+          <div className="bg-gray-50 rounded-2xl p-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center">
                   <span className="text-xl">⚙️</span>
                 </div>
                 <div>
@@ -148,7 +148,7 @@ export default function CustomsPage() {
               </div>
               <div className="text-right">
                 <div className="text-lg font-bold text-black">설정완료</div>
-                <div className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full inline-block">ON</div>
+                <div className="text-xs bg-white px-2 py-0.5 rounded-full inline-block">ON</div>
               </div>
             </div>
           </div>
