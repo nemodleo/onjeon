@@ -138,8 +138,7 @@ export default function ExchangePage() {
       <div ref={servicesRef} className="space-y-1">
         {services.map((service) => {
           const Icon = service.icon;
-          const isHighlighted = currentStep === 1 && service.id === 'exchange' || 
-                               (currentStep >= 2 && currentStep <= 4) && service.id === 'otp-withdrawal' ||
+          const isHighlighted = (currentStep >= 2 && currentStep <= 4) && service.id === 'otp-withdrawal' ||
                                currentStep === 5 && service.id === 'history';
           return (
             <Link
@@ -166,43 +165,6 @@ export default function ExchangePage() {
         })}
       </div>
 
-      {/* Recent Transactions */}
-      <div className="space-y-3">
-        <h3 className="text-lg font-bold text-black">최근 거래</h3>
-        <div className="space-y-1">
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                <span className="text-green-600 text-base">✓</span>
-              </div>
-              <div>
-                <div className="text-base font-semibold text-black">QR 결제</div>
-                <div className="text-xs text-gray-600">2시간 전</div>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-base font-semibold text-black">-₩ 45,000</div>
-              <div className="text-xs text-gray-600">완료</div>
-            </div>
-          </div>
-          
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-blue-600 text-base">💰</span>
-              </div>
-              <div>
-                <div className="text-base font-semibold text-black">OTP 출금</div>
-                <div className="text-xs text-gray-600">어제</div>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-base font-semibold text-black">-₩ 200,000</div>
-              <div className="text-xs text-gray-600">완료</div>
-            </div>
-          </div>
-        </div>
-      </div>
       </div>
     </>
   );

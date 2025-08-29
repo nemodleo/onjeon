@@ -162,43 +162,6 @@ export default function PaymentPage() {
         })}
       </div>
 
-      {/* Recent Transactions */}
-      <div ref={historyRef} className="space-y-3">
-        <h3 className="text-lg font-bold text-black">최근 결제</h3>
-        <div className="space-y-1">
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                <span className="text-green-600 text-base">✓</span>
-              </div>
-              <div>
-                <div className="text-base font-semibold text-black">스타벅스</div>
-                <div className="text-xs text-gray-600">30분 전</div>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-base font-semibold text-black">-₩ 5,500</div>
-              <div className="text-xs text-gray-600">완료</div>
-            </div>
-          </div>
-          
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-blue-600 text-base">💳</span>
-              </div>
-              <div>
-                <div className="text-base font-semibold text-black">롯데마트</div>
-                <div className="text-xs text-gray-600">2시간 전</div>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-base font-semibold text-black">-₩ 125,000</div>
-              <div className="text-xs text-gray-600">완료</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

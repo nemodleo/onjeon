@@ -95,62 +95,6 @@ export default function CustomsPage() {
           })}
         </div>
 
-        {/* 최근 활동 */}
-        <div className="space-y-3">
-          <h3 className="text-lg font-bold text-black">최근 활동</h3>
-          <div className="space-y-1">
-            {/* NFT 영수증 생성 */}
-            <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-base">📄</span>
-                </div>
-                <div>
-                  <div className="text-base font-semibold text-black">NFT 영수증 생성</div>
-                  <div className="text-xs text-gray-600">30분 전 • LV 핸드백</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-base font-semibold text-black">₩ 850,000</div>
-                <div className="text-xs text-gray-600">블록체인</div>
-              </div>
-            </div>
-          
-            {/* KYC 인증 완료 */}
-            <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-base">✅</span>
-                </div>
-                <div>
-                  <div className="text-base font-semibold text-black">KYC 인증 완료</div>
-                  <div className="text-xs text-gray-600">2시간 전 • 신원 확인</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-base font-semibold text-black">인증완료</div>
-                <div className="text-xs text-gray-600">활성화</div>
-              </div>
-            </div>
-          
-            {/* 자동 신고 설정 */}
-            <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                  <span className="text-base">⚙️</span>
-                </div>
-                <div>
-                  <div className="text-base font-semibold text-black">자동 신고 설정</div>
-                  <div className="text-xs text-gray-600">어제 • 귀국 24시간 전 자동</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-base font-semibold text-black">설정완료</div>
-                <div className="text-xs text-gray-600">ON</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );
