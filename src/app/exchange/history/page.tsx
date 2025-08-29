@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ExchangeProgress } from '@/components/ui/page-progress';
@@ -25,6 +26,74 @@ interface ExchangeTransaction {
 
 export default function ExchangeHistoryPage() {
   const [filter, setFilter] = useState<'all' | '1W' | '1M' | '3M'>('1M');
+  const [currentStep, setCurrentStep] = useState(5);
+  const router = useRouter();
+  const historyRef = useRef<HTMLDivElement>(null);
+  const savingsRef = useRef<HTMLDivElement>(null);
+
+  const steps = [
+    {
+      id: 'start',
+      title: '시작 단계',
+      description: '환전 시스템 준비',
+      href: '/exchange'
+    },
+    {
+      id: 'overview',
+      title: '서비스 개요',
+      description: '환전 게이트웨이 서비스 탐색',
+      href: '/exchange'
+    },
+    {
+      id: 'instant-exchange',
+      title: '즉시 환전',
+      description: '실시간 환전 서비스',
+      href: '/exchange/instant-exchange'
+    },
+    {
+      id: 'otp-generate',
+      title: '현금 인출 OTP 생성',
+      description: 'OTP로 안전한 현금 출금',
+      href: '/exchange/otp-withdrawal'
+    },
+    {
+      id: 'cash-withdrawal',
+      title: '현금 인출',
+      description: 'ATM/편의점에서 현금 인출',
+      href: '/exchange/otp-withdrawal'
+    },
+    {
+      id: 'history',
+      title: '환전 내역',
+      description: '거래 내역 확인',
+      href: '/exchange/history',
+      ref: historyRef
+    }
+  ];
+
+  const handleStepClick = (stepIndex: number) => {
+    setCurrentStep(stepIndex);
+    const step = steps[stepIndex];
+    
+    if (step.href && stepIndex !== 5) {
+      router.push(step.href);
+    } else if (step.ref?.current) {
+      step.ref.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  };
+
+  // currentStep이 5일 때 거래내역으로 스크롤
+  useEffect(() => {
+    if (currentStep === 5 && historyRef.current) {
+      historyRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, [currentStep]);
   
   const [transactions] = useState<ExchangeTransaction[]>([
     {
@@ -209,7 +278,12 @@ export default function ExchangeHistoryPage() {
         </div>
 
         {/* Transaction List */}
-        <div className="space-y-3">
+        <div 
+          ref={historyRef}
+          className={`space-y-3 transition-all duration-700 ${
+            currentStep === 5 ? 'scale-[1.05] shadow-2xl ring-4 ring-purple-500/50 bg-purple-50/50 rounded-2xl p-4' : ''
+          }`}
+        >
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-bold text-black">최근 거래</h3>
             <Button size="sm" variant="ghost" className="text-sm">
@@ -250,7 +324,7 @@ export default function ExchangeHistoryPage() {
         </div>
 
         {/* Savings Summary */}
-        <div className="space-y-3">
+        <div ref={savingsRef} className="space-y-3">
           <h3 className="text-lg font-bold text-black">수수료 절약 분석</h3>
           <div className="space-y-1">
             <div className="flex items-center justify-between p-3 bg-green-50 rounded-2xl border border-green-100">

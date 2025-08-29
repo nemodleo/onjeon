@@ -10,33 +10,38 @@ import Link from 'next/link';
 
 export default function POSSystemPage() {
   const [currentStep, setCurrentStep] = useState(2);
+  const [isCompleted, setIsCompleted] = useState(false);
   const router = useRouter();
   const posRef = useRef<HTMLDivElement>(null);
 
   const steps = [
     {
-      id: 'setup',
-      title: '결제 정보 입력',
-      description: '금액과 통화를 선택하세요',
-      href: '/payment/qr-payment'
+      id: 'start',
+      title: '시작 화면',
+      description: 'POS 시스템 대기',
+      href: '/payment/pos',
+      isCompleted: true
     },
     {
       id: 'generate', 
       title: '결제 QR 생성',
-      description: 'QR 코드를 생성합니다',
-      href: '/payment/qr-payment'
+      description: '금액 입력 및 QR 코드 생성',
+      href: '/payment/qr-payment',
+      isCompleted: true
     },
     {
       id: 'scan',
       title: '가맹점 스캔',
       description: '가맹점에서 QR 코드 스캔',
-      href: '/payment/pos'
+      href: '/payment/pos',
+      isCompleted: isCompleted
     },
     {
       id: 'approve',
       title: '자동 승인',
       description: '곧바로 자동 승인 처리',
-      href: '/payment/history'
+      href: '/payment/history',
+      isCompleted: isCompleted
     }
   ];
 
@@ -46,10 +51,10 @@ export default function POSSystemPage() {
     
     if (step.href && stepIndex !== 2) {
       router.push(step.href);
-    } else if (posRef.current) {
+    } else if (posRef.current && stepIndex === 2) {
       posRef.current.scrollIntoView({ 
         behavior: 'smooth',
-        block: 'start'
+        block: 'center'
       });
     }
   };
@@ -94,7 +99,10 @@ export default function POSSystemPage() {
           currentStep === 2 ? 'scale-[1.05] shadow-2xl ring-4 ring-purple-500/50 bg-purple-50/50 rounded-2xl p-4' : ''
         }`}
       >
-        <POSSystem />
+        <POSSystem onComplete={() => {
+          setIsCompleted(true);
+          setCurrentStep(3);
+        }} />
       </div>
 
       {/* Quick Stats */}

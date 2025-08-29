@@ -43,6 +43,15 @@ export function OTPWithdrawalGenerator() {
     setWithdrawal(newWithdrawal);
     setCurrentWithdrawal(newWithdrawal);
     setTimeLeft(120);
+    
+    // Trigger terminal session highlighting
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('step', 'terminal');
+    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+    window.history.replaceState({}, '', newUrl);
+    
+    // Trigger a custom event to update progress
+    window.dispatchEvent(new Event('otpGenerated'));
   };
 
   const handleExpire = () => {
@@ -201,6 +210,7 @@ export function OTPWithdrawalGenerator() {
 }
 
 export function OTPVerificationTerminal() {
+  const { currentWithdrawal } = useWalletStore();
   const [otpInput, setOtpInput] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
@@ -213,13 +223,15 @@ export function OTPVerificationTerminal() {
     // 3초 후 검증 결과 시뮬레이션
     setTimeout(() => {
       setIsProcessing(false);
-      // 간단한 검증: 123456이면 성공, 아니면 실패
-      const success = otpInput === '123456';
+      // 실제 OTP와 비교하여 검증
+      const success = currentWithdrawal && currentWithdrawal.otp === otpInput && currentWithdrawal.status === 'active';
       setResult({
-        success,
+        success: !!success,
         message: success 
           ? '인출이 승인되었습니다. 현금을 지급해주세요.' 
-          : '유효하지 않은 OTP입니다.'
+          : currentWithdrawal 
+            ? (currentWithdrawal.status === 'expired' ? 'OTP가 만료되었습니다.' : '유효하지 않은 OTP입니다.')
+            : 'OTP를 먼저 생성해주세요.'
       });
     }, 3000);
   };
@@ -249,9 +261,9 @@ export function OTPVerificationTerminal() {
           {result.success && (
             <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
               <div className="text-base text-green-800 space-y-1">
-                <div>인출 금액: $100.00</div>
-                <div>수수료: $1.00</div>
-                <div>지급할 현금: $99.00</div>
+                <div>인출 금액: {currentWithdrawal ? formatCurrency(currentWithdrawal.amount, currentWithdrawal.currency) : '$100.00'}</div>
+                <div>수수료: {currentWithdrawal ? formatCurrency(currentWithdrawal.amount * 0.01, currentWithdrawal.currency) : '$1.00'}</div>
+                <div>지급할 현금: {currentWithdrawal ? formatCurrency(currentWithdrawal.amount * 0.99, currentWithdrawal.currency) : '$99.00'}</div>
               </div>
             </div>
           )}

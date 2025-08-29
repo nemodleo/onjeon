@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { OTPWithdrawalGenerator, OTPVerificationTerminal } from '@/components/OTPWithdrawal';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useWalletStore } from '@/store/wallet';
@@ -10,6 +12,118 @@ import Link from 'next/link';
 
 export default function OTPWithdrawalPage() {
   const { user, balance } = useWalletStore();
+  const [currentStep, setCurrentStep] = useState(2);
+  const [terminalHighlight, setTerminalHighlight] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
+  const otpRef = useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const networkRef = useRef<HTMLDivElement>(null);
+
+  const steps = [
+    {
+      id: 'start',
+      title: '시작 단계',
+      description: '환전 시스템 준비',
+      href: '/exchange'
+    },
+    {
+      id: 'overview',
+      title: '서비스 개요',
+      description: '환전 게이트웨이 서비스 탐색',
+      href: '/exchange'
+    },
+    {
+      id: 'instant-exchange',
+      title: '즉시 환전',
+      description: '실시간 환전 서비스',
+      href: '/exchange/instant-exchange'
+    },
+    {
+      id: 'otp-generate',
+      title: '현금 인출 OTP 생성',
+      description: 'OTP로 안전한 현금 출금',
+      href: '/exchange/otp-withdrawal',
+      ref: otpRef
+    },
+    {
+      id: 'cash-withdrawal',
+      title: '현금 인출',
+      description: 'ATM/편의점에서 현금 인출',
+      href: '/exchange/otp-withdrawal',
+      ref: terminalRef
+    },
+    {
+      id: 'history',
+      title: '환전 내역',
+      description: '거래 내역 확인',
+      href: '/exchange/history',
+      ref: networkRef
+    }
+  ];
+
+  const handleStepClick = (stepIndex: number) => {
+    setCurrentStep(stepIndex);
+    const step = steps[stepIndex];
+    
+    if (step.href && stepIndex !== 3 && stepIndex !== 4) {
+      router.push(step.href);
+    } else if (step.ref?.current) {
+      step.ref.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  };
+
+  // currentStep에 따른 자동 스크롤 및 강조
+  useEffect(() => {
+    const handleOTPGenerated = () => {
+      // OTP 생성 시 터미널 섹션으로 스크롤
+      setTerminalHighlight(true);
+      if (terminalRef.current) {
+        setTimeout(() => {
+          terminalRef.current?.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+          });
+          // Force re-render to apply terminal highlighting
+          setCurrentStep(3);
+        }, 500);
+      }
+    };
+
+    window.addEventListener('otpGenerated', handleOTPGenerated);
+    return () => window.removeEventListener('otpGenerated', handleOTPGenerated);
+  }, []);
+
+  // 클라이언트 사이드 마운트 감지
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // URL 파라미터 변경 감지
+  useEffect(() => {
+    if (!isClient) return;
+    
+    const handleURLChange = () => {
+      // Force component re-render when URL changes
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('step') === 'terminal') {
+        setCurrentStep(3); // ATM / 대리점 터미널
+        setTerminalHighlight(true);
+      } else {
+        setCurrentStep(2); // OTP 현금 인출 생성
+        setTerminalHighlight(false);
+      }
+    };
+
+    // 초기 URL 상태 확인
+    handleURLChange();
+    
+    window.addEventListener('popstate', handleURLChange);
+    return () => window.removeEventListener('popstate', handleURLChange);
+  }, [isClient]);
 
   return (
     <>
@@ -41,14 +155,10 @@ export default function OTPWithdrawalPage() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <div className="bg-gray-50 rounded-2xl p-5">
           <div className="text-xl font-bold text-green-500">1%</div>
           <div className="text-xs text-gray-600">인출수수료</div>
-        </div>
-        <div className="bg-gray-50 rounded-2xl p-5">
-          <div className="text-2xl font-bold text-black">20초</div>
-          <div className="text-xs text-gray-600">OTP 유효시간</div>
         </div>
         <div className="bg-gray-50 rounded-2xl p-5">
           <div className="text-2xl font-bold text-black">0+</div>
@@ -57,13 +167,29 @@ export default function OTPWithdrawalPage() {
       </div>
 
       {/* OTP Generator */}
-      <OTPWithdrawalGenerator />
+      <div 
+        ref={otpRef}
+        className={`transition-all duration-700 ${
+          currentStep === 3 ? 'scale-[1.05] shadow-2xl ring-4 ring-orange-500/50 bg-orange-50/50 rounded-2xl p-4' : ''
+        }`}
+      >
+        <OTPWithdrawalGenerator />
+      </div>
 
       {/* Terminal */}
-      <OTPVerificationTerminal />
+      <div 
+        ref={terminalRef}
+        className={`transition-all duration-700 ${
+          terminalHighlight
+            ? 'scale-[1.05] shadow-2xl ring-4 ring-blue-500/50 bg-blue-50/50 rounded-2xl p-4' 
+            : ''
+        }`}
+      >
+        <OTPVerificationTerminal />
+      </div>
 
       {/* Global Network */}
-      <div className="space-y-3">
+      <div ref={networkRef} className="space-y-3">
         <h3 className="text-lg font-bold text-black">글로벌 네트워크</h3>
         <div className="space-y-1">
           <div className="flex items-center p-4 bg-white rounded-2xl border border-gray-100">

@@ -1,10 +1,70 @@
 'use client';
 
+import { useState, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArrowLeftRight, Smartphone, History, ChevronRight, CreditCard } from 'lucide-react';
 import { ExchangeProgress } from '@/components/ui/page-progress';
 
 export default function ExchangePage() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const router = useRouter();
+  const balanceRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const historyRef = useRef<HTMLDivElement>(null);
+
+  const steps = [
+    {
+      id: 'start',
+      title: '시작 단계',
+      description: '환전 시스템 준비',
+      href: '/exchange',
+      ref: balanceRef
+    },
+    {
+      id: 'exchange', 
+      title: '환전',
+      description: '통화 선택 및 즉시 환전',
+      href: '/exchange/instant-exchange',
+      ref: servicesRef
+    },
+    {
+      id: 'otp-generate',
+      title: '현금 인출 OTP 생성',
+      description: '인출 설정 및 OTP 생성',
+      href: '/exchange/otp-withdrawal',
+      ref: historyRef
+    },
+    {
+      id: 'cash-withdrawal',
+      title: '현금 인출',
+      description: 'ATM/편의점에서 현금 인출',
+      href: '/exchange/otp-withdrawal',
+      ref: historyRef
+    },
+    {
+      id: 'complete',
+      title: '거래 완료',
+      description: '환전 내역 확인',
+      href: '/exchange/history',
+      ref: historyRef
+    }
+  ];
+
+  const handleStepClick = (stepIndex: number) => {
+    setCurrentStep(stepIndex);
+    const step = steps[stepIndex];
+    
+    if (step.href) {
+      router.push(step.href);
+    } else if (step.ref?.current) {
+      step.ref.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  };
+
   const services = [
     {
       id: 'exchange',
@@ -40,7 +100,7 @@ export default function ExchangePage() {
       </div>
 
       {/* Balance Card */}
-      <div className="bg-black rounded-2xl p-6 text-white">
+      <div ref={balanceRef} className="bg-black rounded-2xl p-6 text-white">
         <div className="flex justify-between items-start mb-6">
           <div>
             <p className="text-gray-300 text-sm">사용 가능 잔액</p>
@@ -75,14 +135,21 @@ export default function ExchangePage() {
       </div>
 
       {/* Services */}
-      <div className="space-y-1">
+      <div ref={servicesRef} className="space-y-1">
         {services.map((service) => {
           const Icon = service.icon;
+          const isHighlighted = currentStep === 1 && service.id === 'exchange' || 
+                               (currentStep >= 2 && currentStep <= 4) && service.id === 'otp-withdrawal' ||
+                               currentStep === 5 && service.id === 'history';
           return (
             <Link
               key={service.id}
               href={service.href}
-              className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 active:bg-gray-50 transition-colors"
+              className={`flex items-center justify-between p-4 rounded-2xl border transition-colors ${
+                isHighlighted 
+                  ? 'bg-green-50 border-green-200 ring-2 ring-green-100' 
+                  : 'bg-white border-gray-100 active:bg-gray-50'
+              }`}
             >
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">

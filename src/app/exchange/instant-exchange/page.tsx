@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useWalletStore } from '@/store/wallet';
 import { formatCurrency } from '@/lib/utils';
 import { ArrowDownUp, TrendingUp, Zap, Clock } from 'lucide-react';
+import { ExchangeProgress } from '@/components/ui/page-progress';
 import { Currency } from '@/types';
 
 const exchangeRates: Record<string, number> = {
@@ -30,6 +32,79 @@ export default function InstantExchangePage() {
   const [toCurrency, setToCurrency] = useState<Currency>('USDT');
   const [amount, setAmount] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [currentStep, setCurrentStep] = useState(2);
+  const router = useRouter();
+  const chartRef = useRef<HTMLDivElement>(null);
+  const exchangeRef = useRef<HTMLDivElement>(null);
+  const exchangeButtonRef = useRef<HTMLButtonElement>(null);
+  const ratesRef = useRef<HTMLDivElement>(null);
+
+  const steps = [
+    {
+      id: 'start',
+      title: '시작 단계',
+      description: '환전 시스템 준비',
+      href: '/exchange'
+    },
+    {
+      id: 'overview',
+      title: '서비스 개요',
+      description: '환전 게이트웨이 서비스 탐색',
+      href: '/exchange'
+    },
+    {
+      id: 'exchange', 
+      title: '즉시 환전',
+      description: '실시간 환전 서비스',
+      href: '/exchange/instant-exchange',
+      ref: exchangeRef
+    },
+    {
+      id: 'otp-generate',
+      title: '현금 인출 OTP 생성',
+      description: 'OTP로 안전한 현금 출금',
+      href: '/exchange/otp-withdrawal',
+      ref: ratesRef
+    },
+    {
+      id: 'cash-withdrawal',
+      title: '현금 인출',
+      description: 'ATM/편의점에서 현금 인출',
+      href: '/exchange/otp-withdrawal',
+      ref: ratesRef
+    },
+    {
+      id: 'history',
+      title: '환전 내역',
+      description: '거래 내역 확인',
+      href: '/exchange/history',
+      ref: ratesRef
+    }
+  ];
+
+  const handleStepClick = (stepIndex: number) => {
+    setCurrentStep(stepIndex);
+    const step = steps[stepIndex];
+    
+    if (step.href && stepIndex !== 2) {
+      router.push(step.href);
+    } else if (step.ref?.current) {
+      step.ref.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  };
+
+  // currentStep이 2일 때 환전 섹션으로 스크롤
+  useEffect(() => {
+    if (currentStep === 2 && exchangeRef.current) {
+      exchangeRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, [currentStep]);
 
   const getExchangeRate = (from: Currency, to: Currency): number => {
     if (from === to) return 1;
@@ -71,7 +146,9 @@ export default function InstantExchangePage() {
   };
 
   return (
-    <div className="space-y-4">
+    <>
+      <ExchangeProgress />
+      <div className="space-y-4">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-black">즉시 환전</h1>
@@ -114,7 +191,7 @@ export default function InstantExchangePage() {
       </div>
 
       {/* Price Chart */}
-      <Card>
+      <Card ref={chartRef}>
         <CardHeader>
           <CardTitle>USDT/KRW-C 실시간 차트</CardTitle>
           <CardDescription>최근 1개월 가격 변동</CardDescription>
@@ -276,7 +353,12 @@ export default function InstantExchangePage() {
       </Card>
 
       {/* Main Exchange Card */}
-      <Card>
+      <Card 
+        ref={exchangeRef}
+        className={`transition-all duration-700 ${
+          currentStep === 2 ? 'scale-[1.05] shadow-2xl ring-4 ring-green-500/50 bg-green-50/50 rounded-2xl' : ''
+        }`}
+      >
         <CardHeader>
           <CardTitle>즉시 환전</CardTitle>
           <CardDescription>실시간 환율로 즉시 환전됩니다</CardDescription>
@@ -372,6 +454,7 @@ export default function InstantExchangePage() {
 
           {/* Exchange Button */}
           <Button 
+            ref={exchangeButtonRef}
             className="w-full py-4"
             onClick={handleExchange}
             disabled={!amount || parseFloat(amount) <= 0 || isProcessing}
@@ -390,7 +473,7 @@ export default function InstantExchangePage() {
       </Card>
 
       {/* Current Exchange Rates */}
-      <Card>
+      <Card ref={ratesRef}>
         <CardHeader>
           <CardTitle>스테이블코인 시세</CardTitle>
           <CardDescription>주요 스테이블코인 환율 (실시간 업데이트)</CardDescription>
@@ -497,6 +580,7 @@ export default function InstantExchangePage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </>
   );
 }

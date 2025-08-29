@@ -8,6 +8,7 @@ import { Currency, PaymentQuote } from '@/types';
 
 interface POSSystemProps {
   merchantName?: string;
+  onComplete?: () => void;
 }
 
 interface ScannedQRData {
@@ -18,7 +19,7 @@ interface ScannedQRData {
   timestamp: number;
 }
 
-export function POSSystem({ merchantName = "테스트 매장" }: POSSystemProps) {
+export function POSSystem({ merchantName = "테스트 매장", onComplete }: POSSystemProps) {
   const [scannedData, setScannedData] = useState<ScannedQRData | null>(null);
   const [quote, setQuote] = useState<PaymentQuote | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -78,11 +79,12 @@ export function POSSystem({ merchantName = "테스트 매장" }: POSSystemProps)
     
     setIsProcessing(true);
     
-    // 3초 후 결제 완료 시뮬레이션
+    // 자동 승인 - 즉시 완료
     setTimeout(() => {
       setIsProcessing(false);
       setIsCompleted(true);
-    }, 3000);
+      onComplete?.(); // 완료 시 콜백 호출
+    }, 1000);
   };
 
   const reset = () => {
@@ -121,12 +123,12 @@ export function POSSystem({ merchantName = "테스트 매장" }: POSSystemProps)
     return (
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
-          <CardTitle className="text-center">결제 처리 중...</CardTitle>
+          <CardTitle className="text-center">자동 승인 처리 중...</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 text-center">
           <div className="text-4xl animate-spin">⏳</div>
           <div className="text-base text-gray-500">
-            환전 및 정산 진행 중
+            자동 승인 및 정산 진행 중
           </div>
         </CardContent>
       </Card>
@@ -199,10 +201,10 @@ export function POSSystem({ merchantName = "테스트 매장" }: POSSystemProps)
             <div className="space-y-2">
               <Button 
                 onClick={processPayment} 
-                className="w-full"
+                className="w-full bg-green-600 hover:bg-green-700"
                 disabled={!quote}
               >
-                결제 승인
+                자동 승인
               </Button>
               
               <Button 

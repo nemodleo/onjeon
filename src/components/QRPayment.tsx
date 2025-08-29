@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
  
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,13 +10,18 @@ import { useWalletStore } from '@/store/wallet';
 import { formatCurrency, generateQRData, generateId } from '@/lib/utils';
 import { Currency, QRPayment as QRPaymentType } from '@/types';
 
-export function QRPaymentGenerator() {
+interface QRPaymentGeneratorProps {
+  currentStep?: number;
+}
+
+export function QRPaymentGenerator({ currentStep = 0 }: QRPaymentGeneratorProps) {
   const { user, setCurrentPayment } = useWalletStore();
   const [amount, setAmount] = useState<string>('');
   const [currency, setCurrency] = useState<Currency>('KRW');
   const [qrPayment, setQRPayment] = useState<QRPaymentType | null>(null);
   const [qrImageUrl, setQrImageUrl] = useState<string>('');
   const [timeLeft, setTimeLeft] = useState<number>(0);
+  const generateButtonRef = useRef<HTMLButtonElement>(null);
 
   // 타이머 효과
   useEffect(() => {
@@ -27,6 +32,16 @@ export function QRPaymentGenerator() {
       handleExpire();
     }
   }, [qrPayment, timeLeft]);
+
+  // currentStep이 1일 때 생성 버튼으로 스크롤
+  useEffect(() => {
+    if (currentStep === 1 && generateButtonRef.current && !qrPayment) {
+      generateButtonRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, [currentStep, qrPayment]);
 
   const generateQR = async () => {
     if (!amount || !user) return;
@@ -56,7 +71,6 @@ export function QRPaymentGenerator() {
       // QR 코드 이미지 생성 - 정사각형 보장
       const qrImageDataUrl = await QRCode.toDataURL(payment.qrCode, {
         width: 256,
-        height: 256,
         margin: 1,
         color: {
           dark: '#000000',
@@ -193,8 +207,11 @@ export function QRPaymentGenerator() {
         )}
 
         <Button 
+          ref={generateButtonRef}
           onClick={generateQR} 
-          className="w-full"
+          className={`w-full transition-all duration-700 ${
+            currentStep === 1 ? 'scale-[1.05] shadow-2xl ring-4 ring-blue-500/50 bg-blue-600 hover:bg-blue-700' : ''
+          }`}
           disabled={!amount || parseFloat(amount) <= 0}
         >
           QR 코드 생성

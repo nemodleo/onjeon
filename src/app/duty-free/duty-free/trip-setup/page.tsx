@@ -1,6 +1,6 @@
 'use client';
 
-import { DutyFreeProgress } from '@/components/ui/page-progress';
+import { DutyFreeShoppingProgress } from '@/components/ui/page-progress';
 
 import { TripSetupForm, TripHistory } from '@/components/TripSetup';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,7 +14,7 @@ export default function TripSetupPage() {
 
   return (
     <>
-      <DutyFreeProgress />
+      <DutyFreeShoppingProgress />
       <div className="space-y-4">
       {/* Header */}
       <div>

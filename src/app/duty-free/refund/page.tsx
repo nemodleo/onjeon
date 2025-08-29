@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { ChevronRight, Receipt, CheckCircle, Clock, AlertCircle } from 'lucide-react';
-import { DutyFreeProgress } from '@/components/ui/page-progress';
+import { VATRefundProgress } from '@/components/ui/page-progress';
 
 export default function RefundPage() {
   return (
     <>
-      <DutyFreeProgress />
+      <VATRefundProgress />
       <div className="space-y-4">
         {/* Header */}
         <div>
@@ -41,7 +41,7 @@ export default function RefundPage() {
             <div className="text-xs text-gray-600">부가세 세율</div>
           </div>
           <div className="bg-gray-50 rounded-2xl p-5">
-            <div className="text-2xl font-bold text-black">초</div>
+            <div className="text-2xl font-bold text-black">즉시</div>
             <div className="text-xs text-gray-600">NFT 처리시간</div>
           </div>
         </div>

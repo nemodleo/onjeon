@@ -1,6 +1,6 @@
 'use client';
 
-import { DutyFreeProgress } from '@/components/ui/page-progress';
+import { VATRefundProgress } from '@/components/ui/page-progress';
 
 import { VATRefundDashboard } from '@/components/VATRefund';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +11,7 @@ import { ChevronRight } from 'lucide-react';
 export default function VATRefundDashboardPage() {
   return (
     <>
-      <DutyFreeProgress />
+      <VATRefundProgress />
       <div className="space-y-4">
       {/* Header */}
       <div>

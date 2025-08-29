@@ -162,36 +162,49 @@ export function ExchangeProgress() {
 
   const steps = [
     {
-      id: 'overview',
-      title: '서비스 개요',
-      description: '환전 게이트웨이 서비스 탐색'
+      id: 'start',
+      title: '시작 단계',
+      description: '환전 시스템 준비'
     },
     {
-      id: 'qr-payment',
-      title: 'QR 결제',
-      description: '즉시 결제용 QR 생성'
+      id: 'instant-exchange',
+      title: '즉시 환전',
+      description: '실시간 환전 서비스'
     },
     {
-      id: 'otp-withdrawal',
-      title: 'OTP 출금',
+      id: 'otp-generate',
+      title: '현금 인출 OTP 생성',
       description: 'OTP로 안전한 현금 출금'
     },
     {
-      id: 'pos-system',
-      title: 'POS 연동',
-      description: '가맹점 POS 시스템 설정'
+      id: 'cash-withdrawal',
+      title: 'ATM / 대리점 터미널',
+      description: 'ATM/편의점에서 현금 인출'
+    },
+    {
+      id: 'history',
+      title: '환전 내역',
+      description: '거래 내역 확인'
     }
   ];
 
   useEffect(() => {
     const updateStepBasedOnScroll = () => {
       // Check if we're on specific pages
-      if (window.location.pathname === '/exchange/qr-payment') {
+      if (window.location.pathname === '/exchange/instant-exchange') {
         setCurrentStep(1);
       } else if (window.location.pathname === '/exchange/otp-withdrawal') {
-        setCurrentStep(2);
-      } else if (window.location.pathname === '/exchange/pos') {
-        setCurrentStep(3);
+        // Check for terminal session highlighting
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('step') === 'terminal' || urlParams.get('terminal') === 'active') {
+          setCurrentStep(3); // ATM / 대리점 터미널 step
+        } else {
+          setCurrentStep(2); // OTP 현금 인출 생성 step
+        }
+      } else if (window.location.pathname === '/exchange/history') {
+        setCurrentStep(4);
+      } else if (window.location.pathname === '/exchange') {
+        setCurrentStep(0);
       } else {
         setCurrentStep(0);
       }
@@ -201,14 +214,22 @@ export function ExchangeProgress() {
       updateStepBasedOnScroll();
     };
 
+    const handleOTPGenerated = () => {
+      updateStepBasedOnScroll();
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('otpGenerated', handleOTPGenerated);
     updateStepBasedOnScroll();
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('otpGenerated', handleOTPGenerated);
+    };
   }, []);
 
   const handleStepClick = (stepIndex: number) => {
-    const routes = ['/exchange', '/exchange/qr-payment', '/exchange/otp-withdrawal', '/exchange/pos'];
+    const routes = ['/exchange', '/exchange/instant-exchange', '/exchange/otp-withdrawal', '/exchange/otp-withdrawal', '/exchange/history'];
     window.location.href = routes[stepIndex];
   };
 
@@ -222,14 +243,14 @@ export function ExchangeProgress() {
 }
 
 // Duty Free section progress
-export function DutyFreeProgress() {
+export function DutyFreeShoppingProgress() {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
     {
-      id: 'overview',
-      title: '서비스 개요',
-      description: '스마트 면세점 관리'
+      id: 'start',
+      title: '시작 단계',
+      description: '면세 시스템 준비'
     },
     {
       id: 'trip-setup',
@@ -242,18 +263,22 @@ export function DutyFreeProgress() {
       description: '실시간 사용량 모니터링'
     },
     {
-      id: 'optimization',
-      title: 'AI 최적화',
-      description: '스마트 구매 추천'
+      id: 'purchase-history',
+      title: '구매 내역',
+      description: '면세 구매 이력 확인'
     }
   ];
 
   useEffect(() => {
     const updateStepBasedOnScroll = () => {
-      if (window.location.pathname === '/duty-free/trip-setup') {
+      if (window.location.pathname === '/duty-free/duty-free/trip-setup') {
         setCurrentStep(1);
-      } else if (window.location.pathname === '/duty-free/dashboard') {
+      } else if (window.location.pathname === '/duty-free/duty-free/dashboard') {
         setCurrentStep(2);
+      } else if (window.location.pathname === '/duty-free/duty-free/purchase-history') {
+        setCurrentStep(3);
+      } else if (window.location.pathname === '/duty-free/duty-free') {
+        setCurrentStep(0);
       } else {
         setCurrentStep(0);
       }
@@ -265,7 +290,7 @@ export function DutyFreeProgress() {
   }, []);
 
   const handleStepClick = (stepIndex: number) => {
-    const routes = ['/duty-free', '/duty-free/trip-setup', '/duty-free/dashboard', '/duty-free/dashboard'];
+    const routes = ['/duty-free/duty-free', '/duty-free/duty-free/trip-setup', '/duty-free/duty-free/dashboard', '/duty-free/duty-free/purchase-history'];
     window.location.href = routes[stepIndex];
   };
 
@@ -278,20 +303,16 @@ export function DutyFreeProgress() {
   );
 }
 
+
 // VAT Refund section progress
 export function VATRefundProgress() {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
     {
-      id: 'overview',
-      title: '서비스 개요',
+      id: 'start',
+      title: '시작 단계',
       description: '즉시 VAT 환급 시스템'
-    },
-    {
-      id: 'auto-calculation',
-      title: '자동 계산',
-      description: '구매 시점 VAT 계산'
     },
     {
       id: 'dashboard',
@@ -307,10 +328,12 @@ export function VATRefundProgress() {
 
   useEffect(() => {
     const updateStepBasedOnScroll = () => {
-      if (window.location.pathname === '/vat-refund/dashboard') {
+      if (window.location.pathname === '/duty-free/refund/dashboard') {
+        setCurrentStep(1);
+      } else if (window.location.pathname === '/duty-free/refund/stamp') {
         setCurrentStep(2);
-      } else if (window.location.pathname === '/vat-refund/stamp') {
-        setCurrentStep(3);
+      } else if (window.location.pathname === '/duty-free/refund') {
+        setCurrentStep(0);
       } else {
         setCurrentStep(0);
       }
@@ -322,7 +345,7 @@ export function VATRefundProgress() {
   }, []);
 
   const handleStepClick = (stepIndex: number) => {
-    const routes = ['/vat-refund', '/vat-refund', '/vat-refund/dashboard', '/vat-refund/stamp'];
+    const routes = ['/duty-free/refund', '/duty-free/refund/dashboard', '/duty-free/refund/stamp'];
     window.location.href = routes[stepIndex];
   };
 
@@ -341,24 +364,24 @@ export function CustomsProgress() {
 
   const steps = [
     {
-      id: 'overview',
-      title: '서비스 개요',
-      description: '자동화된 세관 신고'
+      id: 'start',
+      title: '시작 단계',
+      description: '세관 신고 시스템 준비'
     },
     {
-      id: 'kyc-setup',
-      title: 'KYC 설정',
-      description: '신원 확인'
+      id: 'auto-setup',
+      title: '자동 세관 신고 설정',
+      description: '신원 확인 및 신고 설정'
     },
     {
       id: 'nft-receipts',
-      title: 'NFT 영수증',
-      description: '블록체인 기반 영수증'
+      title: 'NFT 영수증함',
+      description: '블록체인 기반 영수증 관리'
     },
     {
-      id: 'auto-declaration',
-      title: '자동 신고',
-      description: '원클릭 세관 신고'
+      id: 'declaration-submit',
+      title: '세관 신고서 제출',
+      description: '원클릭 세관 신고 완료'
     }
   ];
 
@@ -399,6 +422,11 @@ export function PaymentProgress() {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
+    {
+      id: 'start',
+      title: '시작 단계',
+      description: '결제 시스템 준비'
+    },
     {
       id: 'setup',
       title: '결제 설정',

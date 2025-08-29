@@ -2,14 +2,10 @@
 
 import Link from 'next/link';
 import { Package, ChevronRight, Receipt } from 'lucide-react';
-import { DutyFreeProgress } from '@/components/ui/page-progress';
 
 export default function DutyFreePage() {
-
   return (
-    <>
-      <DutyFreeProgress />
-      <div className="space-y-4">
+    <div className="space-y-4">
       {/* 온전한 면세 / 환급 */}
       <div className="space-y-4">
         <div className="pt-2">
@@ -142,7 +138,6 @@ export default function DutyFreePage() {
           </div>
         </div>
       </div>
-      </div>
-    </>
+    </div>
   );
 }

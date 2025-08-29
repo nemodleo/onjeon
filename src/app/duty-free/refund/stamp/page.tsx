@@ -1,6 +1,6 @@
 'use client';
 
-import { DutyFreeProgress } from '@/components/ui/page-progress';
+import { VATRefundProgress } from '@/components/ui/page-progress';
 
 import { useState } from 'react';
 import { VATStampVerification, VATPayoutConfirmation } from '@/components/VATRefund';
@@ -21,7 +21,7 @@ export default function VATStampPage() {
 
   return (
     <>
-      <DutyFreeProgress />
+      <VATRefundProgress />
       <div className="space-y-4">
       {/* Header */}
       <div>

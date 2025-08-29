@@ -12,22 +12,21 @@ import Link from 'next/link';
 
 export default function QRPaymentPage() {
   const { user, balance } = useWalletStore();
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(1);
   const router = useRouter();
   const qrRef = useRef<HTMLDivElement>(null);
 
   const steps = [
     {
-      id: 'setup',
-      title: '결제 정보 입력',
-      description: '금액과 통화를 선택하세요',
-      href: '/payment/qr-payment',
-      ref: qrRef
+      id: 'start',
+      title: '시작 단계',
+      description: '결제 시스템 준비',
+      href: '/payment'
     },
     {
       id: 'generate', 
       title: '결제 QR 생성',
-      description: 'QR 코드를 생성합니다',
+      description: '금액 입력 및 QR 코드 생성',
       href: '/payment/qr-payment',
       ref: qrRef
     },
@@ -49,12 +48,12 @@ export default function QRPaymentPage() {
     setCurrentStep(stepIndex);
     const step = steps[stepIndex];
     
-    if (step.href && stepIndex > 1) {
+    if (step.href && stepIndex !== 1) {
       router.push(step.href);
     } else if (step.ref?.current) {
       step.ref.current.scrollIntoView({ 
         behavior: 'smooth',
-        block: 'start'
+        block: 'center'
       });
     }
   };
@@ -96,10 +95,10 @@ export default function QRPaymentPage() {
       <div 
         ref={qrRef} 
         className={`transition-all duration-700 ${
-          currentStep === 0 || currentStep === 1 ? 'scale-[1.05] shadow-2xl ring-4 ring-blue-500/50 bg-blue-50/50 rounded-2xl p-4' : ''
+          currentStep === 1 ? 'scale-[1.05] shadow-2xl ring-4 ring-blue-500/50 bg-blue-50/50 rounded-2xl p-4' : ''
         }`}
       >
-        <QRPaymentGenerator />
+        <QRPaymentGenerator currentStep={currentStep} />
       </div>
 
       {/* Quick Stats */}

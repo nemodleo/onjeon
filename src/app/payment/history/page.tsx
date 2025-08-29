@@ -32,16 +32,16 @@ export default function PaymentHistoryPage() {
 
   const steps = [
     {
-      id: 'setup',
-      title: '결제 정보 입력',
-      description: '금액과 통화를 선택하세요',
-      href: '/payment/qr-payment',
+      id: 'start',
+      title: '시작 단계',
+      description: '결제 시스템 준비',
+      href: '/payment',
       isCompleted: true
     },
     {
       id: 'generate', 
       title: '결제 QR 생성',
-      description: 'QR 코드를 생성합니다',
+      description: '금액 입력 및 QR 코드 생성',
       href: '/payment/qr-payment',
       isCompleted: true
     },
@@ -70,7 +70,7 @@ export default function PaymentHistoryPage() {
     } else if (historyRef.current) {
       historyRef.current.scrollIntoView({ 
         behavior: 'smooth',
-        block: 'start'
+        block: 'center'
       });
     }
   };

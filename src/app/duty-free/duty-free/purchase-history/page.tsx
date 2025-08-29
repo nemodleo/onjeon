@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Download, Receipt } from 'lucide-react';
-import { DutyFreeProgress } from '@/components/ui/page-progress';
+import { DutyFreeShoppingProgress } from '@/components/ui/page-progress';
 
 export default function PurchaseHistoryPage() {
   const purchases = [
@@ -54,7 +54,7 @@ export default function PurchaseHistoryPage() {
 
   return (
     <>
-      <DutyFreeProgress />
+      <DutyFreeShoppingProgress />
       <div className="space-y-4">
         {/* Header */}
         <div>

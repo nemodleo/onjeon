@@ -15,7 +15,7 @@ export default function CustomsPreviewPage() {
       <div className="space-y-4">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-black">세관 신고서 미리보기</h1>
+        <h1 className="text-3xl font-bold text-black">세관 신고서</h1>
         <p className="text-gray-600 text-sm">
           NFT 기반 자동 생성 • 즉시 제출 • 사전 승인
         </p>

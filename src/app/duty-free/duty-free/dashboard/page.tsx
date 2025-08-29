@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { TrendingUp, Package, AlertCircle } from 'lucide-react';
-import { DutyFreeProgress } from '@/components/ui/page-progress';
+import { DutyFreeShoppingProgress } from '@/components/ui/page-progress';
 
 export default function DutyFreeDashboardPage() {
   return (
     <>
-      <DutyFreeProgress />
+      <DutyFreeShoppingProgress />
       <div className="space-y-4">
         {/* Header */}
         <div>

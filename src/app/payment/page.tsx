@@ -15,16 +15,16 @@ export default function PaymentPage() {
 
   const steps = [
     {
-      id: 'setup',
-      title: '결제 정보 입력',
-      description: '금액과 통화를 선택하세요',
-      href: '/payment/qr-payment',
+      id: 'start',
+      title: '시작 단계',
+      description: '결제 시스템 준비',
+      href: '/payment',
       ref: balanceRef
     },
     {
       id: 'generate', 
       title: '결제 QR 생성',
-      description: 'QR 코드를 생성합니다',
+      description: '금액 입력 및 QR 코드 생성',
       href: '/payment/qr-payment',
       ref: servicesRef
     },
@@ -55,7 +55,7 @@ export default function PaymentPage() {
       // Fallback to scroll behavior if no href
       step.ref.current.scrollIntoView({ 
         behavior: 'smooth',
-        block: 'start'
+        block: 'center'
       });
     }
   };
