@@ -156,19 +156,28 @@ export function TripSetupForm() {
         </div>
 
         {/* 여행 정보 미리보기 */}
-        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <div className="text-base text-blue-800 font-medium mb-2">여행 정보</div>
-          <div className="space-y-1 text-base text-blue-600">
-            <div className="flex items-center justify-between">
-              <span>{fromCountryData?.flag} {fromCountryData?.name}</span>
-              <span>→</span>
-              <span>{toCountryData?.flag} {toCountryData?.name}</span>
+        <div className="bg-white rounded-2xl border border-gray-100 p-4">
+          <div className="text-center space-y-3">
+            <div className="grid grid-cols-3 items-center gap-4">
+              <div className="text-center">
+                <div className="text-3xl">{fromCountryData?.flag}</div>
+                <div className="text-sm font-semibold text-black mt-1">{fromCountryData?.name}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl text-gray-400">→</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl">{toCountryData?.flag}</div>
+                <div className="text-sm font-semibold text-black mt-1">{toCountryData?.name}</div>
+              </div>
             </div>
-            <div>
-              여행 기간: {Math.ceil((new Date(returnDate).getTime() - new Date(departureDate).getTime()) / (1000 * 60 * 60 * 24))}일
-            </div>
-            <div className="font-medium">
-              면세 한도: ${calculateDutyFreeLimit()}
+            <div className="space-y-2">
+              <div className="text-sm text-gray-600">
+                여행 기간: <span className="font-semibold text-black">{Math.ceil((new Date(returnDate).getTime() - new Date(departureDate).getTime()) / (1000 * 60 * 60 * 24))}일</span>
+              </div>
+              <div className="text-sm text-gray-600">
+                면세 한도: <span className="font-bold text-black">${calculateDutyFreeLimit()}</span>
+              </div>
             </div>
           </div>
         </div>
