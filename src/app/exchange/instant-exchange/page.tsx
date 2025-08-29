@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useWalletStore } from '@/store/wallet';
 import { formatCurrency } from '@/lib/utils';
-import { ArrowDownUp, TrendingUp, Zap, Clock } from 'lucide-react';
+import { ArrowLeftRight } from 'lucide-react';
 import { ExchangeProgress } from '@/components/ui/page-progress';
 import { Currency } from '@/types';
 
@@ -31,13 +31,47 @@ export default function InstantExchangePage() {
   const [fromCurrency, setFromCurrency] = useState<Currency>('KRW-C');
   const [toCurrency, setToCurrency] = useState<Currency>('USDT');
   const [amount, setAmount] = useState('');
+  const [toAmount, setToAmount] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [exchangeResult, setExchangeResult] = useState<{from: string, to: string} | null>(null);
   const [currentStep, setCurrentStep] = useState(2);
   const router = useRouter();
   const chartRef = useRef<HTMLDivElement>(null);
   const exchangeRef = useRef<HTMLDivElement>(null);
   const exchangeButtonRef = useRef<HTMLButtonElement>(null);
   const ratesRef = useRef<HTMLDivElement>(null);
+  const [hoverData, setHoverData] = useState<{x: number, y: number, date: string, price: string} | null>(null);
+  
+  // Get today's date and calculate date ranges
+  const today = new Date();
+  const todayMonth = today.getMonth() + 1;
+  const todayDate = today.getDate();
+  
+  // Calculate dates for 7, 14, 21, 28 days ago
+  const get7DaysAgo = () => {
+    const date = new Date(today);
+    date.setDate(date.getDate() - 7);
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  };
+  
+  const get14DaysAgo = () => {
+    const date = new Date(today);
+    date.setDate(date.getDate() - 14);
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  };
+  
+  const get21DaysAgo = () => {
+    const date = new Date(today);
+    date.setDate(date.getDate() - 21);
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  };
+  
+  const get28DaysAgo = () => {
+    const date = new Date(today);
+    date.setDate(date.getDate() - 28);
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  };
 
   const steps = [
     {
@@ -118,6 +152,29 @@ export default function InstantExchangePage() {
     return inputAmount * getExchangeRate(fromCurrency, toCurrency);
   };
 
+  // Handle from amount change
+  const handleFromAmountChange = (value: string) => {
+    setAmount(value);
+    if (value) {
+      const calculated = parseFloat(value) * getExchangeRate(fromCurrency, toCurrency);
+      setToAmount(calculated > 0 ? calculated.toFixed(2) : '');
+    } else {
+      setToAmount('');
+    }
+  };
+
+  // Handle to amount change
+  const handleToAmountChange = (value: string) => {
+    setToAmount(value);
+    if (value) {
+      const rate = getExchangeRate(fromCurrency, toCurrency);
+      const calculated = rate !== 0 ? parseFloat(value) / rate : 0;
+      setAmount(calculated > 0 ? calculated.toFixed(2) : '');
+    } else {
+      setAmount('');
+    }
+  };
+
   const handleExchange = async () => {
     const inputAmount = parseFloat(amount);
     if (isNaN(inputAmount) || inputAmount <= 0) return;
@@ -135,14 +192,78 @@ export default function InstantExchangePage() {
     updateBalance(fromCurrency, (balance[fromCurrency] || 0) - inputAmount);
     updateBalance(toCurrency, (balance[toCurrency] || 0) + exchangedAmount);
     
+    setExchangeResult({
+      from: `${formatCurrency(inputAmount, fromCurrency)}`,
+      to: `${formatCurrency(exchangedAmount, toCurrency)}`
+    });
+    
     setIsProcessing(false);
-    setAmount('');
-    alert(`환전 완료: ${formatCurrency(inputAmount, fromCurrency)} → ${formatCurrency(exchangedAmount, toCurrency)}`);
+    setIsSuccess(true);
+    
+    // Reset after 3 seconds
+    setTimeout(() => {
+      setAmount('');
+      setToAmount('');
+      setIsSuccess(false);
+      setExchangeResult(null);
+    }, 3000);
   };
 
   const swapCurrencies = () => {
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
+    // Swap amounts as well
+    const tempAmount = amount;
+    setAmount(toAmount);
+    setToAmount(tempAmount);
+  };
+
+  // Calculate price and date based on cursor position
+  const getHoverDataFromPosition = (x: number): {date: string, price: string} => {
+    const chartWidth = 400;
+    const progress = x / chartWidth;
+    
+    // Calculate date (28 days ago to today)
+    const daysAgo = Math.round(28 * (1 - progress));
+    const hoverDate = new Date(today);
+    hoverDate.setDate(hoverDate.getDate() - daysAgo);
+    const dateString = `${hoverDate.getMonth() + 1}/${hoverDate.getDate()}`;
+    
+    // Calculate price based on chart curve (interpolate between points)
+    const chartPoints = [50, 44, 48, 38, 40, 35, 31, 28, 25, 23, 19];
+    const prices = ["1,310", "1,315", "1,312", "1,318", "1,316", "1,319", "1,320", "1,320", "1,321", "1,321", "1,322"];
+    
+    const pointIndex = (progress * (chartPoints.length - 1));
+    const baseIndex = Math.floor(pointIndex);
+    const nextIndex = Math.min(baseIndex + 1, chartPoints.length - 1);
+    
+    // Simple interpolation for price display
+    const basePrice = parseInt(prices[baseIndex].replace(',', ''));
+    const nextPrice = parseInt(prices[nextIndex].replace(',', ''));
+    const interpolatedPrice = Math.round(basePrice + (nextPrice - basePrice) * (pointIndex - baseIndex));
+    
+    return {
+      date: dateString,
+      price: interpolatedPrice.toLocaleString()
+    };
+  };
+
+  const handleChartMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    const hoverInfo = getHoverDataFromPosition(x);
+    setHoverData({
+      x,
+      y,
+      date: hoverInfo.date,
+      price: hoverInfo.price
+    });
+  };
+
+  const handleChartMouseLeave = () => {
+    setHoverData(null);
   };
 
   return (
@@ -155,29 +276,185 @@ export default function InstantExchangePage() {
         <p className="text-gray-600 text-sm">스테이블코인 환전 • KRW-C ↔ USDT • 실시간 차트</p>
       </div>
 
-      {/* Balance Card */}
+      {/* USDT/KRW-C Real-time Chart Card */}
       <div className="bg-black rounded-2xl p-6 text-white">
-        <div className="flex justify-between items-start mb-6">
-          <div>
-            <p className="text-gray-300 text-sm">사용 가능 잔액</p>
-            <div className="flex items-baseline space-x-1">
-              <p className="text-3xl font-bold">₩ 1,234,567</p>
-              <p className="text-sm font-medium text-gray-400">~ 1,234,567 KRW-C</p>
+        <div className="mb-4">
+          <div className="flex justify-between items-start mb-2">
+            <p className="text-gray-300 text-sm">USDT/KRW-C 실시간 차트</p>
+            <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+              <span className="text-sm text-white font-bold">📊</span>
             </div>
           </div>
-          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-            <span className="text-sm text-white font-bold">🔄</span>
+          <div>
+            <div className="flex items-baseline space-x-1">
+              <p className="text-3xl font-bold">₩ 1,320</p>
+              <p className="text-sm font-medium text-green-400">▲ +1.20%</p>
+            </div>
           </div>
         </div>
-        <div className="text-xs text-gray-300">
-          스테이블코인 환전 • 실시간 차트
+        
+        {/* Mini Chart with Hover */}
+        <div className="h-24 relative group">
+          <svg 
+            width="100%" 
+            height="100%" 
+            viewBox="0 0 400 100" 
+            preserveAspectRatio="none" 
+            className="cursor-crosshair"
+            onMouseMove={handleChartMouseMove}
+            onMouseLeave={handleChartMouseLeave}
+          >
+            <defs>
+              <linearGradient id="miniGradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#10b981" stopOpacity="0.3"/>
+                <stop offset="100%" stopColor="#10b981" stopOpacity="0.05"/>
+              </linearGradient>
+            </defs>
+            
+            {/* Chart path */}
+            <path
+              d="M 0 50 L 40 44 L 80 48 L 120 38 L 160 40 L 200 35 L 240 31 L 280 28 L 320 25 L 360 23 L 400 19"
+              fill="none"
+              stroke="#10b981"
+              strokeWidth="2"
+            />
+            <path
+              d="M 0 50 L 40 44 L 80 48 L 120 38 L 160 40 L 200 35 L 240 31 L 280 28 L 320 25 L 360 23 L 400 19 L 400 100 L 0 100 Z"
+              fill="url(#miniGradient)"
+            />
+            
+            {/* Hover indicator based on cursor position */}
+            {hoverData && (
+              <g>
+                {/* Vertical line */}
+                <line 
+                  x1={hoverData.x} 
+                  y1="0" 
+                  x2={hoverData.x} 
+                  y2="100" 
+                  stroke="#6b7280" 
+                  strokeWidth="1" 
+                  strokeDasharray="2,2" 
+                  opacity="0.8"
+                />
+                {/* Circle indicator - calculate Y position from chart curve */}
+                <circle 
+                  cx={hoverData.x} 
+                  cy={(() => {
+                    // Calculate Y position based on chart curve
+                    const progress = hoverData.x / 400;
+                    const chartPoints = [50, 44, 48, 38, 40, 35, 31, 28, 25, 23, 19];
+                    const pointIndex = progress * (chartPoints.length - 1);
+                    const baseIndex = Math.floor(pointIndex);
+                    const nextIndex = Math.min(baseIndex + 1, chartPoints.length - 1);
+                    const baseY = chartPoints[baseIndex];
+                    const nextY = chartPoints[nextIndex];
+                    return baseY + (nextY - baseY) * (pointIndex - baseIndex);
+                  })()} 
+                  r="4" 
+                  fill="#10b981" 
+                  stroke="white" 
+                  strokeWidth="2"
+                />
+                {/* Tooltip - above or below the chart curve */}
+                <rect 
+                  x={Math.max(5, Math.min(335, hoverData.x - 32.5))} 
+                  y={(() => {
+                    const progress = hoverData.x / 400;
+                    const chartPoints = [50, 44, 48, 38, 40, 35, 31, 28, 25, 23, 19];
+                    const pointIndex = progress * (chartPoints.length - 1);
+                    const baseIndex = Math.floor(pointIndex);
+                    const nextIndex = Math.min(baseIndex + 1, chartPoints.length - 1);
+                    const baseY = chartPoints[baseIndex];
+                    const nextY = chartPoints[nextIndex];
+                    const y = baseY + (nextY - baseY) * (pointIndex - baseIndex);
+                    // Try to place above first, if it would be cut off, place below
+                    const aboveY = y - 40;
+                    return aboveY < 0 ? y + 10 : aboveY;
+                  })()}
+                  width="65" 
+                  height="28" 
+                  fill="#1f2937" 
+                  rx="4" 
+                  stroke="rgba(255,255,255,0.2)" 
+                  strokeWidth="1"
+                />
+                <text 
+                  x={Math.max(37.5, Math.min(367.5, hoverData.x))} 
+                  y={(() => {
+                    const progress = hoverData.x / 400;
+                    const chartPoints = [50, 44, 48, 38, 40, 35, 31, 28, 25, 23, 19];
+                    const pointIndex = progress * (chartPoints.length - 1);
+                    const baseIndex = Math.floor(pointIndex);
+                    const nextIndex = Math.min(baseIndex + 1, chartPoints.length - 1);
+                    const baseY = chartPoints[baseIndex];
+                    const nextY = chartPoints[nextIndex];
+                    const y = baseY + (nextY - baseY) * (pointIndex - baseIndex);
+                    // Date text position - above or below based on space
+                    const aboveY = y - 40;
+                    return aboveY < 0 ? y + 20 : y - 30;
+                  })()}
+                  textAnchor="middle" 
+                  fontSize="9" 
+                  fill="#9ca3af"
+                >
+                  {hoverData.date}
+                </text>
+                <text 
+                  x={Math.max(37.5, Math.min(367.5, hoverData.x))} 
+                  y={(() => {
+                    const progress = hoverData.x / 400;
+                    const chartPoints = [50, 44, 48, 38, 40, 35, 31, 28, 25, 23, 19];
+                    const pointIndex = progress * (chartPoints.length - 1);
+                    const baseIndex = Math.floor(pointIndex);
+                    const nextIndex = Math.min(baseIndex + 1, chartPoints.length - 1);
+                    const baseY = chartPoints[baseIndex];
+                    const nextY = chartPoints[nextIndex];
+                    const y = baseY + (nextY - baseY) * (pointIndex - baseIndex);
+                    // Price text position - above or below based on space
+                    const aboveY = y - 40;
+                    return aboveY < 0 ? y + 32 : y - 18;
+                  })()}
+                  textAnchor="middle" 
+                  fontSize="11" 
+                  fill="white" 
+                  fontWeight="bold"
+                >
+                  ₩{hoverData.price}
+                </text>
+              </g>
+            )}
+            
+            {/* Invisible overlay for mouse tracking */}
+            <rect 
+              x="0" 
+              y="0" 
+              width="400" 
+              height="100" 
+              fill="transparent"
+              style={{ pointerEvents: 'all' }}
+            />
+          </svg>
+        </div>
+        
+        {/* Date labels */}
+        <div className="flex justify-between text-[10px] text-gray-500 mt-1">
+          <span>{get28DaysAgo()}</span>
+          <span>{get21DaysAgo()}</span>
+          <span>{get14DaysAgo()}</span>
+          <span>{get7DaysAgo()}</span>
+          <span>{todayMonth}/{todayDate}</span>
+        </div>
+        
+        <div className="text-xs text-gray-300 mt-4">
+          실시간 환율 • 0% 수수료 • 즉시 환전
         </div>
       </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-3 gap-2">
         <div className="bg-gray-50 rounded-2xl p-5">
-          <div className="text-2xl font-bold text-black">%</div>
+          <div className="text-2xl font-bold text-black">0%</div>
           <div className="text-xs text-gray-600">수수료</div>
         </div>
         <div className="bg-gray-50 rounded-2xl p-5">
@@ -190,396 +467,289 @@ export default function InstantExchangePage() {
         </div>
       </div>
 
-      {/* Price Chart */}
-      <Card ref={chartRef}>
-        <CardHeader>
-          <CardTitle>USDT/KRW-C 실시간 차트</CardTitle>
-          <CardDescription>최근 1개월 가격 변동</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {/* Price Info */}
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-3xl font-bold text-black">₩1,320</div>
-                <div className="text-base text-green-600">+1.2% (24h)</div>
-              </div>
-              <div className="text-right">
-                <div className="text-base text-gray-600">30d Volume</div>
-                <div className="font-semibold">₩ 72B</div>
-              </div>
-            </div>
-            
-            {/* Line Chart */}
-            <div className="w-full h-40 bg-gray-50 rounded-xl border border-gray-200 relative">
-              <svg width="100%" height="100%" viewBox="0 0 400 160" className="absolute inset-0">
-                <defs>
-                  {/* Grid pattern */}
-                  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e5e7eb" strokeWidth="0.5"/>
-                  </pattern>
-                  
-                  {/* Price line gradient */}
-                  <linearGradient id="priceGradient" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.2"/>
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.02"/>
-                  </linearGradient>
-                </defs>
 
-                {/* Background grid */}
-                <rect x="50" y="20" width="330" height="120" fill="url(#grid)" />
-                
-                {/* Y-axis labels */}
-                <g fontSize="11" fill="#6b7280">
-                  <text x="45" y="30" textAnchor="end">1350</text>
-                  <text x="45" y="80" textAnchor="end">1325</text>
-                  <text x="45" y="130" textAnchor="end">1300</text>
-                </g>
-                
-                {/* X-axis labels */}
-                <g fontSize="11" fill="#6b7280">
-                  <text x="60" y="155" textAnchor="middle">8/1</text>
-                  <text x="130" y="155" textAnchor="middle">8/8</text>
-                  <text x="200" y="155" textAnchor="middle">8/15</text>
-                  <text x="270" y="155" textAnchor="middle">8/22</text>
-                  <text x="340" y="155" textAnchor="middle">8/29</text>
-                </g>
-                
-                {/* Chart data within defined area */}
-                <g clipPath="url(#chartClip)">
-                  <defs>
-                    <clipPath id="chartClip">
-                      <rect x="50" y="20" width="330" height="120" />
-                    </clipPath>
-                  </defs>
-                  
-                  {(() => {
-                    const dataPoints = [...Array(30)].map((_, i) => {
-                      const x = 50 + (i / 29) * 330; // Map to chart area (50 to 380)
-                      const basePrice = 1320;
-                      // Create realistic price movement
-                      const trend = Math.sin(i * 0.15) * 8 + Math.cos(i * 0.08) * 12;
-                      const noise = (Math.random() - 0.5) * 6;
-                      const price = basePrice + trend + noise;
-                      const y = 20 + (1 - (price - 1300) / (1350 - 1300)) * 120; // Map to chart height (20 to 140)
-                      return { x, y: Math.max(25, Math.min(135, y)), price };
-                    });
-                    
-                    const pathData = dataPoints.map((point, i) => 
-                      `${i === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
-                    ).join(' ');
-
-                    return (
-                      <>
-                        {/* Area under curve */}
-                        <path
-                          d={`${pathData} L ${dataPoints[dataPoints.length - 1].x} 140 L 50 140 Z`}
-                          fill="url(#priceGradient)"
-                        />
-                        
-                        {/* Main price line */}
-                        <path
-                          d={pathData}
-                          fill="none"
-                          stroke="#10b981"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        
-                        {/* Data points with hover */}
-                        {dataPoints.map((point, i) => (
-                          <g key={i}>
-                            {/* Hover area */}
-                            <circle
-                              cx={point.x}
-                              cy={point.y}
-                              r="6"
-                              fill="transparent"
-                              className="hover:fill-blue-100"
-                            />
-                            
-                            {/* Visible point on hover */}
-                            <circle
-                              cx={point.x}
-                              cy={point.y}
-                              r="3"
-                              fill="#10b981"
-                              stroke="white"
-                              strokeWidth="2"
-                              className="opacity-0 hover:opacity-100 transition-opacity"
-                            />
-                            
-                            {/* Tooltip */}
-                            <g className="opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
-                              <rect
-                                x={point.x - 25}
-                                y={point.y - 25}
-                                width="50"
-                                height="18"
-                                fill="#1f2937"
-                                rx="3"
-                              />
-                              <text
-                                x={point.x}
-                                y={point.y - 12}
-                                textAnchor="middle"
-                                fontSize="11"
-                                fill="white"
-                              >
-                                ₩{Math.round(point.price)}
-                              </text>
-                            </g>
-                          </g>
-                        ))}
-                        
-                        {/* Current price indicator */}
-                        <circle
-                          cx={dataPoints[dataPoints.length - 1].x}
-                          cy={dataPoints[dataPoints.length - 1].y}
-                          r="4"
-                          fill="#10b981"
-                          stroke="white"
-                          strokeWidth="2"
-                        />
-                      </>
-                    );
-                  })()}
-                </g>
-              </svg>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Main Exchange Card */}
+      {/* Main Exchange Card - Compact UI */}
       <Card 
         ref={exchangeRef}
         className={`transition-all duration-700 ${
-          currentStep === 2 ? 'scale-[1.05] shadow-2xl ring-4 ring-green-500/50 bg-green-50/50 rounded-2xl' : ''
+          currentStep === 2 ? 'shadow-xl ring-2 ring-green-500/30 bg-gradient-to-b from-white to-green-50/20' : ''
         }`}
       >
-        <CardHeader>
-          <CardTitle>즉시 환전</CardTitle>
-          <CardDescription>실시간 환율로 즉시 환전됩니다</CardDescription>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-xl">환전</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          {/* From Currency */}
-          <div className="space-y-3">
-            <div className="text-base font-medium text-gray-900">보내는 통화</div>
-            <div className="flex gap-3">
-              <select 
-                value={fromCurrency}
-                onChange={(e) => setFromCurrency(e.target.value as Currency)}
-                className="flex-1 p-3 border rounded-2xl text-base"
-              >
-                <option value="KRW-C">KRW-C (온전코인)</option>
-                <option value="USDT">USDT (테더)</option>
-                <option value="USDC">USDC (USD 코인)</option>
-                <option value="DAI">DAI (다이)</option>
-              </select>
-              <Input
-                type="number"
-                placeholder="금액 입력"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="flex-1 p-3"
-              />
-            </div>
-            <div className="text-base text-gray-600">
-              보유: {formatCurrency(balance[fromCurrency] || 0, fromCurrency)}
-            </div>
-          </div>
-
-          {/* Swap Button */}
-          <div className="flex justify-center">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={swapCurrencies}
-              className="rounded-full bg-gray-100 hover:bg-gray-200"
-            >
-              <ArrowDownUp className="h-4 w-4" />
-            </Button>
-          </div>
-
-          {/* To Currency */}
-          <div className="space-y-3">
-            <div className="text-base font-medium text-gray-900">받는 통화</div>
-            <div className="flex gap-3">
-              <select 
-                value={toCurrency}
-                onChange={(e) => setToCurrency(e.target.value as Currency)}
-                className="flex-1 p-3 border rounded-2xl text-base"
-              >
-                <option value="KRW-C">KRW-C (온전코인)</option>
-                <option value="USDT">USDT (테더)</option>
-                <option value="USDC">USDC (USD 코인)</option>
-                <option value="DAI">DAI (다이)</option>
-              </select>
-              <div className="flex-1 p-3 bg-gray-50 rounded-2xl text-right">
-                <div className="font-semibold">
-                  {amount ? formatCurrency(calculateExchange(), toCurrency) : '0'}
+        <CardContent className="space-y-3">
+          {isSuccess && exchangeResult ? (
+            // Success State UI
+            <div className="space-y-4 py-8">
+              <div className="flex justify-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-center space-y-2">
+                <h3 className="text-lg font-bold text-black">환전 완료!</h3>
+                <div className="text-sm text-gray-600 flex items-center justify-center gap-2">
+                  <div>{exchangeResult.from}</div>
+                  <div className="text-xl">→</div>
+                  <div className="font-bold text-green-600">{exchangeResult.to}</div>
                 </div>
               </div>
             </div>
-            <div className="text-base text-gray-600">
-              보유: {formatCurrency(balance[toCurrency] || 0, toCurrency)}
-            </div>
-          </div>
+          ) : (
+            <>
+              {/* Compact Exchange Form */}
+              <div className="relative">
+                <div className="grid grid-cols-2 gap-12">
+                  {/* From Currency */}
+                  <div className="bg-white rounded-xl border border-gray-100 p-3">
+                    <div className="text-xs text-gray-500 mb-1">보내는 통화</div>
+                    <select 
+                      value={fromCurrency}
+                      onChange={(e) => {
+                        setFromCurrency(e.target.value as Currency);
+                        if (amount) {
+                          const calculated = parseFloat(amount) * getExchangeRate(e.target.value as Currency, toCurrency);
+                          setToAmount(calculated > 0 ? calculated.toFixed(2) : '');
+                        }
+                      }}
+                      className="w-full p-2 bg-gray-50 border-0 rounded-lg text-sm font-semibold focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="KRW-C">KRW-C</option>
+                      <option value="USDT">USDT</option>
+                      <option value="USDC">USDC</option>
+                      <option value="DAI">DAI</option>
+                    </select>
+                    <Input
+                      type="number"
+                      placeholder="0.00"
+                      value={amount}
+                      onChange={(e) => handleFromAmountChange(e.target.value)}
+                      className="w-full mt-2 text-lg font-bold border-0 bg-transparent p-0 focus:ring-0 placeholder:text-gray-300"
+                    />
+                    <div className="text-[10px] text-gray-400 mt-1">
+                      보유: {formatCurrency(balance[fromCurrency] || 0, fromCurrency)}
+                    </div>
+                  </div>
 
-          {/* Exchange Rate Info */}
-          <div className="bg-blue-50 p-4 rounded-2xl">
-            <div className="space-y-2 text-base">
-              <div className="flex justify-between">
-                <span>현재 환율</span>
-                <span className="font-semibold">
-                  1 {fromCurrency} = {getExchangeRate(fromCurrency, toCurrency).toFixed(fromCurrency === 'KRW' ? 6 : 2)} {toCurrency}
-                </span>
+                  {/* To Currency */}
+                  <div className="bg-gray-50 rounded-xl border border-gray-100 p-3">
+                    <div className="text-xs text-gray-500 mb-1">받는 통화</div>
+                    <select 
+                      value={toCurrency}
+                      onChange={(e) => {
+                        setToCurrency(e.target.value as Currency);
+                        if (amount) {
+                          const calculated = parseFloat(amount) * getExchangeRate(fromCurrency, e.target.value as Currency);
+                          setToAmount(calculated > 0 ? calculated.toFixed(2) : '');
+                        }
+                      }}
+                      className="w-full p-2 bg-white border-0 rounded-lg text-sm font-semibold focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="KRW-C">KRW-C</option>
+                      <option value="USDT">USDT</option>
+                      <option value="USDC">USDC</option>
+                      <option value="DAI">DAI</option>
+                    </select>
+                    <Input
+                      type="number"
+                      placeholder="0.00"
+                      value={toAmount}
+                      onChange={(e) => handleToAmountChange(e.target.value)}
+                      className="w-full mt-2 text-lg font-bold border-0 bg-transparent p-0 focus:ring-0 placeholder:text-gray-300"
+                    />
+                    <div className="text-[10px] text-gray-400 mt-1">
+                      보유: {formatCurrency(balance[toCurrency] || 0, toCurrency)}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Swap Button - Center between cards */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={swapCurrencies}
+                    className="rounded-full bg-white border border-gray-100 hover:bg-gray-50 transition-all duration-300 h-8 w-8 shadow-sm"
+                  >
+                    <ArrowLeftRight className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>수수료</span>
-                <span className="font-semibold text-green-600">0% (무료)</span>
-              </div>
-              {amount && (
-                <div className="flex justify-between border-t pt-2">
-                  <span className="font-semibold">받을 금액</span>
-                  <span className="font-bold text-3xl">
-                    {formatCurrency(calculateExchange(), toCurrency)}
+
+              {/* Exchange Rate Info - Compact */}
+              <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-gray-600">환율</span>
+                  <span className="font-mono font-semibold text-gray-900">
+                    1 {fromCurrency} = {getExchangeRate(fromCurrency, toCurrency).toFixed(fromCurrency === 'KRW-C' ? 6 : 2)} {toCurrency}
                   </span>
                 </div>
-              )}
-            </div>
-          </div>
-
-          {/* Exchange Button */}
-          <Button 
-            ref={exchangeButtonRef}
-            className="w-full py-4"
-            onClick={handleExchange}
-            disabled={!amount || parseFloat(amount) <= 0 || isProcessing}
-            size="lg"
-          >
-            {isProcessing ? (
-              <div className="flex items-center space-x-2">
-                <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
-                <span>환전 처리중...</span>
+                <div className="flex justify-between items-center text-xs mt-2">
+                  <span className="text-gray-600">수수료</span>
+                  <span className="font-semibold text-green-600">0% (무료)</span>
+                </div>
+                {amount && toAmount && (
+                  <div className="mt-2 pt-2 border-t border-blue-200">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-700">예상 환전</span>
+                      <span className="text-sm font-bold text-gray-900">
+                        {formatCurrency(parseFloat(toAmount), toCurrency)}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
-            ) : (
-              '즉시 환전하기'
-            )}
-          </Button>
+
+              {/* Exchange Button */}
+              <Button 
+                ref={exchangeButtonRef}
+                className="w-full py-3"
+                onClick={handleExchange}
+                disabled={!amount || parseFloat(amount) <= 0 || isProcessing}
+                size="lg"
+              >
+                {isProcessing ? (
+                  <div className="flex items-center space-x-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                    <span>환전 처리중...</span>
+                  </div>
+                ) : (
+                  '즉시 환전하기'
+                )}
+              </Button>
+            </>
+          )}
         </CardContent>
       </Card>
 
-      {/* Current Exchange Rates */}
-      <Card ref={ratesRef}>
-        <CardHeader>
-          <CardTitle>스테이블코인 시세</CardTitle>
-          <CardDescription>주요 스테이블코인 환율 (실시간 업데이트)</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold">KRW-C</span>
-                </div>
-                <div>
-                  <div className="font-semibold">USDT/KRW-C</div>
-                  <div className="text-xs text-gray-600">테더-온전코인</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-bold">1,320</div>
-                <div className="text-sm text-green-600">+1.2%</div>
-              </div>
-            </div>
-            
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold">USDC</span>
-                </div>
-                <div>
-                  <div className="font-semibold">USDC/KRW-C</div>
-                  <div className="text-xs text-gray-600">USD코인-온전코인</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-bold">1,320.00</div>
-                <div className="text-sm text-green-600">+0.05%</div>
-              </div>
-            </div>
-            
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold">DAI</span>
-                </div>
-                <div>
-                  <div className="font-semibold">DAI/KRW-C</div>
-                  <div className="text-xs text-gray-600">다이-온전코인</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-bold">1,318.50</div>
-                <div className="text-sm text-red-600">-0.12%</div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Bottom Spacer */}
+      <div className="h-10"></div>
 
-      {/* Benefits */}
-      <Card>
-        <CardHeader>
-          <CardTitle>스테이블코인 환전 혜택</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-0.5">
-                <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-              </div>
-              <div>
-                <div className="font-semibold text-black">최저 수수료</div>
-                <div className="text-base text-gray-600">스테이블코인 간 초저비용 환전</div>
-              </div>
+      </div>
+      
+      {/* Stablecoin Ticker - Stock Exchange Style */}
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-black text-white overflow-hidden h-6 mb-[57px]">
+        <div className="ticker-wrap h-full flex items-center">
+          <div className="ticker">
+            {/* First set of ticker items */}
+            <div className="ticker-content">
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">USDT/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,320</span>
+                <span className="text-[11px] text-green-400 ml-1">▲+1.20%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">USDC/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,318</span>
+                <span className="text-[11px] text-red-400 ml-1">▼-0.50%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">DAI/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,319</span>
+                <span className="text-[11px] text-green-400 ml-1">▲+0.80%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">BUSD/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,321</span>
+                <span className="text-[11px] text-gray-400 ml-1">0.00%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">TUSD/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,317</span>
+                <span className="text-[11px] text-green-400 ml-1">▲+0.30%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">USDP/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,316</span>
+                <span className="text-[11px] text-red-400 ml-1">▼-0.15%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">FRAX/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,322</span>
+                <span className="text-[11px] text-green-400 ml-1">▲+0.45%</span>
+              </span>
             </div>
-            
-            <div className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5">
-                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-              </div>
-              <div>
-                <div className="font-semibold text-black">실시간 차트</div>
-                <div className="text-base text-gray-600">24시간 가격 변동 모니터링</div>
-              </div>
-            </div>
-            
-            <div className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center mt-0.5">
-                <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
-              </div>
-              <div>
-                <div className="font-semibold text-black">즉시 처리</div>
-                <div className="text-base text-gray-600">블록체인 기반 즉시 환전</div>
-              </div>
-            </div>
-            
-            <div className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center mt-0.5">
-                <div className="w-2 h-2 bg-orange-600 rounded-full"></div>
-              </div>
-              <div>
-                <div className="font-semibold text-black">안전한 거래</div>
-                <div className="text-base text-gray-600">스마트 컨트랙트 기반 보안</div>
-              </div>
+            {/* Duplicate for seamless loop */}
+            <div className="ticker-content">
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">USDT/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,320</span>
+                <span className="text-[11px] text-green-400 ml-1">▲+1.20%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">USDC/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,318</span>
+                <span className="text-[11px] text-red-400 ml-1">▼-0.50%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">DAI/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,319</span>
+                <span className="text-[11px] text-green-400 ml-1">▲+0.80%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">BUSD/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,321</span>
+                <span className="text-[11px] text-gray-400 ml-1">0.00%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">TUSD/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,317</span>
+                <span className="text-[11px] text-green-400 ml-1">▲+0.30%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">USDP/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,316</span>
+                <span className="text-[11px] text-red-400 ml-1">▼-0.15%</span>
+              </span>
+              <span className="ticker-item">
+                <span className="text-[11px] font-medium">FRAX/KRW-C</span>
+                <span className="text-[11px] font-bold ml-1.5">1,322</span>
+                <span className="text-[11px] text-green-400 ml-1">▲+0.45%</span>
+              </span>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+        
+        <style jsx>{`
+          .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+          }
+          
+          .ticker {
+            display: flex;
+            animation: scroll 30s linear infinite;
+          }
+          
+          .ticker-content {
+            display: flex;
+            flex-shrink: 0;
+            white-space: nowrap;
+          }
+          
+          .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 11px;
+          }
+          
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+          
+          .ticker:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
       </div>
     </>
   );
